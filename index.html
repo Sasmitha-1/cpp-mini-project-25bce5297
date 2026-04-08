@@ -6,52 +6,39 @@
   <title>Velora Bank</title>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link
-    href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap"
-    rel="stylesheet"
-  />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
 
   <style>
     :root {
       --bg: #0a0a0d;
-      --bg-soft: #111117;
-      --panel: rgba(20, 18, 24, 0.92);
-      --panel-2: rgba(28, 24, 34, 0.95);
-      --panel-3: rgba(18, 16, 22, 0.88);
-      --line: rgba(255, 255, 255, 0.06);
-      --line-strong: rgba(255, 255, 255, 0.12);
+      --panel: rgba(20, 18, 24, 0.94);
+      --panel-2: rgba(28, 24, 34, 0.96);
+      --line: rgba(255,255,255,0.06);
       --text: #f4f1f5;
-      --muted: #b3aab7;
-      --muted-2: #8f8794;
+      --muted: #b7aebb;
       --burgundy: #7b1029;
       --burgundy-2: #9f1837;
       --burgundy-3: #c12a4f;
       --rose: #e4a1b4;
-      --gold: #c1a268;
       --success: #38b27d;
       --danger: #d65471;
-      --warning: #d7a24f;
-      --shadow: 0 25px 70px rgba(0, 0, 0, 0.45);
+      --shadow: 0 25px 70px rgba(0,0,0,0.45);
       --radius-xl: 28px;
       --radius-lg: 22px;
       --radius-md: 16px;
-      --radius-sm: 12px;
     }
 
-    * {
-      box-sizing: border-box;
-    }
+    * { box-sizing: border-box; }
 
-    html,
-    body {
+    html, body {
       margin: 0;
       padding: 0;
       min-height: 100%;
       font-family: "Inter", sans-serif;
       background:
-        radial-gradient(circle at top left, rgba(159, 24, 55, 0.22), transparent 26%),
-        radial-gradient(circle at top right, rgba(193, 42, 79, 0.14), transparent 24%),
-        radial-gradient(circle at bottom left, rgba(123, 16, 41, 0.18), transparent 28%),
+        radial-gradient(circle at top left, rgba(159,24,55,0.22), transparent 26%),
+        radial-gradient(circle at top right, rgba(193,42,79,0.14), transparent 24%),
+        radial-gradient(circle at bottom left, rgba(123,16,41,0.18), transparent 28%),
         linear-gradient(135deg, #070709 0%, #0d0c10 45%, #100d13 100%);
       color: var(--text);
       overflow: hidden;
@@ -79,8 +66,7 @@
     }
 
     .sidebar {
-      background:
-        linear-gradient(180deg, rgba(16, 15, 20, 0.97), rgba(12, 10, 15, 0.98));
+      background: linear-gradient(180deg, rgba(16,15,20,0.97), rgba(12,10,15,0.98));
       border-right: 1px solid var(--line);
       padding: 22px 18px;
       display: flex;
@@ -88,13 +74,18 @@
       gap: 20px;
     }
 
-    .brand-card {
+    .brand-card, .nav-block, .sidebar-footer,
+    .hero-panel, .top-right-panel, .card, .table-card, .summary-card,
+    .activity-card, .report-box, .output-panel {
+      background: linear-gradient(180deg, rgba(22,19,27,0.95), rgba(14,12,18,0.96));
       border: 1px solid var(--line);
-      background:
-        linear-gradient(135deg, rgba(123, 16, 41, 0.22), rgba(20, 18, 24, 0.96));
+      box-shadow: var(--shadow);
+    }
+
+    .brand-card {
       border-radius: 24px;
       padding: 18px;
-      box-shadow: var(--shadow);
+      background: linear-gradient(135deg, rgba(123,16,41,0.22), rgba(20,18,24,0.96));
     }
 
     .brand-row {
@@ -111,16 +102,13 @@
       display: grid;
       place-items: center;
       font-size: 24px;
-      background:
-        linear-gradient(145deg, rgba(193, 42, 79, 0.35), rgba(123, 16, 41, 0.35));
+      background: linear-gradient(145deg, rgba(193,42,79,0.35), rgba(123,16,41,0.35));
       border: 1px solid rgba(255,255,255,0.08);
-      box-shadow: inset 0 1px 0 rgba(255,255,255,0.08);
     }
 
     .brand-title {
       font-size: 1.2rem;
       font-weight: 800;
-      letter-spacing: -0.03em;
       margin: 0;
     }
 
@@ -143,14 +131,13 @@
     }
 
     .nav-block {
-      border: 1px solid var(--line);
-      background: rgba(16, 14, 20, 0.84);
       border-radius: 24px;
       padding: 10px;
+      background: rgba(16,14,20,0.84);
     }
 
     .nav-title {
-      color: var(--muted-2);
+      color: #8f8794;
       font-size: 0.74rem;
       letter-spacing: 0.16em;
       text-transform: uppercase;
@@ -181,11 +168,9 @@
     }
 
     .nav-btn.active {
-      background:
-        linear-gradient(135deg, rgba(159, 24, 55, 0.35), rgba(123, 16, 41, 0.15));
+      background: linear-gradient(135deg, rgba(159,24,55,0.35), rgba(123,16,41,0.15));
       color: white;
-      border: 1px solid rgba(193, 42, 79, 0.28);
-      box-shadow: inset 0 1px 0 rgba(255,255,255,0.06);
+      border: 1px solid rgba(193,42,79,0.28);
     }
 
     .nav-dot {
@@ -193,36 +178,36 @@
       height: 10px;
       border-radius: 50%;
       background: linear-gradient(135deg, var(--burgundy-3), var(--rose));
-      box-shadow: 0 0 12px rgba(193, 42, 79, 0.35);
       flex-shrink: 0;
     }
 
     .sidebar-footer {
-  margin-top: auto;
-  border: 1px solid var(--line);
-  background: rgba(18, 16, 22, 0.9);
-  border-radius: 18px;
-  padding: 12px;
-  max-height: 110px;
-  overflow: auto;
-}
+      margin-top: auto;
+      border-radius: 18px;
+      padding: 12px;
+      max-height: 110px;
+      overflow: auto;
+    }
 
     .sidebar-footer h4 {
       margin: 0 0 8px;
       font-size: 0.98rem;
     }
 
-   .sidebar-footer p {
-  margin: 0;
-  color: var(--muted);
-  line-height: 1.45;
-  font-size: 0.82rem;
-}
+    .sidebar-footer p {
+      margin: 0;
+      color: var(--muted);
+      line-height: 1.45;
+      font-size: 0.82rem;
+    }
 
     .main {
       padding: 24px;
       overflow: auto;
     }
+
+    .page { display: none; }
+    .page.active { display: block; }
 
     .topbar {
       display: grid;
@@ -231,18 +216,8 @@
       margin-bottom: 20px;
     }
 
-    .hero-panel,
-    .top-right-panel,
-    .card,
-    .table-card,
-    .summary-card,
-    .chart-card,
-    .activity-card {
-      background:
-        linear-gradient(180deg, rgba(22, 19, 27, 0.95), rgba(14, 12, 18, 0.96));
-      border: 1px solid var(--line);
+    .hero-panel, .top-right-panel, .card, .table-card, .summary-card, .activity-card, .report-box, .output-panel {
       border-radius: var(--radius-xl);
-      box-shadow: var(--shadow);
     }
 
     .hero-panel {
@@ -259,7 +234,7 @@
       right: -50px;
       top: -70px;
       border-radius: 50%;
-      background: radial-gradient(circle, rgba(193, 42, 79, 0.32), transparent 68%);
+      background: radial-gradient(circle, rgba(193,42,79,0.32), transparent 68%);
       filter: blur(10px);
     }
 
@@ -292,16 +267,16 @@
       max-width: 58ch;
     }
 
-    .hero-actions {
+    .hero-actions, .form-actions, .output-actions {
       display: flex;
       gap: 12px;
       flex-wrap: wrap;
-      margin-top: 22px;
     }
 
-    .primary-btn,
-    .secondary-btn,
-    .ghost-btn {
+    .hero-actions { margin-top: 22px; }
+    .form-actions { margin-top: 18px; }
+
+    .primary-btn, .secondary-btn, .ghost-btn {
       border: none;
       outline: none;
       cursor: pointer;
@@ -315,13 +290,10 @@
     .primary-btn {
       color: white;
       background: linear-gradient(135deg, var(--burgundy-2), var(--burgundy-3));
-      box-shadow: 0 14px 28px rgba(159, 24, 55, 0.22);
+      box-shadow: 0 14px 28px rgba(159,24,55,0.22);
     }
 
-    .primary-btn:hover {
-      transform: translateY(-1px);
-      box-shadow: 0 18px 34px rgba(159, 24, 55, 0.28);
-    }
+    .primary-btn:hover { transform: translateY(-1px); }
 
     .secondary-btn {
       color: var(--text);
@@ -329,8 +301,7 @@
       border: 1px solid rgba(255,255,255,0.08);
     }
 
-    .secondary-btn:hover,
-    .ghost-btn:hover {
+    .secondary-btn:hover, .ghost-btn:hover {
       background: rgba(255,255,255,0.08);
     }
 
@@ -365,15 +336,14 @@
       font-size: 0.78rem;
       font-weight: 700;
       color: #f2dbe1;
-      background: rgba(159, 24, 55, 0.18);
-      border: 1px solid rgba(193, 42, 79, 0.22);
+      background: rgba(159,24,55,0.18);
+      border: 1px solid rgba(193,42,79,0.22);
     }
 
     .mini-balance-card {
       border-radius: 22px;
       padding: 22px;
-      background:
-        linear-gradient(135deg, rgba(123, 16, 41, 0.36), rgba(17, 15, 21, 0.85));
+      background: linear-gradient(135deg, rgba(123,16,41,0.36), rgba(17,15,21,0.85));
       border: 1px solid rgba(255,255,255,0.07);
     }
 
@@ -397,14 +367,22 @@
       font-size: 0.92rem;
     }
 
-    .quick-grid {
+    .quick-grid, .dashboard-grid, .reports-grid, .content-grid, .form-grid {
       display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 10px;
+      gap: 18px;
+    }
+
+    .quick-grid { grid-template-columns: repeat(3, 1fr); gap: 10px; }
+    .dashboard-grid { grid-template-columns: 1.1fr 1.1fr 0.9fr; margin-bottom: 18px; }
+    .reports-grid { grid-template-columns: repeat(3, 1fr); margin-bottom: 18px; }
+    .content-grid { grid-template-columns: 1.25fr 0.95fr; margin-bottom: 18px; }
+    .form-grid { grid-template-columns: repeat(2, 1fr); gap: 16px; }
+
+    .quick-tile, .summary-card, .card, .activity-card, .table-card, .report-box, .output-panel {
+      padding: 20px;
     }
 
     .quick-tile {
-      padding: 14px;
       border-radius: 18px;
       background: rgba(255,255,255,0.04);
       border: 1px solid var(--line);
@@ -415,25 +393,22 @@
       justify-content: center;
     }
 
-    .quick-tile-title {
+    .quick-tile-title, .summary-title, .report-box h4 {
       color: var(--muted);
       font-size: 0.82rem;
+      text-transform: uppercase;
+      letter-spacing: 0.14em;
     }
 
-    .quick-tile-value {
-      font-size: 1.1rem;
+    .quick-tile-value, .summary-value, .report-value {
       font-weight: 800;
     }
 
-    .dashboard-grid {
-      display: grid;
-      grid-template-columns: 1.1fr 1.1fr 0.9fr;
-      gap: 18px;
-      margin-bottom: 18px;
-    }
+    .quick-tile-value { font-size: 1.1rem; }
+    .summary-value { font-size: 2rem; letter-spacing: -0.05em; margin-bottom: 10px; }
+    .report-value { font-size: 1.9rem; letter-spacing: -0.04em; margin-bottom: 10px; }
 
     .summary-card {
-      padding: 20px;
       min-height: 170px;
       position: relative;
       overflow: hidden;
@@ -446,23 +421,17 @@
       width: 120px;
       height: 120px;
       border-radius: 50%;
-      background: radial-gradient(circle, rgba(193, 42, 79, 0.18), transparent 70%);
+      background: radial-gradient(circle, rgba(193,42,79,0.18), transparent 70%);
     }
 
-    .summary-top {
+    .summary-top, .card-header, .output-head {
       display: flex;
       align-items: center;
       justify-content: space-between;
       gap: 12px;
-      margin-bottom: 18px;
     }
 
-    .summary-title {
-      color: var(--muted);
-      font-size: 0.86rem;
-      text-transform: uppercase;
-      letter-spacing: 0.14em;
-    }
+    .summary-top { margin-bottom: 18px; }
 
     .summary-icon {
       width: 42px;
@@ -475,48 +444,17 @@
       font-size: 1rem;
     }
 
-    .summary-value {
-      font-size: 2rem;
-      font-weight: 800;
-      letter-spacing: -0.05em;
-      margin-bottom: 10px;
-    }
-
-    .summary-meta {
+    .summary-meta, .report-copy, .section-sub, .card-header p, .info-strip, .activity-sub {
       color: var(--muted);
       line-height: 1.65;
       font-size: 0.94rem;
     }
 
-    .content-grid {
-      display: grid;
-      grid-template-columns: 1.25fr 0.95fr;
-      gap: 18px;
-      margin-bottom: 18px;
-    }
-
-    .card {
-      padding: 22px;
-    }
-
-    .card-header {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 12px;
-      margin-bottom: 18px;
-    }
-
-    .card-header h3 {
+    .card-header { margin-bottom: 18px; }
+    .card-header h3, .output-head h3 {
       margin: 0;
       font-size: 1.1rem;
       letter-spacing: -0.02em;
-    }
-
-    .card-header p {
-      margin: 6px 0 0;
-      color: var(--muted);
-      font-size: 0.92rem;
     }
 
     .tabs {
@@ -539,15 +477,9 @@
     }
 
     .tab-chip.active {
-      background: rgba(159, 24, 55, 0.22);
-      border-color: rgba(193, 42, 79, 0.28);
+      background: rgba(159,24,55,0.22);
+      border-color: rgba(193,42,79,0.28);
       color: white;
-    }
-
-    .form-grid {
-      display: grid;
-      grid-template-columns: repeat(2, 1fr);
-      gap: 16px;
     }
 
     .field {
@@ -556,9 +488,7 @@
       gap: 8px;
     }
 
-    .field.full {
-      grid-column: 1 / -1;
-    }
+    .field.full { grid-column: 1 / -1; }
 
     .field label {
       color: var(--muted);
@@ -566,8 +496,7 @@
       font-weight: 600;
     }
 
-    .field input,
-    .field select {
+    .field input {
       width: 100%;
       border: 1px solid var(--line);
       background: rgba(255,255,255,0.03);
@@ -576,20 +505,11 @@
       border-radius: 14px;
       outline: none;
       font-size: 0.97rem;
-      transition: 0.2s ease;
     }
 
-    .field input:focus,
-    .field select:focus {
-      border-color: rgba(193, 42, 79, 0.35);
-      box-shadow: 0 0 0 4px rgba(159, 24, 55, 0.12);
-    }
-
-    .form-actions {
-      display: flex;
-      gap: 12px;
-      flex-wrap: wrap;
-      margin-top: 18px;
+    .field input:focus {
+      border-color: rgba(193,42,79,0.35);
+      box-shadow: 0 0 0 4px rgba(159,24,55,0.12);
     }
 
     .info-strip {
@@ -598,13 +518,6 @@
       padding: 14px 16px;
       border: 1px solid var(--line);
       background: rgba(255,255,255,0.03);
-      color: var(--muted);
-      font-size: 0.92rem;
-      line-height: 1.6;
-    }
-
-    .activity-card {
-      padding: 22px;
     }
 
     .activity-list {
@@ -631,8 +544,8 @@
       border-radius: 14px;
       display: grid;
       place-items: center;
-      background: rgba(159, 24, 55, 0.16);
-      border: 1px solid rgba(193, 42, 79, 0.22);
+      background: rgba(159,24,55,0.16);
+      border: 1px solid rgba(193,42,79,0.22);
     }
 
     .activity-main {
@@ -646,28 +559,13 @@
       font-weight: 700;
     }
 
-    .activity-sub {
-      font-size: 0.84rem;
-      color: var(--muted);
-    }
-
     .activity-amount {
       font-weight: 800;
       font-size: 0.94rem;
     }
 
-    .amount-positive {
-      color: #cfe9dc;
-    }
-
-    .amount-negative {
-      color: #f0c6cf;
-    }
-
-    .table-card {
-      padding: 22px;
-      margin-bottom: 18px;
-    }
+    .amount-positive { color: #cfe9dc; }
+    .amount-negative { color: #f0c6cf; }
 
     .table-wrap {
       overflow: auto;
@@ -716,93 +614,15 @@
     }
 
     .pill-active {
-      background: rgba(56, 178, 125, 0.12);
+      background: rgba(56,178,125,0.12);
       color: #d4efdf;
-      border-color: rgba(56, 178, 125, 0.22);
+      border-color: rgba(56,178,125,0.22);
     }
 
     .pill-alert {
-      background: rgba(214, 84, 113, 0.14);
+      background: rgba(214,84,113,0.14);
       color: #f1d0d9;
-      border-color: rgba(214, 84, 113, 0.24);
-    }
-
-    .pill-neutral {
-      background: rgba(255,255,255,0.05);
-      color: #ebe4ed;
-      border-color: rgba(255,255,255,0.07);
-    }
-
-    .page {
-      display: none;
-    }
-
-    .page.active {
-      display: block;
-    }
-
-    .reports-grid {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 18px;
-      margin-bottom: 18px;
-    }
-
-    .report-box {
-      padding: 22px;
-      border-radius: 24px;
-      border: 1px solid var(--line);
-      background: linear-gradient(180deg, rgba(23, 20, 28, 0.95), rgba(14, 12, 18, 0.96));
-      box-shadow: var(--shadow);
-    }
-
-    .report-box h4 {
-      margin: 0 0 14px;
-      color: var(--muted);
-      text-transform: uppercase;
-      letter-spacing: 0.13em;
-      font-size: 0.8rem;
-    }
-
-    .report-value {
-      font-size: 1.9rem;
-      font-weight: 800;
-      letter-spacing: -0.04em;
-      margin-bottom: 10px;
-    }
-
-    .report-copy {
-      color: var(--muted);
-      line-height: 1.6;
-      font-size: 0.93rem;
-    }
-
-    .output-panel {
-      padding: 20px;
-      border-radius: 22px;
-      border: 1px solid var(--line);
-      background:
-        linear-gradient(180deg, rgba(16, 14, 20, 0.96), rgba(10, 9, 13, 0.98));
-      box-shadow: var(--shadow);
-    }
-
-    .output-head {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 12px;
-      margin-bottom: 14px;
-    }
-
-    .output-head h3 {
-      margin: 0;
-      font-size: 1.05rem;
-    }
-
-    .output-actions {
-      display: flex;
-      gap: 10px;
-      flex-wrap: wrap;
+      border-color: rgba(214,84,113,0.24);
     }
 
     .output-box {
@@ -827,56 +647,20 @@
 
     .section-sub {
       margin: 0 0 20px;
-      color: var(--muted);
       font-size: 0.98rem;
-      line-height: 1.7;
-    }
-
-    .hidden {
-      display: none !important;
     }
 
     @media (max-width: 1280px) {
-      .dashboard-grid,
-      .reports-grid {
-        grid-template-columns: 1fr 1fr;
-      }
-
-      .content-grid {
-        grid-template-columns: 1fr;
-      }
-
-      .topbar {
-        grid-template-columns: 1fr;
-      }
+      .dashboard-grid, .reports-grid { grid-template-columns: 1fr 1fr; }
+      .content-grid, .topbar { grid-template-columns: 1fr; }
     }
 
     @media (max-width: 980px) {
-      .app-shell {
-        grid-template-columns: 1fr;
-      }
-
-      .sidebar {
-        display: none;
-      }
-
-      .dashboard-grid,
-      .reports-grid {
-        grid-template-columns: 1fr;
-      }
-
-      .form-grid,
-      .quick-grid {
-        grid-template-columns: 1fr;
-      }
-
-      .main {
-        padding: 16px;
-      }
-
-      .hero-title {
-        font-size: 1.85rem;
-      }
+      .app-shell { grid-template-columns: 1fr; }
+      .sidebar { display: none; }
+      .dashboard-grid, .reports-grid, .form-grid, .quick-grid { grid-template-columns: 1fr; }
+      .main { padding: 16px; }
+      .hero-title { font-size: 1.85rem; }
     }
   </style>
 </head>
@@ -896,37 +680,17 @@
 
       <div class="nav-block">
         <div class="nav-title">Navigation</div>
-        <button class="nav-btn active" data-page="dashboard">
-          <span class="nav-dot"></span>
-          Dashboard
-        </button>
-        <button class="nav-btn" data-page="accounts">
-          <span class="nav-dot"></span>
-          Accounts
-        </button>
-        <button class="nav-btn" data-page="deposit">
-          <span class="nav-dot"></span>
-          Deposit
-        </button>
-        <button class="nav-btn" data-page="withdraw">
-          <span class="nav-dot"></span>
-          Withdraw
-        </button>
-        <button class="nav-btn" data-page="transactions">
-          <span class="nav-dot"></span>
-          Transactions
-        </button>
-        <button class="nav-btn" data-page="reports">
-          <span class="nav-dot"></span>
-          Reports
-        </button>
+        <button class="nav-btn active" data-page="dashboard"><span class="nav-dot"></span>Dashboard</button>
+        <button class="nav-btn" data-page="accounts"><span class="nav-dot"></span>Accounts</button>
+        <button class="nav-btn" data-page="deposit"><span class="nav-dot"></span>Deposit</button>
+        <button class="nav-btn" data-page="withdraw"><span class="nav-dot"></span>Withdraw</button>
+        <button class="nav-btn" data-page="transactions"><span class="nav-dot"></span>Transactions</button>
+        <button class="nav-btn" data-page="reports"><span class="nav-dot"></span>Reports</button>
       </div>
 
       <div class="sidebar-footer">
         <h4>Client Notice</h4>
-        <p>
-          Access your accounts, manage balances, review transactions, and monitor financial activity through a refined Velora experience.
-        </p>
+        <p>Access your accounts, manage balances, review transactions, and monitor financial activity through a refined Velora experience.</p>
       </div>
     </aside>
 
@@ -983,9 +747,7 @@
               <div class="summary-icon">₹</div>
             </div>
             <div class="summary-value" id="summaryBalance">₹0.00</div>
-            <div class="summary-meta">
-              Consolidated balance across all client accounts within the Velora environment.
-            </div>
+            <div class="summary-meta">Consolidated balance across all client accounts within the Velora environment.</div>
           </div>
 
           <div class="summary-card">
@@ -994,9 +756,7 @@
               <div class="summary-icon">◎</div>
             </div>
             <div class="summary-value" id="summaryAccounts">0</div>
-            <div class="summary-meta">
-              Active banking profiles currently managed in the system.
-            </div>
+            <div class="summary-meta">Active banking profiles currently managed in the system.</div>
           </div>
 
           <div class="summary-card">
@@ -1005,9 +765,7 @@
               <div class="summary-icon">!</div>
             </div>
             <div class="summary-value" id="summaryAlerts">0</div>
-            <div class="summary-meta">
-              Accounts currently operating below the preferred reserve threshold.
-            </div>
+            <div class="summary-meta">Accounts currently operating below the preferred reserve threshold.</div>
           </div>
         </section>
 
@@ -1080,9 +838,7 @@
 
       <div class="page" id="accounts-page">
         <h2 class="section-title">Accounts</h2>
-        <p class="section-sub">
-          Create, review, and manage premium client accounts with a structured account registry.
-        </p>
+        <p class="section-sub">Create, review, and manage premium client accounts with a structured account registry.</p>
 
         <div class="content-grid">
           <div class="card">
@@ -1123,10 +879,10 @@
             </div>
 
             <div class="tabs">
-  <div class="tab-chip active">Portfolio</div>
-  <div class="tab-chip">Status</div>
-  <div class="tab-chip">Monitoring</div>
-</div>
+              <div class="tab-chip active">Portfolio</div>
+              <div class="tab-chip">Status</div>
+              <div class="tab-chip">Monitoring</div>
+            </div>
 
             <div class="info-strip">
               <strong>Total Accounts:</strong> <span id="accountSummaryCount">0</span><br />
@@ -1168,9 +924,7 @@
 
       <div class="page" id="deposit-page">
         <h2 class="section-title">Deposit Funds</h2>
-        <p class="section-sub">
-          Process incoming funds securely and reflect changes instantly across balances and reports.
-        </p>
+        <p class="section-sub">Process incoming funds securely and reflect changes instantly across balances and reports.</p>
 
         <div class="content-grid">
           <div class="card">
@@ -1215,9 +969,7 @@
 
       <div class="page" id="withdraw-page">
         <h2 class="section-title">Withdraw Funds</h2>
-        <p class="section-sub">
-          Execute withdrawals with overdraft protection and automatic alert monitoring.
-        </p>
+        <p class="section-sub">Execute withdrawals with overdraft protection and automatic alert monitoring.</p>
 
         <div class="content-grid">
           <div class="card">
@@ -1262,9 +1014,7 @@
 
       <div class="page" id="transactions-page">
         <h2 class="section-title">Transactions</h2>
-        <p class="section-sub">
-          Review the latest transaction movements recorded within the banking system.
-        </p>
+        <p class="section-sub">Review the latest transaction movements recorded within the banking system.</p>
 
         <div class="table-card">
           <div class="card-header">
@@ -1297,9 +1047,7 @@
 
       <div class="page" id="reports-page">
         <h2 class="section-title">Reports</h2>
-        <p class="section-sub">
-          Track total funds, balance health, reserve alerts, and premium account performance.
-        </p>
+        <p class="section-sub">Track total funds, balance health, reserve alerts, and premium account performance.</p>
 
         <div class="reports-grid">
           <div class="report-box">
@@ -1360,376 +1108,423 @@
     </main>
   </div>
 
- 
-<script>
-const state = {
-  accounts: [],
-  transactions: [],
-  lowBalanceThreshold: 1000,
-  wasmReady: false
-};
+  <script>
+    const STORAGE_KEY = "velora_bank_state_v1";
 
-function formatMoney(value) {
-  const num = Number(value) || 0;
-  return "₹" + num.toFixed(2);
-}
+    const state = {
+      accounts: [],
+      transactions: [],
+      lowBalanceThreshold: 1000,
+      activeSummaryTab: "Portfolio"
+    };
 
-function setOutput(text) {
-  document.getElementById("outputBox").textContent = text;
-}
-
-function clearOutput() {
-  setOutput("Output cleared.");
-}
-
-function goToPage(pageName) {
-  document.querySelectorAll(".page").forEach(page => page.classList.remove("active"));
-  const page = document.getElementById(pageName + "-page");
-  if (page) page.classList.add("active");
-
-  document.querySelectorAll(".nav-btn").forEach(btn => btn.classList.remove("active"));
-  const activeBtn = document.querySelector(`.nav-btn[data-page="${pageName}"]`);
-  if (activeBtn) activeBtn.classList.add("active");
-}
-
-document.querySelectorAll(".nav-btn").forEach(button => {
-  button.addEventListener("click", () => goToPage(button.dataset.page));
-});
-
-function updateDashboardMetrics() {
-  const totalBalance = state.accounts.reduce((sum, acc) => sum + acc.balance, 0);
-  const totalAccounts = state.accounts.length;
-  const lowCount = state.accounts.filter(acc => acc.balance < state.lowBalanceThreshold).length;
-  const txnCount = state.transactions.length;
-
-  const highest = totalAccounts ? Math.max(...state.accounts.map(acc => acc.balance)) : 0;
-  const average = totalAccounts ? totalBalance / totalAccounts : 0;
-
-  document.getElementById("dashboardTotalBalance").textContent = formatMoney(totalBalance);
-  document.getElementById("summaryBalance").textContent = formatMoney(totalBalance);
-  document.getElementById("summaryAccounts").textContent = totalAccounts;
-  document.getElementById("summaryAlerts").textContent = lowCount;
-
-  document.getElementById("quickAccounts").textContent = totalAccounts;
-  document.getElementById("quickTransactions").textContent = txnCount;
-  document.getElementById("quickAlerts").textContent = lowCount;
-
-  document.getElementById("reportTotalMoney").textContent = formatMoney(totalBalance);
-  document.getElementById("reportLowCount").textContent = lowCount;
-  document.getElementById("reportTxnCount").textContent = txnCount;
-
-  document.getElementById("accountSummaryCount").textContent = totalAccounts;
-  document.getElementById("accountSummaryAlerts").textContent = lowCount;
-  document.getElementById("accountSummaryHighest").textContent = formatMoney(highest);
-  document.getElementById("accountSummaryAverage").textContent = formatMoney(average);
-
-  document.getElementById("dashboardFootText").textContent =
-    totalAccounts === 0
-      ? "No portfolio activity yet."
-      : `${totalAccounts} active account${totalAccounts === 1 ? "" : "s"} under management.`;
-
-  document.getElementById("reportInsightText").textContent =
-    totalAccounts === 0
-      ? "No report insights available yet. Create accounts and process transactions to unlock summary intelligence."
-      : `Velora currently manages ${totalAccounts} account(s) with ${formatMoney(totalBalance)} in total holdings and ${lowCount} low-balance alert(s).`;
-}
-
-function renderRecentActivity() {
-  const list = document.getElementById("recentActivityList");
-
-  if (state.transactions.length === 0) {
-    list.innerHTML = `
-      <div class="activity-item">
-        <div class="activity-icon">↗</div>
-        <div class="activity-main">
-          <div class="activity-title">No activity yet</div>
-          <div class="activity-sub">Create an account or process a transaction to begin.</div>
-        </div>
-        <div class="activity-amount amount-positive">—</div>
-      </div>
-    `;
-    return;
-  }
-
-  const recent = [...state.transactions].slice(-5).reverse();
-  list.innerHTML = recent.map(txn => {
-    const positive = txn.type === "Deposit";
-    return `
-      <div class="activity-item">
-        <div class="activity-icon">${positive ? "↗" : "↘"}</div>
-        <div class="activity-main">
-          <div class="activity-title">${txn.type} processed</div>
-          <div class="activity-sub">Account ${txn.accNo}</div>
-        </div>
-        <div class="activity-amount ${positive ? "amount-positive" : "amount-negative"}">
-          ${positive ? "+" : "-"}${formatMoney(txn.amount)}
-        </div>
-      </div>
-    `;
-  }).join("");
-}
-
-function renderAccountsTable() {
-  const body = document.getElementById("accountsTableBody");
-
-  if (state.accounts.length === 0) {
-    body.innerHTML = `<tr><td colspan="4">No accounts available.</td></tr>`;
-    return;
-  }
-
-  body.innerHTML = state.accounts.map(acc => {
-    const low = acc.balance < state.lowBalanceThreshold;
-    return `
-      <tr>
-        <td>${acc.accNo}</td>
-        <td>${acc.name}</td>
-        <td>${formatMoney(acc.balance)}</td>
-        <td>
-          <span class="pill-status ${low ? "pill-alert" : "pill-active"}">
-            ${low ? "Low Balance" : "Healthy"}
-          </span>
-        </td>
-      </tr>
-    `;
-  }).join("");
-}
-
-function renderTransactionsTable() {
-  const body = document.getElementById("transactionsTableBody");
-
-  if (state.transactions.length === 0) {
-    body.innerHTML = `<tr><td colspan="4">No transactions available.</td></tr>`;
-    return;
-  }
-
-  body.innerHTML = [...state.transactions].reverse().map(txn => `
-    <tr>
-      <td>${txn.type}</td>
-      <td>${txn.accNo}</td>
-      <td>${formatMoney(txn.amount)}</td>
-      <td>
-        <span class="pill-status ${txn.type === "Deposit" ? "pill-active" : "pill-alert"}">
-          ${txn.type === "Deposit" ? "Credit" : "Debit"}
-        </span>
-      </td>
-    </tr>
-  `).join("");
-}
-
-function refreshReports() {
-  updateDashboardMetrics();
-  renderAccountsTable();
-  renderTransactionsTable();
-  renderRecentActivity();
-  setOutput("Insights refreshed.");
-}
-
-function findAccountIndex(accNo) {
-  return state.accounts.findIndex(acc => Number(acc.accNo) === Number(accNo));
-}
-
-function callNative(name, ret, types, args) {
-  if (window.Module && typeof Module.ccall === "function" && state.wasmReady) {
-    try {
-      return Module.ccall(name, ret, types, args);
-    } catch (err) {
-      console.error(err);
+    function saveState() {
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
     }
-  }
-  return fallback(name, args);
-}
 
-function fallback(name, args) {
-  if (name === "create_account") {
-    const [accNo, clientName, balance] = args;
-    if (!accNo || !clientName || isNaN(balance)) return "Please fill all account fields correctly.";
-    if (balance < 0) return "Initial balance cannot be negative.";
-    if (state.accounts.find(a => a.accNo == accNo)) return "Account number already exists.";
+    function loadState() {
+      const raw = localStorage.getItem(STORAGE_KEY);
+      if (!raw) return;
+      try {
+        const parsed = JSON.parse(raw);
+        state.accounts = parsed.accounts || [];
+        state.transactions = parsed.transactions || [];
+        state.lowBalanceThreshold = parsed.lowBalanceThreshold || 1000;
+        state.activeSummaryTab = parsed.activeSummaryTab || "Portfolio";
+      } catch (_) {}
+    }
 
-    state.accounts.push({
-      accNo: Number(accNo),
-      name: clientName.trim(),
-      balance: Number(balance)
+    function formatMoney(value) {
+      const num = Number(value) || 0;
+      return "₹" + num.toFixed(2);
+    }
+
+    function setOutput(text) {
+      document.getElementById("outputBox").textContent = text;
+    }
+
+    function clearOutput() {
+      setOutput("Output cleared.");
+    }
+
+    function goToPage(pageName) {
+      document.querySelectorAll(".page").forEach(page => page.classList.remove("active"));
+      const page = document.getElementById(pageName + "-page");
+      if (page) page.classList.add("active");
+
+      document.querySelectorAll(".nav-btn").forEach(btn => btn.classList.remove("active"));
+      const activeBtn = document.querySelector(`.nav-btn[data-page="${pageName}"]`);
+      if (activeBtn) activeBtn.classList.add("active");
+    }
+
+    document.querySelectorAll(".nav-btn").forEach(button => {
+      button.addEventListener("click", () => goToPage(button.dataset.page));
     });
 
-    return `Account created successfully.\nAccount No: ${accNo}\nClient Name: ${clientName}\nOpening Balance: ${formatMoney(balance)}`;
-  }
+    function updateDashboardMetrics() {
+      const totalBalance = state.accounts.reduce((sum, acc) => sum + acc.balance, 0);
+      const totalAccounts = state.accounts.length;
+      const lowCount = state.accounts.filter(acc => acc.balance < state.lowBalanceThreshold).length;
+      const txnCount = state.transactions.length;
+      const highest = totalAccounts ? Math.max(...state.accounts.map(acc => acc.balance)) : 0;
+      const average = totalAccounts ? totalBalance / totalAccounts : 0;
 
-  if (name === "deposit_money") {
-    const [accNo, amount] = args;
-    const acc = state.accounts.find(a => a.accNo == accNo);
-    if (!acc) return "Account not found.";
-    if (isNaN(amount) || amount <= 0) return "Invalid deposit amount.";
+      document.getElementById("dashboardTotalBalance").textContent = formatMoney(totalBalance);
+      document.getElementById("summaryBalance").textContent = formatMoney(totalBalance);
+      document.getElementById("summaryAccounts").textContent = totalAccounts;
+      document.getElementById("summaryAlerts").textContent = lowCount;
+      document.getElementById("quickAccounts").textContent = totalAccounts;
+      document.getElementById("quickTransactions").textContent = txnCount;
+      document.getElementById("quickAlerts").textContent = lowCount;
+      document.getElementById("reportTotalMoney").textContent = formatMoney(totalBalance);
+      document.getElementById("reportLowCount").textContent = lowCount;
+      document.getElementById("reportTxnCount").textContent = txnCount;
+      document.getElementById("accountSummaryCount").textContent = totalAccounts;
+      document.getElementById("accountSummaryAlerts").textContent = lowCount;
+      document.getElementById("accountSummaryHighest").textContent = formatMoney(highest);
+      document.getElementById("accountSummaryAverage").textContent = formatMoney(average);
 
-    acc.balance += Number(amount);
-    state.transactions.push({
-      type: "Deposit",
-      accNo: Number(accNo),
-      amount: Number(amount)
+      document.getElementById("dashboardFootText").textContent =
+        totalAccounts === 0
+          ? "No portfolio activity yet."
+          : `${totalAccounts} active account${totalAccounts === 1 ? "" : "s"} under management.`;
+
+      updateSummaryTab();
+      updateReportInsightText(totalAccounts, totalBalance, lowCount);
+      saveState();
+    }
+
+    function updateReportInsightText(totalAccounts, totalBalance, lowCount) {
+      const target = document.getElementById("reportInsightText");
+      if (totalAccounts === 0) {
+        target.textContent = "No report insights available yet. Create accounts and process transactions to unlock summary intelligence.";
+      } else {
+        target.textContent = `Velora currently manages ${totalAccounts} account(s) with ${formatMoney(totalBalance)} in total holdings and ${lowCount} low-balance alert(s).`;
+      }
+    }
+
+    function renderRecentActivity() {
+      const list = document.getElementById("recentActivityList");
+
+      if (state.transactions.length === 0) {
+        list.innerHTML = `
+          <div class="activity-item">
+            <div class="activity-icon">↗</div>
+            <div class="activity-main">
+              <div class="activity-title">No activity yet</div>
+              <div class="activity-sub">Create an account or process a transaction to begin.</div>
+            </div>
+            <div class="activity-amount amount-positive">—</div>
+          </div>
+        `;
+        return;
+      }
+
+      const recent = [...state.transactions].slice(-5).reverse();
+      list.innerHTML = recent.map(txn => {
+        const positive = txn.type === "Deposit";
+        return `
+          <div class="activity-item">
+            <div class="activity-icon">${positive ? "↗" : "↘"}</div>
+            <div class="activity-main">
+              <div class="activity-title">${txn.type} processed</div>
+              <div class="activity-sub">Account ${txn.accNo}</div>
+            </div>
+            <div class="activity-amount ${positive ? "amount-positive" : "amount-negative"}">
+              ${positive ? "+" : "-"}${formatMoney(txn.amount)}
+            </div>
+          </div>
+        `;
+      }).join("");
+    }
+
+    function renderAccountsTable() {
+      const body = document.getElementById("accountsTableBody");
+
+      if (state.accounts.length === 0) {
+        body.innerHTML = `<tr><td colspan="4">No accounts available.</td></tr>`;
+        return;
+      }
+
+      body.innerHTML = state.accounts.map(acc => {
+        const low = acc.balance < state.lowBalanceThreshold;
+        return `
+          <tr>
+            <td>${acc.accNo}</td>
+            <td>${acc.name}</td>
+            <td>${formatMoney(acc.balance)}</td>
+            <td>
+              <span class="pill-status ${low ? "pill-alert" : "pill-active"}">
+                ${low ? "Low Balance" : "Healthy"}
+              </span>
+            </td>
+          </tr>
+        `;
+      }).join("");
+    }
+
+    function renderTransactionsTable() {
+      const body = document.getElementById("transactionsTableBody");
+
+      if (state.transactions.length === 0) {
+        body.innerHTML = `<tr><td colspan="4">No transactions available.</td></tr>`;
+        return;
+      }
+
+      body.innerHTML = [...state.transactions].reverse().map(txn => `
+        <tr>
+          <td>${txn.type}</td>
+          <td>${txn.accNo}</td>
+          <td>${formatMoney(txn.amount)}</td>
+          <td>
+            <span class="pill-status ${txn.type === "Deposit" ? "pill-active" : "pill-alert"}">
+              ${txn.type === "Deposit" ? "Credit" : "Debit"}
+            </span>
+          </td>
+        </tr>
+      `).join("");
+    }
+
+    function refreshReports() {
+      updateDashboardMetrics();
+      renderAccountsTable();
+      renderTransactionsTable();
+      renderRecentActivity();
+      setOutput("Insights refreshed.");
+    }
+
+    function clearDashboardCreate() {
+      document.getElementById("dashAccNo").value = "";
+      document.getElementById("dashName").value = "";
+      document.getElementById("dashBalance").value = "";
+      setOutput("Dashboard create form cleared.");
+    }
+
+    function clearAccountForm() {
+      document.getElementById("createAccNo").value = "";
+      document.getElementById("createName").value = "";
+      document.getElementById("createBalance").value = "";
+      setOutput("Account form cleared.");
+    }
+
+    function clearDepositForm() {
+      document.getElementById("depositAccNo").value = "";
+      document.getElementById("depositAmount").value = "";
+      setOutput("Deposit form cleared.");
+    }
+
+    function clearWithdrawForm() {
+      document.getElementById("withdrawAccNo").value = "";
+      document.getElementById("withdrawAmount").value = "";
+      setOutput("Withdrawal form cleared.");
+    }
+
+    function createAccountFromDashboard() {
+      document.getElementById("createAccNo").value = document.getElementById("dashAccNo").value;
+      document.getElementById("createName").value = document.getElementById("dashName").value;
+      document.getElementById("createBalance").value = document.getElementById("dashBalance").value;
+      goToPage("accounts");
+      createAccount();
+    }
+
+    function createAccount() {
+      const accNo = parseInt(document.getElementById("createAccNo").value);
+      const name = document.getElementById("createName").value.trim();
+      const balance = parseFloat(document.getElementById("createBalance").value);
+
+      if (!accNo || !name || isNaN(balance)) {
+        setOutput("Please fill all account fields correctly.");
+        return;
+      }
+
+      if (balance < 0) {
+        setOutput("Initial balance cannot be negative.");
+        return;
+      }
+
+      if (state.accounts.find(acc => acc.accNo === accNo)) {
+        setOutput("Account number already exists.");
+        return;
+      }
+
+      state.accounts.push({
+        accNo,
+        name,
+        balance
+      });
+
+      updateDashboardMetrics();
+      renderAccountsTable();
+      renderRecentActivity();
+      clearAccountForm();
+      clearDashboardCreate();
+
+      setOutput(
+        `Account created successfully.\nAccount No: ${accNo}\nClient Name: ${name}\nOpening Balance: ${formatMoney(balance)}`
+      );
+    }
+
+    function depositMoney() {
+      const accNo = parseInt(document.getElementById("depositAccNo").value);
+      const amount = parseFloat(document.getElementById("depositAmount").value);
+
+      if (!accNo || isNaN(amount) || amount <= 0) {
+        setOutput("Please enter a valid account number and deposit amount.");
+        return;
+      }
+
+      const account = state.accounts.find(acc => acc.accNo === accNo);
+      if (!account) {
+        setOutput("Account not found.");
+        return;
+      }
+
+      account.balance += amount;
+      state.transactions.push({
+        type: "Deposit",
+        accNo,
+        amount
+      });
+
+      updateDashboardMetrics();
+      renderAccountsTable();
+      renderTransactionsTable();
+      renderRecentActivity();
+      clearDepositForm();
+
+      setOutput(
+        `Deposit successful.\nAccount No: ${accNo}\nDeposited Amount: ${formatMoney(amount)}\nUpdated Balance: ${formatMoney(account.balance)}`
+      );
+    }
+
+    function withdrawMoney() {
+      const accNo = parseInt(document.getElementById("withdrawAccNo").value);
+      const amount = parseFloat(document.getElementById("withdrawAmount").value);
+
+      if (!accNo || isNaN(amount) || amount <= 0) {
+        setOutput("Please enter a valid account number and withdrawal amount.");
+        return;
+      }
+
+      const account = state.accounts.find(acc => acc.accNo === accNo);
+      if (!account) {
+        setOutput("Account not found.");
+        return;
+      }
+
+      if (account.balance < amount) {
+        setOutput("Insufficient balance. Overdraft not allowed.");
+        return;
+      }
+
+      account.balance -= amount;
+      state.transactions.push({
+        type: "Withdraw",
+        accNo,
+        amount
+      });
+
+      updateDashboardMetrics();
+      renderAccountsTable();
+      renderTransactionsTable();
+      renderRecentActivity();
+      clearWithdrawForm();
+
+      setOutput(
+        `Withdrawal successful.\nAccount No: ${accNo}\nWithdrawal Amount: ${formatMoney(amount)}\nUpdated Balance: ${formatMoney(account.balance)}`
+      );
+    }
+
+    function runTotalMoneyReport() {
+      const totalBalance = state.accounts.reduce((sum, acc) => sum + acc.balance, 0);
+      updateDashboardMetrics();
+      setOutput(
+        `Total Money Report\n-------------------------\nTotal Accounts: ${state.accounts.length}\nTotal Money Held Across All Accounts: ${formatMoney(totalBalance)}`
+      );
+    }
+
+    function runLowBalanceReport() {
+      const thresholdInput = parseFloat(document.getElementById("thresholdValue").value);
+
+      if (!isNaN(thresholdInput)) {
+        state.lowBalanceThreshold = thresholdInput;
+      }
+
+      if (isNaN(state.lowBalanceThreshold) || state.lowBalanceThreshold < 0) {
+        setOutput("Invalid threshold amount.");
+        return;
+      }
+
+      const low = state.accounts.filter(acc => acc.balance < state.lowBalanceThreshold);
+      updateDashboardMetrics();
+      renderAccountsTable();
+
+      if (low.length === 0) {
+        setOutput("No accounts found below threshold.");
+        return;
+      }
+
+      let out = `Low Balance Report\nThreshold: ${formatMoney(state.lowBalanceThreshold)}\n-------------------------\n`;
+      low.forEach(acc => {
+        out += `Acc No: ${acc.accNo} | Name: ${acc.name} | Balance: ${formatMoney(acc.balance)}\n`;
+      });
+
+      setOutput(out.trim());
+    }
+
+    function setSummaryTab(tabName) {
+      state.activeSummaryTab = tabName;
+      document.querySelectorAll(".tab-chip").forEach(tab => {
+        tab.classList.toggle("active", tab.textContent.trim() === tabName);
+      });
+      updateSummaryTab();
+      saveState();
+    }
+
+    function updateSummaryTab() {
+      const target = document.querySelector("#accounts-page .info-strip");
+      const totalBalance = state.accounts.reduce((sum, acc) => sum + acc.balance, 0);
+      const totalAccounts = state.accounts.length;
+      const lowCount = state.accounts.filter(acc => acc.balance < state.lowBalanceThreshold).length;
+
+      if (state.activeSummaryTab === "Portfolio") {
+        target.innerHTML = `
+          <strong>Total Accounts:</strong> <span id="accountSummaryCount">${totalAccounts}</span><br />
+          <strong>Low Balance Profiles:</strong> <span id="accountSummaryAlerts">${lowCount}</span><br />
+          <strong>Highest Balance:</strong> <span id="accountSummaryHighest">${formatMoney(totalAccounts ? Math.max(...state.accounts.map(acc => acc.balance)) : 0)}</span><br />
+          <strong>Average Balance:</strong> <span id="accountSummaryAverage">${formatMoney(totalAccounts ? totalBalance / totalAccounts : 0)}</span>
+        `;
+      } else if (state.activeSummaryTab === "Status") {
+        target.innerHTML = `
+          <strong>Healthy Accounts:</strong> ${totalAccounts - lowCount}<br />
+          <strong>Low Balance Accounts:</strong> ${lowCount}<br />
+          <strong>Total Transactions:</strong> ${state.transactions.length}<br />
+          <strong>Overall Portfolio:</strong> ${formatMoney(totalBalance)}
+        `;
+      } else {
+        target.innerHTML = `
+          <strong>Monitoring Threshold:</strong> ${formatMoney(state.lowBalanceThreshold)}<br />
+          <strong>Latest Transaction Count:</strong> ${state.transactions.length}<br />
+          <strong>Registry Status:</strong> ${totalAccounts === 0 ? "No Accounts Yet" : "Active"}<br />
+          <strong>System State:</strong> Live and Synced
+        `;
+      }
+    }
+
+    document.querySelectorAll(".tab-chip").forEach(tab => {
+      tab.addEventListener("click", () => setSummaryTab(tab.textContent.trim()));
     });
 
-    return `Deposit successful.\nAccount No: ${accNo}\nDeposited Amount: ${formatMoney(amount)}\nUpdated Balance: ${formatMoney(acc.balance)}`;
-  }
-
-  if (name === "withdraw_money") {
-    const [accNo, amount] = args;
-    const acc = state.accounts.find(a => a.accNo == accNo);
-    if (!acc) return "Account not found.";
-    if (isNaN(amount) || amount <= 0) return "Invalid withdrawal amount.";
-    if (acc.balance < amount) return "Insufficient balance. Overdraft not allowed.";
-
-    acc.balance -= Number(amount);
-    state.transactions.push({
-      type: "Withdraw",
-      accNo: Number(accNo),
-      amount: Number(amount)
+    loadState();
+    document.querySelectorAll(".tab-chip").forEach(tab => {
+      tab.classList.toggle("active", tab.textContent.trim() === state.activeSummaryTab);
     });
-
-    return `Withdrawal successful.\nAccount No: ${accNo}\nWithdrawal Amount: ${formatMoney(amount)}\nUpdated Balance: ${formatMoney(acc.balance)}`;
-  }
-
-  if (name === "total_money_report") {
-    const totalBalance = state.accounts.reduce((sum, acc) => sum + acc.balance, 0);
-    return `Total Money Report\n-------------------------\nTotal Accounts: ${state.accounts.length}\nTotal Money Held Across All Accounts: ${formatMoney(totalBalance)}`;
-  }
-
-  if (name === "low_balance_report") {
-    const [threshold] = args;
-    if (isNaN(threshold) || threshold < 0) return "Invalid threshold amount.";
-
-    const low = state.accounts.filter(acc => acc.balance < threshold);
-    if (low.length === 0) return "No accounts found below threshold.";
-
-    let out = `Low Balance Report\nThreshold: ${formatMoney(threshold)}\n-------------------------\n`;
-    low.forEach(acc => {
-      out += `Acc No: ${acc.accNo} | Name: ${acc.name} | Balance: ${formatMoney(acc.balance)}\n`;
-    });
-    return out.trim();
-  }
-
-  return "Action completed.";
-}
-
-function createAccountFromDashboard() {
-  document.getElementById("createAccNo").value = document.getElementById("dashAccNo").value;
-  document.getElementById("createName").value = document.getElementById("dashName").value;
-  document.getElementById("createBalance").value = document.getElementById("dashBalance").value;
-  createAccount();
-}
-
-function clearDashboardCreate() {
-  document.getElementById("dashAccNo").value = "";
-  document.getElementById("dashName").value = "";
-  document.getElementById("dashBalance").value = "";
-  setOutput("Dashboard create form cleared.");
-}
-
-function clearAccountForm() {
-  document.getElementById("createAccNo").value = "";
-  document.getElementById("createName").value = "";
-  document.getElementById("createBalance").value = "";
-  setOutput("Account form cleared.");
-}
-
-function clearDepositForm() {
-  document.getElementById("depositAccNo").value = "";
-  document.getElementById("depositAmount").value = "";
-  setOutput("Deposit form cleared.");
-}
-
-function clearWithdrawForm() {
-  document.getElementById("withdrawAccNo").value = "";
-  document.getElementById("withdrawAmount").value = "";
-  setOutput("Withdrawal form cleared.");
-}
-
-function createAccount() {
-  const accNo = parseInt(document.getElementById("createAccNo").value);
-  const clientName = document.getElementById("createName").value.trim();
-  const balance = parseFloat(document.getElementById("createBalance").value);
-
-  const result = callNative("create_account", "string", ["number", "string", "number"], [accNo, clientName, balance]);
-  if (!result) return;
-
-  updateDashboardMetrics();
-  renderAccountsTable();
-  renderRecentActivity();
-  clearAccountForm();
-  clearDashboardCreate();
-  setOutput(result);
-}
-
-function depositMoney() {
-  const accNo = parseInt(document.getElementById("depositAccNo").value);
-  const amount = parseFloat(document.getElementById("depositAmount").value);
-
-  const beforeCount = state.transactions.length;
-  const result = callNative("deposit_money", "string", ["number", "number"], [accNo, amount]);
-  if (!result) return;
-
-  if (state.transactions.length > beforeCount) {
-    clearDepositForm();
-  }
-
-  updateDashboardMetrics();
-  renderAccountsTable();
-  renderTransactionsTable();
-  renderRecentActivity();
-  setOutput(result);
-}
-
-function withdrawMoney() {
-  const accNo = parseInt(document.getElementById("withdrawAccNo").value);
-  const amount = parseFloat(document.getElementById("withdrawAmount").value);
-
-  const beforeCount = state.transactions.length;
-  const result = callNative("withdraw_money", "string", ["number", "number"], [accNo, amount]);
-  if (!result) return;
-
-  if (state.transactions.length > beforeCount) {
-    clearWithdrawForm();
-  }
-
-  updateDashboardMetrics();
-  renderAccountsTable();
-  renderTransactionsTable();
-  renderRecentActivity();
-  setOutput(result);
-}
-
-function runTotalMoneyReport() {
-  const result = callNative("total_money_report", "string", [], []);
-  updateDashboardMetrics();
-  setOutput(result);
-}
-
-function runLowBalanceReport() {
-  const thresholdInput = parseFloat(document.getElementById("thresholdValue").value);
-  if (!isNaN(thresholdInput)) {
-    state.lowBalanceThreshold = thresholdInput;
-  }
-
-  const result = callNative("low_balance_report", "string", ["number"], [state.lowBalanceThreshold]);
-  updateDashboardMetrics();
-  renderAccountsTable();
-  setOutput(result);
-}
-
-window.Module = window.Module || {};
-Module.onRuntimeInitialized = function() {
-  state.wasmReady = true;
-  updateDashboardMetrics();
-  renderAccountsTable();
-  renderTransactionsTable();
-  renderRecentActivity();
-  setOutput("Velora Bank ready.");
-};
-
-updateDashboardMetrics();
-renderAccountsTable();
-renderTransactionsTable();
-renderRecentActivity();
-</script>
-<script defer src="index.js?v=final12"></script>
+    updateDashboardMetrics();
+    renderAccountsTable();
+    renderTransactionsTable();
+    renderRecentActivity();
+    updateSummaryTab();
+    setOutput("Velora Bank is ready.");
+  </script>
 </body>
 </html>
