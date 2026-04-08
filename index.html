@@ -1362,334 +1362,374 @@
 
  
 <script>
-  const state = {
-    accounts: [],
-    transactions: [],
-    lowBalanceThreshold: 1000,
-    wasmReady: false
-  };
+const state = {
+  accounts: [],
+  transactions: [],
+  lowBalanceThreshold: 1000,
+  wasmReady: false
+};
 
-  function formatMoney(value) {
-    const num = Number(value) || 0;
-    return "₹" + num.toFixed(2);
-  }
+function formatMoney(value) {
+  const num = Number(value) || 0;
+  return "₹" + num.toFixed(2);
+}
 
-  function setOutput(text) {
-    document.getElementById("outputBox").textContent = text;
-  }
+function setOutput(text) {
+  document.getElementById("outputBox").textContent = text;
+}
 
-  function clearOutput() {
-    setOutput("Output cleared.");
-  }
+function clearOutput() {
+  setOutput("Output cleared.");
+}
 
-  function goToPage(pageName) {
-    document.querySelectorAll(".page").forEach(page => page.classList.remove("active"));
-    document.getElementById(pageName + "-page").classList.add("active");
+function goToPage(pageName) {
+  document.querySelectorAll(".page").forEach(page => page.classList.remove("active"));
+  const page = document.getElementById(pageName + "-page");
+  if (page) page.classList.add("active");
 
-    document.querySelectorAll(".nav-btn").forEach(btn => btn.classList.remove("active"));
-    const activeBtn = document.querySelector(`.nav-btn[data-page="${pageName}"]`);
-    if (activeBtn) activeBtn.classList.add("active");
-  }
+  document.querySelectorAll(".nav-btn").forEach(btn => btn.classList.remove("active"));
+  const activeBtn = document.querySelector(`.nav-btn[data-page="${pageName}"]`);
+  if (activeBtn) activeBtn.classList.add("active");
+}
 
-  document.querySelectorAll(".nav-btn").forEach(button => {
-    button.addEventListener("click", () => goToPage(button.dataset.page));
-  });
+document.querySelectorAll(".nav-btn").forEach(button => {
+  button.addEventListener("click", () => goToPage(button.dataset.page));
+});
 
-  function callNative(fnName, returnType, argTypes, args) {
-    if (!state.wasmReady) {
-      setOutput("System is still loading. Please wait a moment.");
-      return null;
-    }
+function updateDashboardMetrics() {
+  const totalBalance = state.accounts.reduce((sum, acc) => sum + acc.balance, 0);
+  const totalAccounts = state.accounts.length;
+  const lowCount = state.accounts.filter(acc => acc.balance < state.lowBalanceThreshold).length;
+  const txnCount = state.transactions.length;
 
-    if (!window.Module || typeof Module.ccall !== "function") {
-      setOutput("WASM bridge not loaded. Upload the new index.js/index.wasm and refresh the page.");
-      return null;
-    }
+  const highest = totalAccounts ? Math.max(...state.accounts.map(acc => acc.balance)) : 0;
+  const average = totalAccounts ? totalBalance / totalAccounts : 0;
 
-    try {
-      return Module.ccall(fnName, returnType, argTypes, args);
-    } catch (err) {
-      console.error(err);
-      setOutput("Action failed: " + err.message);
-      return null;
-    }
-  }
+  document.getElementById("dashboardTotalBalance").textContent = formatMoney(totalBalance);
+  document.getElementById("summaryBalance").textContent = formatMoney(totalBalance);
+  document.getElementById("summaryAccounts").textContent = totalAccounts;
+  document.getElementById("summaryAlerts").textContent = lowCount;
 
-  function updateDashboardMetrics() {
-    const totalBalance = state.accounts.reduce((sum, acc) => sum + acc.balance, 0);
-    const totalAccounts = state.accounts.length;
-    const lowCount = state.accounts.filter(acc => acc.balance < state.lowBalanceThreshold).length;
-    const txnCount = state.transactions.length;
+  document.getElementById("quickAccounts").textContent = totalAccounts;
+  document.getElementById("quickTransactions").textContent = txnCount;
+  document.getElementById("quickAlerts").textContent = lowCount;
 
-    document.getElementById("dashboardTotalBalance").textContent = formatMoney(totalBalance);
-    document.getElementById("summaryBalance").textContent = formatMoney(totalBalance);
-    document.getElementById("summaryAccounts").textContent = totalAccounts;
-    document.getElementById("summaryAlerts").textContent = lowCount;
-    document.getElementById("quickAccounts").textContent = totalAccounts;
-    document.getElementById("quickTransactions").textContent = txnCount;
-    document.getElementById("quickAlerts").textContent = lowCount;
-    document.getElementById("reportTotalMoney").textContent = formatMoney(totalBalance);
-    document.getElementById("reportLowCount").textContent = lowCount;
-    document.getElementById("reportTxnCount").textContent = txnCount;
+  document.getElementById("reportTotalMoney").textContent = formatMoney(totalBalance);
+  document.getElementById("reportLowCount").textContent = lowCount;
+  document.getElementById("reportTxnCount").textContent = txnCount;
 
-    const highest = state.accounts.length ? Math.max(...state.accounts.map(acc => acc.balance)) : 0;
-    const average = state.accounts.length ? totalBalance / state.accounts.length : 0;
+  document.getElementById("accountSummaryCount").textContent = totalAccounts;
+  document.getElementById("accountSummaryAlerts").textContent = lowCount;
+  document.getElementById("accountSummaryHighest").textContent = formatMoney(highest);
+  document.getElementById("accountSummaryAverage").textContent = formatMoney(average);
 
-    document.getElementById("accountSummaryCount").textContent = totalAccounts;
-    document.getElementById("accountSummaryAlerts").textContent = lowCount;
-    document.getElementById("accountSummaryHighest").textContent = formatMoney(highest);
-    document.getElementById("accountSummaryAverage").textContent = formatMoney(average);
+  document.getElementById("dashboardFootText").textContent =
+    totalAccounts === 0
+      ? "No portfolio activity yet."
+      : `${totalAccounts} active account${totalAccounts === 1 ? "" : "s"} under management.`;
 
-    document.getElementById("dashboardFootText").textContent =
-      totalAccounts === 0
-        ? "No portfolio activity yet."
-        : `${totalAccounts} active account${totalAccounts === 1 ? "" : "s"} under management.`;
+  document.getElementById("reportInsightText").textContent =
+    totalAccounts === 0
+      ? "No report insights available yet. Create accounts and process transactions to unlock summary intelligence."
+      : `Velora currently manages ${totalAccounts} account(s) with ${formatMoney(totalBalance)} in total holdings and ${lowCount} low-balance alert(s).`;
+}
 
-    document.getElementById("reportInsightText").textContent =
-      totalAccounts === 0
-        ? "No report insights available yet. Create accounts and process transactions to unlock summary intelligence."
-        : `Velora currently manages ${totalAccounts} account(s) with ${formatMoney(totalBalance)} in total holdings and ${lowCount} low-balance alert(s).`;
-  }
+function renderRecentActivity() {
+  const list = document.getElementById("recentActivityList");
 
-  function renderRecentActivity() {
-    const list = document.getElementById("recentActivityList");
-
-    if (state.transactions.length === 0) {
-      list.innerHTML = `
-        <div class="activity-item">
-          <div class="activity-icon">↗</div>
-          <div class="activity-main">
-            <div class="activity-title">No activity yet</div>
-            <div class="activity-sub">Create an account or process a transaction to begin.</div>
-          </div>
-          <div class="activity-amount amount-positive">—</div>
+  if (state.transactions.length === 0) {
+    list.innerHTML = `
+      <div class="activity-item">
+        <div class="activity-icon">↗</div>
+        <div class="activity-main">
+          <div class="activity-title">No activity yet</div>
+          <div class="activity-sub">Create an account or process a transaction to begin.</div>
         </div>
-      `;
-      return;
-    }
+        <div class="activity-amount amount-positive">—</div>
+      </div>
+    `;
+    return;
+  }
 
-    const recent = [...state.transactions].slice(-5).reverse();
-    list.innerHTML = recent.map(txn => {
-      const positive = txn.type === "Deposit";
-      return `
-        <div class="activity-item">
-          <div class="activity-icon">${positive ? "↗" : "↘"}</div>
-          <div class="activity-main">
-            <div class="activity-title">${txn.type} processed</div>
-            <div class="activity-sub">Account ${txn.accNo}</div>
-          </div>
-          <div class="activity-amount ${positive ? "amount-positive" : "amount-negative"}">
-            ${positive ? "+" : "-"}${formatMoney(txn.amount)}
-          </div>
+  const recent = [...state.transactions].slice(-5).reverse();
+  list.innerHTML = recent.map(txn => {
+    const positive = txn.type === "Deposit";
+    return `
+      <div class="activity-item">
+        <div class="activity-icon">${positive ? "↗" : "↘"}</div>
+        <div class="activity-main">
+          <div class="activity-title">${txn.type} processed</div>
+          <div class="activity-sub">Account ${txn.accNo}</div>
         </div>
-      `;
-    }).join("");
+        <div class="activity-amount ${positive ? "amount-positive" : "amount-negative"}">
+          ${positive ? "+" : "-"}${formatMoney(txn.amount)}
+        </div>
+      </div>
+    `;
+  }).join("");
+}
+
+function renderAccountsTable() {
+  const body = document.getElementById("accountsTableBody");
+
+  if (state.accounts.length === 0) {
+    body.innerHTML = `<tr><td colspan="4">No accounts available.</td></tr>`;
+    return;
   }
 
-  function renderAccountsTable() {
-    const body = document.getElementById("accountsTableBody");
-
-    if (state.accounts.length === 0) {
-      body.innerHTML = `<tr><td colspan="4">No accounts available.</td></tr>`;
-      return;
-    }
-
-    body.innerHTML = state.accounts.map(acc => {
-      const low = acc.balance < state.lowBalanceThreshold;
-      return `
-        <tr>
-          <td>${acc.accNo}</td>
-          <td>${acc.name}</td>
-          <td>${formatMoney(acc.balance)}</td>
-          <td>
-            <span class="pill-status ${low ? "pill-alert" : "pill-active"}">
-              ${low ? "Low Balance" : "Healthy"}
-            </span>
-          </td>
-        </tr>
-      `;
-    }).join("");
-  }
-
-  function renderTransactionsTable() {
-    const body = document.getElementById("transactionsTableBody");
-
-    if (state.transactions.length === 0) {
-      body.innerHTML = `<tr><td colspan="4">No transactions available.</td></tr>`;
-      return;
-    }
-
-    body.innerHTML = [...state.transactions].reverse().map(txn => `
+  body.innerHTML = state.accounts.map(acc => {
+    const low = acc.balance < state.lowBalanceThreshold;
+    return `
       <tr>
-        <td>${txn.type}</td>
-        <td>${txn.accNo}</td>
-        <td>${formatMoney(txn.amount)}</td>
+        <td>${acc.accNo}</td>
+        <td>${acc.name}</td>
+        <td>${formatMoney(acc.balance)}</td>
         <td>
-          <span class="pill-status ${txn.type === "Deposit" ? "pill-active" : "pill-alert"}">
-            ${txn.type === "Deposit" ? "Credit" : "Debit"}
+          <span class="pill-status ${low ? "pill-alert" : "pill-active"}">
+            ${low ? "Low Balance" : "Healthy"}
           </span>
         </td>
       </tr>
-    `).join("");
+    `;
+  }).join("");
+}
+
+function renderTransactionsTable() {
+  const body = document.getElementById("transactionsTableBody");
+
+  if (state.transactions.length === 0) {
+    body.innerHTML = `<tr><td colspan="4">No transactions available.</td></tr>`;
+    return;
   }
 
-  function refreshReports() {
-    updateDashboardMetrics();
-    renderAccountsTable();
-    renderTransactionsTable();
-    renderRecentActivity();
-    setOutput("Insights refreshed.");
-  }
+  body.innerHTML = [...state.transactions].reverse().map(txn => `
+    <tr>
+      <td>${txn.type}</td>
+      <td>${txn.accNo}</td>
+      <td>${formatMoney(txn.amount)}</td>
+      <td>
+        <span class="pill-status ${txn.type === "Deposit" ? "pill-active" : "pill-alert"}">
+          ${txn.type === "Deposit" ? "Credit" : "Debit"}
+        </span>
+      </td>
+    </tr>
+  `).join("");
+}
 
-  function findAccountIndex(accNo) {
-    return state.accounts.findIndex(acc => Number(acc.accNo) === Number(accNo));
-  }
+function refreshReports() {
+  updateDashboardMetrics();
+  renderAccountsTable();
+  renderTransactionsTable();
+  renderRecentActivity();
+  setOutput("Insights refreshed.");
+}
 
-  function createAccountFromDashboard() {
-    document.getElementById("createAccNo").value = document.getElementById("dashAccNo").value;
-    document.getElementById("createName").value = document.getElementById("dashName").value;
-    document.getElementById("createBalance").value = document.getElementById("dashBalance").value;
-    createAccount();
-  }
+function findAccountIndex(accNo) {
+  return state.accounts.findIndex(acc => Number(acc.accNo) === Number(accNo));
+}
 
-  function clearDashboardCreate() {
-    document.getElementById("dashAccNo").value = "";
-    document.getElementById("dashName").value = "";
-    document.getElementById("dashBalance").value = "";
-    setOutput("Dashboard create form cleared.");
-  }
-
-  function clearAccountForm() {
-    document.getElementById("createAccNo").value = "";
-    document.getElementById("createName").value = "";
-    document.getElementById("createBalance").value = "";
-    setOutput("Account form cleared.");
-  }
-
-  function clearDepositForm() {
-    document.getElementById("depositAccNo").value = "";
-    document.getElementById("depositAmount").value = "";
-    setOutput("Deposit form cleared.");
-  }
-
-  function clearWithdrawForm() {
-    document.getElementById("withdrawAccNo").value = "";
-    document.getElementById("withdrawAmount").value = "";
-    setOutput("Withdrawal form cleared.");
-  }
-
-  function createAccount() {
-    const accNo = parseInt(document.getElementById("createAccNo").value);
-    const name = document.getElementById("createName").value.trim();
-    const balance = parseFloat(document.getElementById("createBalance").value);
-
-    if (!accNo || !name || isNaN(balance)) {
-      setOutput("Please fill all account fields correctly.");
-      return;
+function callNative(name, ret, types, args) {
+  if (window.Module && typeof Module.ccall === "function" && state.wasmReady) {
+    try {
+      return Module.ccall(name, ret, types, args);
+    } catch (err) {
+      console.error(err);
     }
+  }
+  return fallback(name, args);
+}
 
-    const result = callNative("create_account", "string", ["number", "string", "number"], [accNo, name, balance]);
-    if (!result) return;
+function fallback(name, args) {
+  if (name === "create_account") {
+    const [accNo, clientName, balance] = args;
+    if (!accNo || !clientName || isNaN(balance)) return "Please fill all account fields correctly.";
+    if (balance < 0) return "Initial balance cannot be negative.";
+    if (state.accounts.find(a => a.accNo == accNo)) return "Account number already exists.";
 
-    if (!result.toLowerCase().includes("already exists") &&
-        !result.toLowerCase().includes("cannot") &&
-        !result.toLowerCase().includes("invalid")) {
-      state.accounts.push({ accNo, name, balance });
-      updateDashboardMetrics();
-      renderAccountsTable();
-      renderRecentActivity();
-      clearAccountForm();
-      clearDashboardCreate();
-    }
+    state.accounts.push({
+      accNo: Number(accNo),
+      name: clientName.trim(),
+      balance: Number(balance)
+    });
 
-    setOutput(result);
+    return `Account created successfully.\nAccount No: ${accNo}\nClient Name: ${clientName}\nOpening Balance: ${formatMoney(balance)}`;
   }
 
-  function depositMoney() {
-    const accNo = parseInt(document.getElementById("depositAccNo").value);
-    const amount = parseFloat(document.getElementById("depositAmount").value);
+  if (name === "deposit_money") {
+    const [accNo, amount] = args;
+    const acc = state.accounts.find(a => a.accNo == accNo);
+    if (!acc) return "Account not found.";
+    if (isNaN(amount) || amount <= 0) return "Invalid deposit amount.";
 
-    if (!accNo || isNaN(amount)) {
-      setOutput("Please enter a valid account number and deposit amount.");
-      return;
-    }
+    acc.balance += Number(amount);
+    state.transactions.push({
+      type: "Deposit",
+      accNo: Number(accNo),
+      amount: Number(amount)
+    });
 
-    const result = callNative("deposit_money", "string", ["number", "number"], [accNo, amount]);
-    if (!result) return;
-
-    if (result.toLowerCase().includes("successful")) {
-      const index = findAccountIndex(accNo);
-      if (index !== -1) {
-        state.accounts[index].balance += amount;
-        state.transactions.push({ type: "Deposit", accNo, amount });
-        updateDashboardMetrics();
-        renderAccountsTable();
-        renderTransactionsTable();
-        renderRecentActivity();
-        clearDepositForm();
-      }
-    }
-
-    setOutput(result);
+    return `Deposit successful.\nAccount No: ${accNo}\nDeposited Amount: ${formatMoney(amount)}\nUpdated Balance: ${formatMoney(acc.balance)}`;
   }
 
-  function withdrawMoney() {
-    const accNo = parseInt(document.getElementById("withdrawAccNo").value);
-    const amount = parseFloat(document.getElementById("withdrawAmount").value);
+  if (name === "withdraw_money") {
+    const [accNo, amount] = args;
+    const acc = state.accounts.find(a => a.accNo == accNo);
+    if (!acc) return "Account not found.";
+    if (isNaN(amount) || amount <= 0) return "Invalid withdrawal amount.";
+    if (acc.balance < amount) return "Insufficient balance. Overdraft not allowed.";
 
-    if (!accNo || isNaN(amount)) {
-      setOutput("Please enter a valid account number and withdrawal amount.");
-      return;
-    }
+    acc.balance -= Number(amount);
+    state.transactions.push({
+      type: "Withdraw",
+      accNo: Number(accNo),
+      amount: Number(amount)
+    });
 
-    const result = callNative("withdraw_money", "string", ["number", "number"], [accNo, amount]);
-    if (!result) return;
-
-    if (result.toLowerCase().includes("successful")) {
-      const index = findAccountIndex(accNo);
-      if (index !== -1) {
-        state.accounts[index].balance -= amount;
-        state.transactions.push({ type: "Withdraw", accNo, amount });
-        updateDashboardMetrics();
-        renderAccountsTable();
-        renderTransactionsTable();
-        renderRecentActivity();
-        clearWithdrawForm();
-      }
-    }
-
-    setOutput(result);
+    return `Withdrawal successful.\nAccount No: ${accNo}\nWithdrawal Amount: ${formatMoney(amount)}\nUpdated Balance: ${formatMoney(acc.balance)}`;
   }
 
-  function runTotalMoneyReport() {
-    const result = callNative("total_money_report", "string", [], []);
-    if (!result) return;
-    updateDashboardMetrics();
-    setOutput(result);
+  if (name === "total_money_report") {
+    const totalBalance = state.accounts.reduce((sum, acc) => sum + acc.balance, 0);
+    return `Total Money Report\n-------------------------\nTotal Accounts: ${state.accounts.length}\nTotal Money Held Across All Accounts: ${formatMoney(totalBalance)}`;
   }
 
-  function runLowBalanceReport() {
-    const thresholdInput = parseFloat(document.getElementById("thresholdValue").value);
-    if (!isNaN(thresholdInput)) state.lowBalanceThreshold = thresholdInput;
+  if (name === "low_balance_report") {
+    const [threshold] = args;
+    if (isNaN(threshold) || threshold < 0) return "Invalid threshold amount.";
 
-    const result = callNative("low_balance_report", "string", ["number"], [state.lowBalanceThreshold]);
-    if (!result) return;
+    const low = state.accounts.filter(acc => acc.balance < threshold);
+    if (low.length === 0) return "No accounts found below threshold.";
 
-    updateDashboardMetrics();
-    renderAccountsTable();
-    setOutput(result);
+    let out = `Low Balance Report\nThreshold: ${formatMoney(threshold)}\n-------------------------\n`;
+    low.forEach(acc => {
+      out += `Acc No: ${acc.accNo} | Name: ${acc.name} | Balance: ${formatMoney(acc.balance)}\n`;
+    });
+    return out.trim();
   }
 
-  window.Module = window.Module || {};
-  Module.onRuntimeInitialized = function () {
-    state.wasmReady = true;
-    updateDashboardMetrics();
-    renderAccountsTable();
-    renderTransactionsTable();
-    renderRecentActivity();
-    setOutput("Velora Bank is ready.");
-  };
+  return "Action completed.";
+}
+
+function createAccountFromDashboard() {
+  document.getElementById("createAccNo").value = document.getElementById("dashAccNo").value;
+  document.getElementById("createName").value = document.getElementById("dashName").value;
+  document.getElementById("createBalance").value = document.getElementById("dashBalance").value;
+  createAccount();
+}
+
+function clearDashboardCreate() {
+  document.getElementById("dashAccNo").value = "";
+  document.getElementById("dashName").value = "";
+  document.getElementById("dashBalance").value = "";
+  setOutput("Dashboard create form cleared.");
+}
+
+function clearAccountForm() {
+  document.getElementById("createAccNo").value = "";
+  document.getElementById("createName").value = "";
+  document.getElementById("createBalance").value = "";
+  setOutput("Account form cleared.");
+}
+
+function clearDepositForm() {
+  document.getElementById("depositAccNo").value = "";
+  document.getElementById("depositAmount").value = "";
+  setOutput("Deposit form cleared.");
+}
+
+function clearWithdrawForm() {
+  document.getElementById("withdrawAccNo").value = "";
+  document.getElementById("withdrawAmount").value = "";
+  setOutput("Withdrawal form cleared.");
+}
+
+function createAccount() {
+  const accNo = parseInt(document.getElementById("createAccNo").value);
+  const clientName = document.getElementById("createName").value.trim();
+  const balance = parseFloat(document.getElementById("createBalance").value);
+
+  const result = callNative("create_account", "string", ["number", "string", "number"], [accNo, clientName, balance]);
+  if (!result) return;
+
+  updateDashboardMetrics();
+  renderAccountsTable();
+  renderRecentActivity();
+  clearAccountForm();
+  clearDashboardCreate();
+  setOutput(result);
+}
+
+function depositMoney() {
+  const accNo = parseInt(document.getElementById("depositAccNo").value);
+  const amount = parseFloat(document.getElementById("depositAmount").value);
+
+  const beforeCount = state.transactions.length;
+  const result = callNative("deposit_money", "string", ["number", "number"], [accNo, amount]);
+  if (!result) return;
+
+  if (state.transactions.length > beforeCount) {
+    clearDepositForm();
+  }
+
+  updateDashboardMetrics();
+  renderAccountsTable();
+  renderTransactionsTable();
+  renderRecentActivity();
+  setOutput(result);
+}
+
+function withdrawMoney() {
+  const accNo = parseInt(document.getElementById("withdrawAccNo").value);
+  const amount = parseFloat(document.getElementById("withdrawAmount").value);
+
+  const beforeCount = state.transactions.length;
+  const result = callNative("withdraw_money", "string", ["number", "number"], [accNo, amount]);
+  if (!result) return;
+
+  if (state.transactions.length > beforeCount) {
+    clearWithdrawForm();
+  }
+
+  updateDashboardMetrics();
+  renderAccountsTable();
+  renderTransactionsTable();
+  renderRecentActivity();
+  setOutput(result);
+}
+
+function runTotalMoneyReport() {
+  const result = callNative("total_money_report", "string", [], []);
+  updateDashboardMetrics();
+  setOutput(result);
+}
+
+function runLowBalanceReport() {
+  const thresholdInput = parseFloat(document.getElementById("thresholdValue").value);
+  if (!isNaN(thresholdInput)) {
+    state.lowBalanceThreshold = thresholdInput;
+  }
+
+  const result = callNative("low_balance_report", "string", ["number"], [state.lowBalanceThreshold]);
+  updateDashboardMetrics();
+  renderAccountsTable();
+  setOutput(result);
+}
+
+window.Module = window.Module || {};
+Module.onRuntimeInitialized = function() {
+  state.wasmReady = true;
+  updateDashboardMetrics();
+  renderAccountsTable();
+  renderTransactionsTable();
+  renderRecentActivity();
+  setOutput("Velora Bank ready.");
+};
+
+updateDashboardMetrics();
+renderAccountsTable();
+renderTransactionsTable();
+renderRecentActivity();
 </script>
-<script defer src="index.js?v=final9"></script>
+<script defer src="index.js?v=final12"></script>
 </body>
 </html>
