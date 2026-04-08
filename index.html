@@ -854,7 +854,7 @@
   </div>
 
   <script>
-const STORAGE_KEY = "velora_bank_state_v2";
+const STORAGE_KEY = "velora_bank_state_v3";
 
 const state = {
   accounts: [],
@@ -879,7 +879,7 @@ function loadState() {
       typeof parsed.lowBalanceThreshold === "number" ? parsed.lowBalanceThreshold : 1000;
     state.activeSummaryTab = parsed.activeSummaryTab || "Portfolio";
   } catch (e) {
-    console.error("Failed to load saved state:", e);
+    console.error("Load state failed:", e);
   }
 }
 
@@ -899,12 +899,12 @@ function clearOutput() {
 
 function goToPage(pageName) {
   document.querySelectorAll(".page").forEach(page => page.classList.remove("active"));
-  const targetPage = document.getElementById(pageName + "-page");
-  if (targetPage) targetPage.classList.add("active");
+  const page = document.getElementById(pageName + "-page");
+  if (page) page.classList.add("active");
 
   document.querySelectorAll(".nav-btn").forEach(btn => btn.classList.remove("active"));
-  const targetBtn = document.querySelector(`.nav-btn[data-page="${pageName}"]`);
-  if (targetBtn) targetBtn.classList.add("active");
+  const activeBtn = document.querySelector(`.nav-btn[data-page="${pageName}"]`);
+  if (activeBtn) activeBtn.classList.add("active");
 }
 
 function bindSidebarNavigation() {
@@ -968,39 +968,35 @@ function updateDashboardMetrics() {
   const lowCount = state.accounts.filter(acc => acc.balance < state.lowBalanceThreshold).length;
   const txnCount = state.transactions.length;
 
-  const dashboardTotalBalance = document.getElementById("dashboardTotalBalance");
-  const summaryBalance = document.getElementById("summaryBalance");
-  const summaryAccounts = document.getElementById("summaryAccounts");
-  const summaryAlerts = document.getElementById("summaryAlerts");
-  const quickAccounts = document.getElementById("quickAccounts");
-  const quickTransactions = document.getElementById("quickTransactions");
-  const quickAlerts = document.getElementById("quickAlerts");
-  const reportTotalMoney = document.getElementById("reportTotalMoney");
-  const reportLowCount = document.getElementById("reportLowCount");
-  const reportTxnCount = document.getElementById("reportTxnCount");
-  const dashboardFootText = document.getElementById("dashboardFootText");
-  const reportInsightText = document.getElementById("reportInsightText");
+  const ids = {
+    dashboardTotalBalance: formatMoney(totalBalance),
+    summaryBalance: formatMoney(totalBalance),
+    summaryAccounts: totalAccounts,
+    summaryAlerts: lowCount,
+    quickAccounts: totalAccounts,
+    quickTransactions: txnCount,
+    quickAlerts: lowCount,
+    reportTotalMoney: formatMoney(totalBalance),
+    reportLowCount: lowCount,
+    reportTxnCount: txnCount
+  };
 
-  if (dashboardTotalBalance) dashboardTotalBalance.textContent = formatMoney(totalBalance);
-  if (summaryBalance) summaryBalance.textContent = formatMoney(totalBalance);
-  if (summaryAccounts) summaryAccounts.textContent = totalAccounts;
-  if (summaryAlerts) summaryAlerts.textContent = lowCount;
-  if (quickAccounts) quickAccounts.textContent = totalAccounts;
-  if (quickTransactions) quickTransactions.textContent = txnCount;
-  if (quickAlerts) quickAlerts.textContent = lowCount;
-  if (reportTotalMoney) reportTotalMoney.textContent = formatMoney(totalBalance);
-  if (reportLowCount) reportLowCount.textContent = lowCount;
-  if (reportTxnCount) reportTxnCount.textContent = txnCount;
+  Object.entries(ids).forEach(([id, value]) => {
+    const el = document.getElementById(id);
+    if (el) el.textContent = value;
+  });
 
-  if (dashboardFootText) {
-    dashboardFootText.textContent =
+  const foot = document.getElementById("dashboardFootText");
+  if (foot) {
+    foot.textContent =
       totalAccounts === 0
         ? "No portfolio activity yet."
         : `${totalAccounts} active account${totalAccounts === 1 ? "" : "s"} under management.`;
   }
 
-  if (reportInsightText) {
-    reportInsightText.textContent =
+  const insight = document.getElementById("reportInsightText");
+  if (insight) {
+    insight.textContent =
       totalAccounts === 0
         ? "No report insights available yet. Create accounts and process transactions to unlock summary intelligence."
         : `Velora currently manages ${totalAccounts} account(s) with ${formatMoney(totalBalance)} in total holdings and ${lowCount} low-balance alert(s).`;
@@ -1166,7 +1162,7 @@ function createAccount() {
   clearDashboardCreate();
 
   setOutput(
-    `Account created successfully.
+`Account created successfully.
 Account No: ${accNo}
 Client Name: ${name}
 Opening Balance: ${formatMoney(balance)}`
@@ -1198,7 +1194,7 @@ function depositMoney() {
   clearDepositForm();
 
   setOutput(
-    `Deposit successful.
+`Deposit successful.
 Account No: ${accNo}
 Deposited Amount: ${formatMoney(amount)}
 Updated Balance: ${formatMoney(account.balance)}`
@@ -1235,7 +1231,7 @@ function withdrawMoney() {
   clearWithdrawForm();
 
   setOutput(
-    `Withdrawal successful.
+`Withdrawal successful.
 Account No: ${accNo}
 Withdrawal Amount: ${formatMoney(amount)}
 Updated Balance: ${formatMoney(account.balance)}`
@@ -1248,7 +1244,7 @@ function runTotalMoneyReport() {
   updateDashboardMetrics();
 
   setOutput(
-    `Total Money Report
+`Total Money Report
 -------------------------
 Total Accounts: ${state.accounts.length}
 Total Money Held Across All Accounts: ${formatMoney(totalBalance)}`
@@ -1277,7 +1273,8 @@ function runLowBalanceReport() {
     return;
   }
 
-  let out = `Low Balance Report
+  let out =
+`Low Balance Report
 Threshold: ${formatMoney(state.lowBalanceThreshold)}
 -------------------------
 `;
@@ -1299,6 +1296,4 @@ renderTransactionsTable();
 renderRecentActivity();
 updateSummaryTab();
 setOutput("Velora Bank is ready.");
-  </script>
-</body>
-</html>
+</script>
