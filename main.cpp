@@ -2,6 +2,8 @@
 #include <vector>
 #include <string>
 #include <sstream>
+#include <iomanip>
+#include <algorithm>
 
 using namespace std;
 
@@ -12,11 +14,8 @@ private:
     double balance;
 
 public:
-    Account(int accNo, string name, double balance) {
-        this->accNo = accNo;
-        this->name = name;
-        this->balance = balance;
-    }
+    Account(int accNo, const string& name, double balance)
+        : accNo(accNo), name(name), balance(balance) {}
 
     int getAccNo() const {
         return accNo;
@@ -35,32 +34,106 @@ public:
     }
 
     bool withdraw(double amount) {
-        if (amount > balance) return false;
+        if (amount > balance) {
+            return false;
+        }
         balance -= amount;
         return true;
+    }
+};
+
+class Transaction {
+private:
+    int transactionNo;
+    int accNo;
+    string type;
+    double amount;
+
+public:
+    Transaction(int transactionNo, int accNo, const string& type, double amount)
+        : transactionNo(transactionNo), accNo(accNo), type(type), amount(amount) {}
+
+    int getTransactionNo() const {
+        return transactionNo;
+    }
+
+    int getAccNo() const {
+        return accNo;
+    }
+
+    string getType() const {
+        return type;
+    }
+
+    double getAmount() const {
+        return amount;
     }
 };
 
 class BankSystem {
 private:
     vector<Account> accounts;
-    vector<string> transactions;
+    vector<Transaction> transactions;
+    int nextTransactionNo = 1;
 
-    int findAccountIndex(int accNo) {
+    string formatMoney(double value) const {
+        ostringstream out;
+        out << fixed << setprecision(2) << value;
+        return out.str();
+    }
+
+    string trim(const string& s) const {
+        size_t start = s.find_first_not_of(" \t\n\r");
+        if (start == string::npos) {
+            return "";
+        }
+        size_t end = s.find_last_not_of(" \t\n\r");
+        return s.substr(start, end - start + 1);
+    }
+
+    int findAccountIndex(int accNo) const {
         for (int i = 0; i < (int)accounts.size(); i++) {
-            if (accounts[i].getAccNo() == accNo) return i;
+            if (accounts[i].getAccNo() == accNo) {
+                return i;
+            }
         }
         return -1;
     }
 
+    double totalMoney() const {
+        double total = 0.0;
+        for (const auto& account : accounts) {
+            total += account.getBalance();
+        }
+        return total;
+    }
+
+    int lowBalanceCount(double threshold) const {
+        int count = 0;
+        for (const auto& account : accounts) {
+            if (account.getBalance() < threshold) {
+                count++;
+            }
+        }
+        return count;
+    }
+
 public:
-    string createAccount(int accNo, const string& name, double balance) {
+    string createAccount(int accNo, const string& rawName, double balance) {
+        string name = trim(rawName);
+
+        if (accNo <= 0) {
+            return "Invalid account number. Please enter a positive number.";
+        }
+
         if (findAccountIndex(accNo) != -1) {
             return "Account number already exists.";
         }
+
         if (name.empty()) {
             return "Name cannot be empty.";
         }
+
         if (balance < 0) {
             return "Initial balance cannot be negative.";
         }
@@ -70,67 +143,110 @@ public:
         ostringstream out;
         out << "Account created successfully.\n";
         out << "Account No: " << accNo << "\n";
-        out << "Name: " << name << "\n";
-        out << "Balance: " << balance;
+        out << "Client Name: " << name << "\n";
+        out << "Opening Balance: ₹" << formatMoney(balance) << "\n";
+        out << "Total Accounts: " << accounts.size();
         return out.str();
     }
 
     string depositMoney(int accNo, double amount) {
+        if (accNo <= 0) {
+            return "Invalid account number.";
+        }
+
+        if (amount <= 0) {
+            return "Invalid deposit amount.";
+        }
+
         int index = findAccountIndex(accNo);
-        if (index == -1) return "Account not found.";
-        if (amount <= 0) return "Invalid deposit amount.";
+        if (index == -1) {
+            return "Account not found.";
+        }
 
         accounts[index].deposit(amount);
-
-        ostringstream txn;
-        txn << "Deposit | AccNo: " << accNo << " | Amount: " << amount;
-        transactions.push_back(txn.str());
+        transactions.push_back(Transaction(nextTransactionNo++, accNo, "Deposit", amount));
 
         ostringstream out;
         out << "Deposit successful.\n";
-        out << "Updated balance: " << accounts[index].getBalance();
+        out << "Account No: " << accNo << "\n";
+        out << "Deposited Amount: ₹" << formatMoney(amount) << "\n";
+        out << "Updated Balance: ₹" << formatMoney(accounts[index].getBalance());
         return out.str();
     }
 
     string withdrawMoney(int accNo, double amount) {
-        int index = findAccountIndex(accNo);
-        if (index == -1) return "Account not found.";
-        if (amount <= 0) return "Invalid withdrawal amount.";
-        if (!accounts[index].withdraw(amount)) return "Insufficient balance. Overdraft not allowed.";
+        if (accNo <= 0) {
+            return "Invalid account number.";
+        }
 
-        ostringstream txn;
-        txn << "Withdraw | AccNo: " << accNo << " | Amount: " << amount;
-        transactions.push_back(txn.str());
+        if (amount <= 0) {
+            return "Invalid withdrawal amount.";
+        }
+
+        int index = findAccountIndex(accNo);
+        if (index == -1) {
+            return "Account not found.";
+        }
+
+        if (!accounts[index].withdraw(amount)) {
+            return "Insufficient balance. Overdraft not allowed.";
+        }
+
+        transactions.push_back(Transaction(nextTransactionNo++, accNo, "Withdraw", amount));
 
         ostringstream out;
         out << "Withdrawal successful.\n";
-        out << "Updated balance: " << accounts[index].getBalance();
+        out << "Account No: " << accNo << "\n";
+        out << "Withdrawal Amount: ₹" << formatMoney(amount) << "\n";
+        out << "Updated Balance: ₹" << formatMoney(accounts[index].getBalance());
         return out.str();
     }
 
-    string balanceEnquiry(int accNo) {
+    string balanceEnquiry(int accNo) const {
+        if (accNo <= 0) {
+            return "Invalid account number.";
+        }
+
         int index = findAccountIndex(accNo);
-        if (index == -1) return "Account not found.";
+        if (index == -1) {
+            return "Account not found.";
+        }
 
         ostringstream out;
         out << "Account Details\n";
-        out << "Acc No: " << accounts[index].getAccNo() << "\n";
-        out << "Name: " << accounts[index].getName() << "\n";
-        out << "Balance: " << accounts[index].getBalance();
+        out << "-------------------------\n";
+        out << "Account No: " << accounts[index].getAccNo() << "\n";
+        out << "Client Name: " << accounts[index].getName() << "\n";
+        out << "Current Balance: ₹" << formatMoney(accounts[index].getBalance());
         return out.str();
     }
 
-    string lowBalanceReport(double threshold) {
+    string totalMoneyReport() const {
+        ostringstream out;
+        out << "Total Money Report\n";
+        out << "-------------------------\n";
+        out << "Total Accounts: " << accounts.size() << "\n";
+        out << "Total Money Held Across All Accounts: ₹" << formatMoney(totalMoney());
+        return out.str();
+    }
+
+    string lowBalanceReport(double threshold) const {
+        if (threshold < 0) {
+            return "Invalid threshold amount.";
+        }
+
         ostringstream out;
         bool found = false;
 
-        out << "Accounts below threshold " << threshold << ":\n";
+        out << "Low Balance Report\n";
+        out << "Threshold: ₹" << formatMoney(threshold) << "\n";
+        out << "-------------------------\n";
 
-        for (int i = 0; i < (int)accounts.size(); i++) {
-            if (accounts[i].getBalance() < threshold) {
-                out << accounts[i].getAccNo() << " | "
-                    << accounts[i].getName() << " | "
-                    << accounts[i].getBalance() << "\n";
+        for (const auto& account : accounts) {
+            if (account.getBalance() < threshold) {
+                out << "Acc No: " << account.getAccNo()
+                    << " | Name: " << account.getName()
+                    << " | Balance: ₹" << formatMoney(account.getBalance()) << "\n";
                 found = true;
             }
         }
@@ -142,50 +258,52 @@ public:
         return out.str();
     }
 
-    string totalMoneyReport() {
-        double total = 0;
-        for (int i = 0; i < (int)accounts.size(); i++) {
-            total += accounts[i].getBalance();
+    string viewAllAccounts() const {
+        if (accounts.empty()) {
+            return "No accounts available.";
         }
 
         ostringstream out;
-        out << "Total money held across all accounts: " << total;
+        out << "All Accounts\n";
+        out << "-------------------------\n";
+
+        for (const auto& account : accounts) {
+            out << "Acc No: " << account.getAccNo()
+                << " | Name: " << account.getName()
+                << " | Balance: ₹" << formatMoney(account.getBalance()) << "\n";
+        }
+
         return out.str();
     }
 
-    string viewAllAccounts() {
-        if (accounts.empty()) return "No accounts available.";
+    string viewTransactions() const {
+        if (transactions.empty()) {
+            return "No transactions available.";
+        }
 
         ostringstream out;
-        out << "All Accounts:\n";
-        for (int i = 0; i < (int)accounts.size(); i++) {
-            out << accounts[i].getAccNo() << " | "
-                << accounts[i].getName() << " | "
-                << accounts[i].getBalance() << "\n";
-        }
-        return out.str();
-    }
+        out << "Transaction History\n";
+        out << "-------------------------\n";
 
-    string viewTransactions() {
-        if (transactions.empty()) return "No transactions available.";
-
-        ostringstream out;
-        out << "Transaction History:\n";
-        for (int i = 0; i < (int)transactions.size(); i++) {
-            out << transactions[i] << "\n";
+        for (const auto& txn : transactions) {
+            out << "#" << txn.getTransactionNo()
+                << " | " << txn.getType()
+                << " | Acc No: " << txn.getAccNo()
+                << " | Amount: ₹" << formatMoney(txn.getAmount()) << "\n";
         }
+
         return out.str();
     }
 };
 
-BankSystem bank;
-string resultBuffer;
+static BankSystem bank;
+static string resultBuffer;
 
 extern "C" {
 
 EMSCRIPTEN_KEEPALIVE
 const char* create_account(int accNo, const char* name, double balance) {
-    resultBuffer = bank.createAccount(accNo, string(name), balance);
+    resultBuffer = bank.createAccount(accNo, string(name ? name : ""), balance);
     return resultBuffer.c_str();
 }
 
