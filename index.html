@@ -198,24 +198,26 @@
     }
 
     .sidebar-footer {
-      margin-top: auto;
-      border: 1px solid var(--line);
-      background: rgba(18, 16, 22, 0.9);
-      border-radius: 22px;
-      padding: 16px;
-    }
+  margin-top: auto;
+  border: 1px solid var(--line);
+  background: rgba(18, 16, 22, 0.9);
+  border-radius: 18px;
+  padding: 12px;
+  max-height: 110px;
+  overflow: auto;
+}
 
     .sidebar-footer h4 {
       margin: 0 0 8px;
       font-size: 0.98rem;
     }
 
-    .sidebar-footer p {
-      margin: 0;
-      color: var(--muted);
-      line-height: 1.55;
-      font-size: 0.9rem;
-    }
+   .sidebar-footer p {
+  margin: 0;
+  color: var(--muted);
+  line-height: 1.45;
+  font-size: 0.82rem;
+}
 
     .main {
       padding: 24px;
@@ -1121,10 +1123,8 @@
             </div>
 
             <div class="tabs">
-              <div class="tab-chip active">Portfolio</div>
-              <div class="tab-chip">Status</div>
-              <div class="tab-chip">Monitoring</div>
-            </div>
+  <div class="tab-chip active">Portfolio Summary</div>
+</div>
 
             <div class="info-strip">
               <strong>Total Accounts:</strong> <span id="accountSummaryCount">0</span><br />
@@ -1358,7 +1358,7 @@
     </main>
   </div>
 
-  <script>
+ 
     <script>
   const state = {
     accounts: [],
@@ -1709,7 +1709,7 @@
   };
 </script>
 <script defer src="index.js"></script>
-  </script>
+ 
 
   <script src="index.js"></script>
 </body>
