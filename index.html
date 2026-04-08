@@ -1123,7 +1123,9 @@
             </div>
 
             <div class="tabs">
-  <div class="tab-chip active">Portfolio Summary</div>
+  <div class="tab-chip active">Portfolio</div>
+  <div class="tab-chip">Status</div>
+  <div class="tab-chip">Monitoring</div>
 </div>
 
             <div class="info-strip">
@@ -1359,7 +1361,7 @@
   </div>
 
  
-    <script>
+<script>
   const state = {
     accounts: [],
     transactions: [],
@@ -1396,6 +1398,11 @@
   function callNative(fnName, returnType, argTypes, args) {
     if (!state.wasmReady) {
       setOutput("System is still loading. Please wait a moment.");
+      return null;
+    }
+
+    if (!window.Module || typeof Module.ccall !== "function") {
+      setOutput("WASM bridge not loaded. Upload the new index.js/index.wasm and refresh the page.");
       return null;
     }
 
@@ -1581,13 +1588,7 @@
       return;
     }
 
-    const result = callNative(
-      "create_account",
-      "string",
-      ["number", "string", "number"],
-      [accNo, name, balance]
-    );
-
+    const result = callNative("create_account", "string", ["number", "string", "number"], [accNo, name, balance]);
     if (!result) return;
 
     if (!result.toLowerCase().includes("already exists") &&
@@ -1613,13 +1614,7 @@
       return;
     }
 
-    const result = callNative(
-      "deposit_money",
-      "string",
-      ["number", "number"],
-      [accNo, amount]
-    );
-
+    const result = callNative("deposit_money", "string", ["number", "number"], [accNo, amount]);
     if (!result) return;
 
     if (result.toLowerCase().includes("successful")) {
@@ -1647,13 +1642,7 @@
       return;
     }
 
-    const result = callNative(
-      "withdraw_money",
-      "string",
-      ["number", "number"],
-      [accNo, amount]
-    );
-
+    const result = callNative("withdraw_money", "string", ["number", "number"], [accNo, amount]);
     if (!result) return;
 
     if (result.toLowerCase().includes("successful")) {
@@ -1683,13 +1672,7 @@
     const thresholdInput = parseFloat(document.getElementById("thresholdValue").value);
     if (!isNaN(thresholdInput)) state.lowBalanceThreshold = thresholdInput;
 
-    const result = callNative(
-      "low_balance_report",
-      "string",
-      ["number"],
-      [state.lowBalanceThreshold]
-    );
-
+    const result = callNative("low_balance_report", "string", ["number"], [state.lowBalanceThreshold]);
     if (!result) return;
 
     updateDashboardMetrics();
@@ -1697,20 +1680,16 @@
     setOutput(result);
   }
 
-  var Module = {
-    onRuntimeInitialized: function () {
-      state.wasmReady = true;
-      updateDashboardMetrics();
-      renderAccountsTable();
-      renderTransactionsTable();
-      renderRecentActivity();
-      setOutput("Velora Bank is ready.");
-    }
+  window.Module = window.Module || {};
+  Module.onRuntimeInitialized = function () {
+    state.wasmReady = true;
+    updateDashboardMetrics();
+    renderAccountsTable();
+    renderTransactionsTable();
+    renderRecentActivity();
+    setOutput("Velora Bank is ready.");
   };
 </script>
-<script defer src="index.js"></script>
- 
-
-  <script src="index.js"></script>
+<script defer src="index.js?v=final9"></script>
 </body>
 </html>
