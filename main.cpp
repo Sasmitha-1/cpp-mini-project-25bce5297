@@ -3,7 +3,6 @@
 #include <string>
 #include <sstream>
 #include <iomanip>
-#include <algorithm>
 
 using namespace std;
 
@@ -106,16 +105,6 @@ private:
             total += account.getBalance();
         }
         return total;
-    }
-
-    int lowBalanceCount(double threshold) const {
-        int count = 0;
-        for (const auto& account : accounts) {
-            if (account.getBalance() < threshold) {
-                count++;
-            }
-        }
-        return count;
     }
 
 public:
@@ -302,28 +291,52 @@ static string resultBuffer;
 extern "C" {
 
 EMSCRIPTEN_KEEPALIVE
-const char* create_account(int accNo, const char* name, double balance) { ... }
+const char* create_account(int accNo, const char* name, double balance) {
+    resultBuffer = bank.createAccount(accNo, string(name ? name : ""), balance);
+    return resultBuffer.c_str();
+}
 
 EMSCRIPTEN_KEEPALIVE
-const char* deposit_money(int accNo, double amount) { ... }
+const char* deposit_money(int accNo, double amount) {
+    resultBuffer = bank.depositMoney(accNo, amount);
+    return resultBuffer.c_str();
+}
 
 EMSCRIPTEN_KEEPALIVE
-const char* withdraw_money(int accNo, double amount) { ... }
+const char* withdraw_money(int accNo, double amount) {
+    resultBuffer = bank.withdrawMoney(accNo, amount);
+    return resultBuffer.c_str();
+}
 
 EMSCRIPTEN_KEEPALIVE
-const char* balance_enquiry(int accNo) { ... }
+const char* balance_enquiry(int accNo) {
+    resultBuffer = bank.balanceEnquiry(accNo);
+    return resultBuffer.c_str();
+}
 
 EMSCRIPTEN_KEEPALIVE
-const char* total_money_report() { ... }
+const char* total_money_report() {
+    resultBuffer = bank.totalMoneyReport();
+    return resultBuffer.c_str();
+}
 
 EMSCRIPTEN_KEEPALIVE
-const char* low_balance_report(double threshold) { ... }
+const char* low_balance_report(double threshold) {
+    resultBuffer = bank.lowBalanceReport(threshold);
+    return resultBuffer.c_str();
+}
 
 EMSCRIPTEN_KEEPALIVE
-const char* view_all_accounts() { ... }
+const char* view_all_accounts() {
+    resultBuffer = bank.viewAllAccounts();
+    return resultBuffer.c_str();
+}
 
 EMSCRIPTEN_KEEPALIVE
-const char* view_transactions() { ... }
+const char* view_transactions() {
+    resultBuffer = bank.viewTransactions();
+    return resultBuffer.c_str();
+}
 
 }
 
