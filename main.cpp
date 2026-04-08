@@ -302,52 +302,28 @@ static string resultBuffer;
 extern "C" {
 
 EMSCRIPTEN_KEEPALIVE
-const char* create_account(int accNo, const char* name, double balance) {
-    resultBuffer = bank.createAccount(accNo, string(name ? name : ""), balance);
-    return resultBuffer.c_str();
-}
+const char* create_account(int accNo, const char* name, double balance) { ... }
 
 EMSCRIPTEN_KEEPALIVE
-const char* deposit_money(int accNo, double amount) {
-    resultBuffer = bank.depositMoney(accNo, amount);
-    return resultBuffer.c_str();
-}
+const char* deposit_money(int accNo, double amount) { ... }
 
 EMSCRIPTEN_KEEPALIVE
-const char* withdraw_money(int accNo, double amount) {
-    resultBuffer = bank.withdrawMoney(accNo, amount);
-    return resultBuffer.c_str();
-}
+const char* withdraw_money(int accNo, double amount) { ... }
 
 EMSCRIPTEN_KEEPALIVE
-const char* balance_enquiry(int accNo) {
-    resultBuffer = bank.balanceEnquiry(accNo);
-    return resultBuffer.c_str();
-}
+const char* balance_enquiry(int accNo) { ... }
 
 EMSCRIPTEN_KEEPALIVE
-const char* total_money_report() {
-    resultBuffer = bank.totalMoneyReport();
-    return resultBuffer.c_str();
-}
+const char* total_money_report() { ... }
 
 EMSCRIPTEN_KEEPALIVE
-const char* low_balance_report(double threshold) {
-    resultBuffer = bank.lowBalanceReport(threshold);
-    return resultBuffer.c_str();
-}
+const char* low_balance_report(double threshold) { ... }
 
 EMSCRIPTEN_KEEPALIVE
-const char* view_all_accounts() {
-    resultBuffer = bank.viewAllAccounts();
-    return resultBuffer.c_str();
-}
+const char* view_all_accounts() { ... }
 
 EMSCRIPTEN_KEEPALIVE
-const char* view_transactions() {
-    resultBuffer = bank.viewTransactions();
-    return resultBuffer.c_str();
-}
+const char* view_transactions() { ... }
 
 }
 
