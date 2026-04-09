@@ -10,9 +10,8 @@
   <style>
     :root{
       --bg:#0b0b0f;
-      --bg2:#120f15;
-      --panel:rgba(20,18,24,0.95);
-      --panel2:rgba(29,24,35,0.98);
+      --panel:#17141c;
+      --panel2:#211b26;
       --line:rgba(255,255,255,0.06);
       --text:#f4f1f5;
       --muted:#b8afb9;
@@ -27,35 +26,17 @@
 
     *{box-sizing:border-box}
     html,body{
-      margin:0;
-      padding:0;
-      min-height:100%;
+      margin:0;padding:0;height:100%;
       font-family:"Inter",sans-serif;
       color:var(--text);
       background:
         radial-gradient(circle at top left, rgba(159,24,55,0.22), transparent 26%),
         radial-gradient(circle at top right, rgba(193,42,79,0.14), transparent 24%),
-        radial-gradient(circle at bottom left, rgba(123,16,41,0.18), transparent 28%),
         linear-gradient(135deg,#070709 0%,#0d0c10 45%,#100d13 100%);
       overflow:hidden;
     }
 
-    body::before{
-      content:"";
-      position:fixed;
-      inset:0;
-      pointer-events:none;
-      background:
-        linear-gradient(rgba(255,255,255,0.025) 1px, transparent 1px),
-        linear-gradient(90deg, rgba(255,255,255,0.025) 1px, transparent 1px);
-      background-size:32px 32px;
-      opacity:.22;
-      mask-image:linear-gradient(to bottom, rgba(0,0,0,.9), rgba(0,0,0,.25));
-    }
-
     .app{
-      position:relative;
-      z-index:1;
       display:grid;
       grid-template-columns:280px 1fr;
       height:100vh;
@@ -70,147 +51,137 @@
       gap:20px;
     }
 
-    .brand-card,.nav-block,.sidebar-footer,.hero,.panel,.summary,.table-card,.report-card,.output-card{
+    .brand,.nav-box,.notice,.card,.hero,.summary,.output{
       background:linear-gradient(180deg, rgba(22,19,27,.95), rgba(14,12,18,.96));
       border:1px solid var(--line);
-      box-shadow:var(--shadow);
       border-radius:24px;
+      box-shadow:var(--shadow);
     }
 
-    .brand-card{
+    .brand{
       padding:18px;
       background:linear-gradient(135deg, rgba(123,16,41,.22), rgba(20,18,24,.96));
     }
 
-    .brand-row{
-      display:flex;
-      align-items:center;
-      gap:14px;
-      margin-bottom:14px;
-    }
-
+    .brand-row{display:flex;align-items:center;gap:14px;margin-bottom:14px}
     .brand-icon{
       width:54px;height:54px;border-radius:18px;
-      display:grid;place-items:center;
-      font-size:24px;
+      display:grid;place-items:center;font-size:24px;
       background:linear-gradient(145deg, rgba(193,42,79,.35), rgba(123,16,41,.35));
       border:1px solid rgba(255,255,255,.08);
     }
-
-    .brand-title{margin:0;font-size:1.2rem;font-weight:800}
-    .brand-sub{margin:4px 0 0;color:var(--muted);font-size:.93rem}
-
+    .brand h1{margin:0;font-size:1.2rem;font-weight:800}
+    .brand p{margin:4px 0 0;color:var(--muted);font-size:.93rem}
     .chip{
-      display:inline-flex;align-items:center;gap:8px;
-      font-size:.78rem;color:#f4d9df;
+      display:inline-flex;align-items:center;
       padding:8px 12px;border-radius:999px;
+      font-size:.78rem;color:#f4d9df;
       background:rgba(255,255,255,.05);
       border:1px solid rgba(255,255,255,.06);
     }
 
-    .nav-block{padding:10px}
+    .nav-box{padding:10px}
     .nav-title{
-      color:#8f8794;font-size:.74rem;letter-spacing:.16em;
-      text-transform:uppercase;margin:10px 12px 14px;
+      color:#8f8794;
+      font-size:.74rem;
+      letter-spacing:.16em;
+      text-transform:uppercase;
+      margin:10px 12px 14px;
     }
 
     .nav-btn{
-      width:100%;border:none;background:transparent;color:var(--muted);
-      display:flex;align-items:center;gap:12px;
-      padding:14px;border-radius:16px;cursor:pointer;
-      transition:.2s ease;font-size:.98rem;font-weight:600;margin-bottom:6px;
+      width:100%;
+      border:none;
+      background:transparent;
+      color:var(--muted);
+      display:flex;
+      align-items:center;
+      gap:12px;
+      padding:14px;
+      border-radius:16px;
+      cursor:pointer;
+      font-size:.98rem;
+      font-weight:600;
+      margin-bottom:6px;
+      transition:.2s ease;
     }
 
-    .nav-btn:hover{background:rgba(255,255,255,.05);color:var(--text);transform:translateX(2px)}
+    .nav-btn:hover{background:rgba(255,255,255,.05);color:var(--text)}
     .nav-btn.active{
       background:linear-gradient(135deg, rgba(159,24,55,.35), rgba(123,16,41,.15));
-      color:white;border:1px solid rgba(193,42,79,.28);
+      color:white;
+      border:1px solid rgba(193,42,79,.28);
     }
 
     .dot{
       width:10px;height:10px;border-radius:50%;
-      background:linear-gradient(135deg, var(--burgundy3), var(--rose));
+      background:linear-gradient(135deg,var(--burgundy3),var(--rose));
       flex-shrink:0;
     }
 
-    .sidebar-footer{
+    .notice{
       margin-top:auto;
       padding:12px;
       max-height:110px;
       overflow:auto;
     }
-
-    .sidebar-footer h4{margin:0 0 8px;font-size:.98rem}
-    .sidebar-footer p{margin:0;color:var(--muted);line-height:1.45;font-size:.82rem}
+    .notice h4{margin:0 0 8px;font-size:.98rem}
+    .notice p{margin:0;color:var(--muted);line-height:1.45;font-size:.82rem}
 
     .main{padding:24px;overflow:auto}
     .page{display:none}
     .page.active{display:block}
 
-    .top-grid{
+    .top{
       display:grid;
       grid-template-columns:1.2fr .8fr;
       gap:18px;
-      margin-bottom:20px;
+      margin-bottom:18px;
     }
 
     .hero{padding:28px;position:relative;overflow:hidden}
     .hero::after{
-      content:"";position:absolute;width:240px;height:240px;right:-50px;top:-70px;
+      content:"";
+      position:absolute;
+      width:240px;height:240px;
+      right:-50px;top:-70px;
       border-radius:50%;
       background:radial-gradient(circle, rgba(193,42,79,.32), transparent 68%);
       filter:blur(10px);
     }
 
     .hero-kicker{
-      display:inline-flex;align-items:center;gap:8px;
+      display:inline-flex;align-items:center;
+      padding:9px 13px;border-radius:999px;
       background:rgba(255,255,255,.05);
       border:1px solid rgba(255,255,255,.06);
-      border-radius:999px;
-      padding:9px 13px;
-      color:#ead5da;
-      font-size:.8rem;
-      margin-bottom:16px;
+      color:#ead5da;font-size:.8rem;margin-bottom:16px;
     }
 
-    .hero h2{
-      margin:0;
-      font-size:2.2rem;
-      line-height:1.05;
-      letter-spacing:-.05em;
-      max-width:11ch;
-    }
+    .hero h2{margin:0;font-size:2.2rem;line-height:1.05;letter-spacing:-.05em;max-width:11ch}
+    .hero p{margin:16px 0 0;color:var(--muted);font-size:1rem;line-height:1.75;max-width:58ch}
 
-    .hero p{
-      margin:16px 0 0;
-      color:var(--muted);
-      font-size:1rem;
-      line-height:1.75;
-      max-width:58ch;
-    }
+    .actions,.form-actions,.output-actions{display:flex;gap:12px;flex-wrap:wrap}
+    .actions{margin-top:22px}
 
-    .hero-actions,.form-actions,.output-actions{
-      display:flex;gap:12px;flex-wrap:wrap
-    }
-    .hero-actions{margin-top:22px}
-
-    .primary-btn,.secondary-btn,.ghost-btn{
+    .primary-btn,.secondary-btn,.ghost-btn,.tab-btn{
       border:none;outline:none;cursor:pointer;
       border-radius:14px;padding:13px 18px;
-      font-size:.96rem;font-weight:700;transition:.2s ease;
+      font-size:.96rem;font-weight:700;
     }
 
     .primary-btn{
       color:white;
-      background:linear-gradient(135deg, var(--burgundy2), var(--burgundy3));
+      background:linear-gradient(135deg,var(--burgundy2),var(--burgundy3));
       box-shadow:0 14px 28px rgba(159,24,55,.22);
     }
-    .primary-btn:hover{transform:translateY(-1px)}
+
     .secondary-btn{
       color:var(--text);
       background:rgba(255,255,255,.05);
       border:1px solid rgba(255,255,255,.08);
     }
+
     .ghost-btn{
       color:var(--muted);
       background:transparent;
@@ -225,18 +196,14 @@
       border:1px solid rgba(193,42,79,.22);
     }
 
-    .mini-balance{
+    .mini{
       border-radius:22px;padding:22px;
       background:linear-gradient(135deg, rgba(123,16,41,.36), rgba(17,15,21,.85));
       border:1px solid rgba(255,255,255,.07);
     }
 
-    .mini-label{
-      color:#dbc8cd;font-size:.82rem;text-transform:uppercase;letter-spacing:.14em;
-      margin-bottom:12px;
-    }
-
-    .mini-number{font-size:2rem;font-weight:800;letter-spacing:-.04em}
+    .mini-label{color:#dbc8cd;font-size:.82rem;text-transform:uppercase;letter-spacing:.14em;margin-bottom:12px}
+    .mini-value{font-size:2rem;font-weight:800;letter-spacing:-.04em}
     .mini-foot{color:var(--muted);margin-top:10px;font-size:.92rem}
 
     .quick-grid,.summary-grid,.report-grid,.content-grid,.form-grid{
@@ -248,28 +215,20 @@
     .content-grid{grid-template-columns:1.25fr .95fr;margin-bottom:18px}
     .form-grid{grid-template-columns:repeat(2,1fr);gap:16px}
 
-    .quick-tile,.summary,.panel,.table-card,.report-card,.output-card,.activity-card{
+    .quick-tile,.summary,.card,.output{
       padding:20px
     }
 
     .quick-tile{
-      border-radius:18px;
-      background:rgba(255,255,255,.04);
-      border:1px solid var(--line);
-      display:flex;flex-direction:column;gap:6px;min-height:86px;justify-content:center;
+      border-radius:18px;background:rgba(255,255,255,.04);
+      border:1px solid var(--line);display:flex;flex-direction:column;gap:6px;min-height:86px;justify-content:center;
     }
 
-    .kicker{
-      color:var(--muted);
-      font-size:.82rem;
-      text-transform:uppercase;
-      letter-spacing:.14em;
-    }
-
-    .big-num{font-weight:800}
-    .quick-tile .big-num{font-size:1.1rem}
-    .summary .big-num{font-size:2rem;letter-spacing:-.05em;margin-bottom:10px}
-    .report-card .big-num{font-size:1.9rem;letter-spacing:-.04em;margin-bottom:10px}
+    .kicker{color:var(--muted);font-size:.82rem;text-transform:uppercase;letter-spacing:.14em}
+    .big{font-weight:800}
+    .quick-tile .big{font-size:1.1rem}
+    .summary .big{font-size:2rem;letter-spacing:-.05em;margin-bottom:10px}
+    .report-grid .card .big{font-size:1.9rem;letter-spacing:-.04em;margin-bottom:10px}
 
     .summary{
       min-height:170px;position:relative;overflow:hidden
@@ -280,12 +239,13 @@
       background:radial-gradient(circle, rgba(193,42,79,.18), transparent 70%);
     }
 
-    .row{
+    .row,.head,.output-head{
       display:flex;align-items:center;justify-content:space-between;gap:12px
     }
 
     .summary-icon{
-      width:42px;height:42px;border-radius:14px;display:grid;place-items:center;
+      width:42px;height:42px;border-radius:14px;
+      display:grid;place-items:center;
       background:rgba(255,255,255,.05);
       border:1px solid rgba(255,255,255,.05);
       font-size:1rem;
@@ -294,13 +254,12 @@
     .muted{color:var(--muted);line-height:1.65;font-size:.94rem}
     .section-title{margin:0 0 6px;font-size:1.5rem;letter-spacing:-.04em}
     .section-sub{margin:0 0 20px;color:var(--muted);font-size:.98rem;line-height:1.7}
-
-    .panel h3,.table-card h3,.output-card h3{margin:0;font-size:1.1rem;letter-spacing:-.02em}
-    .panel-head,.table-head,.output-head{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:18px}
-    .panel-head p,.table-head p{margin:6px 0 0;color:var(--muted);font-size:.92rem}
+    .head{margin-bottom:18px}
+    .head h3,.output-head h3{margin:0;font-size:1.1rem;letter-spacing:-.02em}
+    .head p{margin:6px 0 0;color:var(--muted);font-size:.92rem}
 
     .tabs{display:inline-flex;gap:10px;flex-wrap:wrap;margin-bottom:14px}
-    .tab-chip{
+    .tab-btn{
       border:1px solid var(--line);
       background:rgba(255,255,255,.03);
       color:var(--muted);
@@ -308,10 +267,8 @@
       padding:9px 13px;
       font-size:.82rem;
       font-weight:700;
-      cursor:pointer;
-      transition:.2s ease;
     }
-    .tab-chip.active{
+    .tab-btn.active{
       background:rgba(159,24,55,.22);
       border-color:rgba(193,42,79,.28);
       color:white;
@@ -330,113 +287,64 @@
       outline:none;
       font-size:.97rem;
     }
-    .field input:focus{
-      border-color:rgba(193,42,79,.35);
-      box-shadow:0 0 0 4px rgba(159,24,55,.12);
-    }
 
-    .info-strip{
-      margin-top:16px;
-      border-radius:16px;
-      padding:14px 16px;
+    .info{
+      margin-top:16px;border-radius:16px;padding:14px 16px;
       border:1px solid var(--line);
       background:rgba(255,255,255,.03);
-      color:var(--muted);
-      font-size:.92rem;
-      line-height:1.6;
+      color:var(--muted);font-size:.92rem;line-height:1.6;
     }
 
     .activity-list{display:flex;flex-direction:column;gap:12px;margin-top:6px}
     .activity-item{
-      display:grid;
-      grid-template-columns:42px 1fr auto;
-      align-items:center;
-      gap:12px;
-      padding:14px;
-      border-radius:18px;
-      background:rgba(255,255,255,.03);
-      border:1px solid var(--line);
+      display:grid;grid-template-columns:42px 1fr auto;
+      align-items:center;gap:12px;padding:14px;border-radius:18px;
+      background:rgba(255,255,255,.03);border:1px solid var(--line);
     }
-
     .activity-icon{
       width:42px;height:42px;border-radius:14px;display:grid;place-items:center;
-      background:rgba(159,24,55,.16);
-      border:1px solid rgba(193,42,79,.22);
+      background:rgba(159,24,55,.16);border:1px solid rgba(193,42,79,.22);
     }
-
     .activity-main{display:flex;flex-direction:column;gap:4px}
     .activity-title{font-size:.95rem;font-weight:700}
     .activity-sub{font-size:.84rem;color:var(--muted)}
     .activity-amount{font-weight:800;font-size:.94rem}
-    .amount-positive{color:#cfe9dc}
-    .amount-negative{color:#f0c6cf}
+    .plus{color:#cfe9dc}
+    .minus{color:#f0c6cf}
 
     .table-wrap{
-      overflow:auto;border-radius:18px;border:1px solid var(--line);
-      background:rgba(255,255,255,.02);
+      overflow:auto;border-radius:18px;border:1px solid var(--line);background:rgba(255,255,255,.02);
     }
-
-    table{
-      width:100%;
-      border-collapse:collapse;
-      min-width:720px;
-    }
-
+    table{width:100%;border-collapse:collapse;min-width:720px}
     thead th{
-      text-align:left;
-      padding:16px;
-      color:var(--muted);
-      font-size:.8rem;
-      text-transform:uppercase;
-      letter-spacing:.14em;
-      border-bottom:1px solid var(--line);
+      text-align:left;padding:16px;color:var(--muted);font-size:.8rem;
+      text-transform:uppercase;letter-spacing:.14em;border-bottom:1px solid var(--line);
       background:rgba(255,255,255,.02);
     }
-
     tbody td{
-      padding:16px;
-      border-bottom:1px solid rgba(255,255,255,.04);
-      font-size:.95rem;
-      color:#eee7f0;
+      padding:16px;border-bottom:1px solid rgba(255,255,255,.04);
+      font-size:.95rem;color:#eee7f0;
     }
-
     tbody tr:hover{background:rgba(255,255,255,.025)}
 
     .pill{
-      display:inline-flex;align-items:center;gap:8px;
-      border-radius:999px;padding:8px 12px;font-size:.78rem;font-weight:700;
-      border:1px solid transparent;
+      display:inline-flex;align-items:center;gap:8px;border-radius:999px;
+      padding:8px 12px;font-size:.78rem;font-weight:700;border:1px solid transparent;
     }
-    .pill-active{
-      background:rgba(56,178,125,.12);
-      color:#d4efdf;
-      border-color:rgba(56,178,125,.22);
-    }
-    .pill-alert{
-      background:rgba(214,84,113,.14);
-      color:#f1d0d9;
-      border-color:rgba(214,84,113,.24);
-    }
+    .pill-ok{background:rgba(56,178,125,.12);color:#d4efdf;border-color:rgba(56,178,125,.22)}
+    .pill-bad{background:rgba(214,84,113,.14);color:#f1d0d9;border-color:rgba(214,84,113,.24)}
 
     .output-box{
-      width:100%;
-      min-height:180px;
-      border-radius:18px;
-      border:1px solid rgba(255,255,255,.05);
-      padding:18px;
-      background:#09090d;
-      color:#f4eef6;
-      font-size:.95rem;
-      line-height:1.75;
-      white-space:pre-wrap;
-      overflow:auto;
+      width:100%;min-height:180px;border-radius:18px;
+      border:1px solid rgba(255,255,255,.05);padding:18px;
+      background:#09090d;color:#f4eef6;font-size:.95rem;line-height:1.75;
+      white-space:pre-wrap;overflow:auto;
     }
 
     @media (max-width:1280px){
       .summary-grid,.report-grid{grid-template-columns:1fr 1fr}
-      .content-grid,.top-grid{grid-template-columns:1fr}
+      .content-grid,.top{grid-template-columns:1fr}
     }
-
     @media (max-width:980px){
       .app{grid-template-columns:1fr}
       .sidebar{display:none}
@@ -449,28 +357,28 @@
 <body>
   <div class="app">
     <aside class="sidebar">
-      <div class="brand-card">
+      <div class="brand">
         <div class="brand-row">
           <div class="brand-icon">◆</div>
           <div>
-            <h1 class="brand-title">Velora Bank</h1>
+            <h1>Velora Bank</h1>
             <p class="brand-sub">Private banking, reimagined.</p>
           </div>
         </div>
         <span class="chip">Premium Client Portal</span>
       </div>
 
-      <div class="nav-block">
+      <div class="nav-box">
         <div class="nav-title">Navigation</div>
-        <button class="nav-btn active" data-page="dashboard"><span class="dot"></span>Dashboard</button>
-        <button class="nav-btn" data-page="accounts"><span class="dot"></span>Accounts</button>
-        <button class="nav-btn" data-page="deposit"><span class="dot"></span>Deposit</button>
-        <button class="nav-btn" data-page="withdraw"><span class="dot"></span>Withdraw</button>
-        <button class="nav-btn" data-page="transactions"><span class="dot"></span>Transactions</button>
-        <button class="nav-btn" data-page="reports"><span class="dot"></span>Reports</button>
+        <button type="button" class="nav-btn active" onclick="showPage('dashboard')"><span class="dot"></span>Dashboard</button>
+        <button type="button" class="nav-btn" onclick="showPage('accounts')"><span class="dot"></span>Accounts</button>
+        <button type="button" class="nav-btn" onclick="showPage('deposit')"><span class="dot"></span>Deposit</button>
+        <button type="button" class="nav-btn" onclick="showPage('withdraw')"><span class="dot"></span>Withdraw</button>
+        <button type="button" class="nav-btn" onclick="showPage('transactions')"><span class="dot"></span>Transactions</button>
+        <button type="button" class="nav-btn" onclick="showPage('reports')"><span class="dot"></span>Reports</button>
       </div>
 
-      <div class="sidebar-footer">
+      <div class="notice">
         <h4>Client Notice</h4>
         <p>Access your accounts, manage balances, review transactions, and monitor financial activity through a refined Velora experience.</p>
       </div>
@@ -478,42 +386,42 @@
 
     <main class="main">
       <div class="page active" id="dashboard-page">
-        <section class="top-grid">
+        <section class="top">
           <div class="hero">
             <div class="hero-kicker">Velora Signature Banking</div>
             <h2>Luxury finance with intelligent control.</h2>
             <p>Manage client accounts, execute deposits and withdrawals, monitor transaction activity, and review financial summaries through a polished private banking dashboard.</p>
-            <div class="hero-actions">
-              <button class="primary-btn" onclick="goToPage('accounts')">Open Accounts</button>
-              <button class="secondary-btn" onclick="goToPage('deposit')">Make Deposit</button>
-              <button class="ghost-btn" onclick="goToPage('reports')">View Reports</button>
+            <div class="actions">
+              <button type="button" class="primary-btn" onclick="showPage('accounts')">Open Accounts</button>
+              <button type="button" class="secondary-btn" onclick="showPage('deposit')">Make Deposit</button>
+              <button type="button" class="ghost-btn" onclick="showPage('reports')">View Reports</button>
             </div>
           </div>
 
-          <div class="snapshot">
+          <div class="card snapshot">
             <div class="snapshot-head">
               <h3 style="margin:0;font-size:1rem;">Portfolio Snapshot</h3>
               <span class="status">Active</span>
             </div>
 
-            <div class="mini-balance">
+            <div class="mini">
               <div class="mini-label">Total Holdings</div>
-              <div class="mini-number" id="dashboardTotalBalance">₹0.00</div>
-              <div class="mini-foot" id="dashboardFootText">No portfolio activity yet.</div>
+              <div class="mini-value" id="dashboardTotal">₹0.00</div>
+              <div class="mini-foot" id="dashboardFoot">No portfolio activity yet.</div>
             </div>
 
             <div class="quick-grid">
               <div class="quick-tile">
                 <div class="kicker">Accounts</div>
-                <div class="big-num" id="quickAccounts">0</div>
+                <div class="big" id="quickAccounts">0</div>
               </div>
               <div class="quick-tile">
                 <div class="kicker">Transactions</div>
-                <div class="big-num" id="quickTransactions">0</div>
+                <div class="big" id="quickTransactions">0</div>
               </div>
               <div class="quick-tile">
                 <div class="kicker">Alerts</div>
-                <div class="big-num" id="quickAlerts">0</div>
+                <div class="big" id="quickAlerts">0</div>
               </div>
             </div>
           </div>
@@ -525,8 +433,8 @@
               <div class="kicker">Total Balance</div>
               <div class="summary-icon">₹</div>
             </div>
-            <div class="big-num" id="summaryBalance">₹0.00</div>
-            <div class="muted">Consolidated balance across all client accounts within the Velora environment.</div>
+            <div class="big" id="sumBalance">₹0.00</div>
+            <div class="muted">Consolidated balance across all client accounts.</div>
           </div>
 
           <div class="summary">
@@ -534,7 +442,7 @@
               <div class="kicker">Client Accounts</div>
               <div class="summary-icon">◎</div>
             </div>
-            <div class="big-num" id="summaryAccounts">0</div>
+            <div class="big" id="sumAccounts">0</div>
             <div class="muted">Active banking profiles currently managed in the system.</div>
           </div>
 
@@ -543,14 +451,14 @@
               <div class="kicker">Low Balance Alerts</div>
               <div class="summary-icon">!</div>
             </div>
-            <div class="big-num" id="summaryAlerts">0</div>
-            <div class="muted">Accounts currently operating below the preferred reserve threshold.</div>
+            <div class="big" id="sumAlerts">0</div>
+            <div class="muted">Accounts below the reserve threshold.</div>
           </div>
         </section>
 
         <section class="content-grid">
-          <div class="panel">
-            <div class="panel-head">
+          <div class="card">
+            <div class="head">
               <div>
                 <h3>Quick Create Account</h3>
                 <p>Create a new banking profile directly from the dashboard.</p>
@@ -564,39 +472,39 @@
               </div>
               <div class="field">
                 <label>Client Name</label>
-                <input id="dashName" type="text" placeholder="e.g. Aarav Shah" />
+                <input id="dashName" type="text" placeholder="e.g. Sasha" />
               </div>
               <div class="field full">
                 <label>Opening Balance</label>
-                <input id="dashBalance" type="number" step="0.01" placeholder="e.g. 25000" />
+                <input id="dashBal" type="number" step="0.01" placeholder="e.g. 25000" />
               </div>
             </div>
 
             <div class="form-actions">
-              <button class="primary-btn" onclick="createAccountFromDashboard()">Create Premium Account</button>
-              <button class="secondary-btn" onclick="clearDashboardCreate()">Clear</button>
+              <button type="button" class="primary-btn" onclick="createFromDashboard()">Create Premium Account</button>
+              <button type="button" class="secondary-btn" onclick="clearDashboardInputs()">Clear</button>
             </div>
 
-            <div class="info-strip">New accounts appear instantly in the accounts table and update dashboard metrics.</div>
+            <div class="info">New accounts appear instantly in the accounts table and update dashboard metrics.</div>
           </div>
 
-          <div class="activity-card">
-            <div class="panel-head">
+          <div class="card">
+            <div class="head">
               <div>
                 <h3>Recent Activity</h3>
                 <p>Latest financial movements across the platform.</p>
               </div>
             </div>
-            <div class="activity-list" id="recentActivityList"></div>
+            <div class="activity-list" id="recentActivity"></div>
           </div>
         </section>
 
-        <section class="output-card">
+        <section class="output">
           <div class="output-head">
             <h3>System Response</h3>
             <div class="output-actions">
-              <button class="secondary-btn" onclick="clearOutput()">Clear</button>
-              <button class="ghost-btn" onclick="refreshAll()">Refresh Insights</button>
+              <button type="button" class="secondary-btn" onclick="clearOutput()">Clear</button>
+              <button type="button" class="ghost-btn" onclick="refreshAll()">Refresh Insights</button>
             </div>
           </div>
           <div class="output-box" id="outputBox">Velora Bank is ready.</div>
@@ -608,8 +516,8 @@
         <p class="section-sub">Create, review, and manage premium client accounts with a structured account registry.</p>
 
         <div class="content-grid">
-          <div class="panel">
-            <div class="panel-head">
+          <div class="card">
+            <div class="head">
               <div>
                 <h3>Create New Account</h3>
                 <p>Register a client account with an account number, name, and opening balance.</p>
@@ -632,13 +540,13 @@
             </div>
 
             <div class="form-actions">
-              <button class="primary-btn" onclick="createAccount()">Create Account</button>
-              <button class="secondary-btn" onclick="clearAccountForm()">Reset Form</button>
+              <button type="button" class="primary-btn" onclick="createAccount()">Create Account</button>
+              <button type="button" class="secondary-btn" onclick="clearAccountInputs()">Reset Form</button>
             </div>
           </div>
 
-          <div class="panel">
-            <div class="panel-head">
+          <div class="card">
+            <div class="head">
               <div>
                 <h3>Account Summary</h3>
                 <p>High-level view of account health and platform spread.</p>
@@ -646,22 +554,22 @@
             </div>
 
             <div class="tabs">
-              <div class="tab-chip active" data-tab="Portfolio">Portfolio</div>
-              <div class="tab-chip" data-tab="Status">Status</div>
-              <div class="tab-chip" data-tab="Monitoring">Monitoring</div>
+              <button type="button" class="tab-btn active" id="tab-portfolio" onclick="setSummaryTab('Portfolio')">Portfolio</button>
+              <button type="button" class="tab-btn" id="tab-status" onclick="setSummaryTab('Status')">Status</button>
+              <button type="button" class="tab-btn" id="tab-monitoring" onclick="setSummaryTab('Monitoring')">Monitoring</button>
             </div>
 
-            <div class="info-strip" id="accountSummaryBox"></div>
+            <div class="info" id="summaryBox"></div>
           </div>
         </div>
 
-        <div class="table-card">
-          <div class="table-head">
+        <div class="table-card card">
+          <div class="head">
             <div>
               <h3>Account Registry</h3>
               <p>All active Velora client accounts currently stored in the system.</p>
             </div>
-            <button class="secondary-btn" onclick="renderAccountsTable()">Refresh Table</button>
+            <button type="button" class="secondary-btn" onclick="renderAccounts()">Refresh Table</button>
           </div>
 
           <div class="table-wrap">
@@ -674,7 +582,7 @@
                   <th>Status</th>
                 </tr>
               </thead>
-              <tbody id="accountsTableBody"></tbody>
+              <tbody id="accountsBody"></tbody>
             </table>
           </div>
         </div>
@@ -685,8 +593,8 @@
         <p class="section-sub">Process incoming funds securely and reflect changes instantly across balances and reports.</p>
 
         <div class="content-grid">
-          <div class="panel">
-            <div class="panel-head">
+          <div class="card">
+            <div class="head">
               <div>
                 <h3>New Deposit</h3>
                 <p>Add funds to a client account.</p>
@@ -705,19 +613,19 @@
             </div>
 
             <div class="form-actions">
-              <button class="primary-btn" onclick="depositMoney()">Process Deposit</button>
-              <button class="secondary-btn" onclick="clearDepositForm()">Clear</button>
+              <button type="button" class="primary-btn" onclick="depositMoney()">Process Deposit</button>
+              <button type="button" class="secondary-btn" onclick="clearDepositInputs()">Clear</button>
             </div>
           </div>
 
-          <div class="panel">
-            <div class="panel-head">
+          <div class="card">
+            <div class="head">
               <div>
                 <h3>Deposit Notes</h3>
                 <p>Operational guidance for premium account funding.</p>
               </div>
             </div>
-            <div class="info-strip">Ensure account number accuracy before processing. Deposits update dashboard activity, transaction logs, and account balances in real time.</div>
+            <div class="info">Ensure account number accuracy before processing. Deposits update dashboard activity, transaction logs, and account balances in real time.</div>
           </div>
         </div>
       </div>
@@ -727,8 +635,8 @@
         <p class="section-sub">Execute withdrawals with overdraft protection and automatic alert monitoring.</p>
 
         <div class="content-grid">
-          <div class="panel">
-            <div class="panel-head">
+          <div class="card">
+            <div class="head">
               <div>
                 <h3>New Withdrawal</h3>
                 <p>Remove funds from a selected client account.</p>
@@ -747,19 +655,19 @@
             </div>
 
             <div class="form-actions">
-              <button class="primary-btn" onclick="withdrawMoney()">Process Withdrawal</button>
-              <button class="secondary-btn" onclick="clearWithdrawForm()">Clear</button>
+              <button type="button" class="primary-btn" onclick="withdrawMoney()">Process Withdrawal</button>
+              <button type="button" class="secondary-btn" onclick="clearWithdrawInputs()">Clear</button>
             </div>
           </div>
 
-          <div class="panel">
-            <div class="panel-head">
+          <div class="card">
+            <div class="head">
               <div>
                 <h3>Risk Control</h3>
                 <p>Velora prevents overdraft on protected accounts.</p>
               </div>
             </div>
-            <div class="info-strip">If a withdrawal exceeds available balance, the system blocks the operation and returns a protected error response.</div>
+            <div class="info">If a withdrawal exceeds available balance, the system blocks the operation and returns a protected error response.</div>
           </div>
         </div>
       </div>
@@ -768,13 +676,13 @@
         <h2 class="section-title">Transactions</h2>
         <p class="section-sub">Review the latest transaction movements recorded within the banking system.</p>
 
-        <div class="table-card">
-          <div class="table-head">
+        <div class="table-card card">
+          <div class="head">
             <div>
               <h3>Transaction History</h3>
               <p>Chronological record of deposits and withdrawals.</p>
             </div>
-            <button class="secondary-btn" onclick="renderTransactionsTable()">Refresh Transactions</button>
+            <button type="button" class="secondary-btn" onclick="renderTransactions()">Refresh Transactions</button>
           </div>
 
           <div class="table-wrap">
@@ -787,7 +695,7 @@
                   <th>Direction</th>
                 </tr>
               </thead>
-              <tbody id="transactionsTableBody"></tbody>
+              <tbody id="transactionsBody"></tbody>
             </table>
           </div>
         </div>
@@ -798,28 +706,28 @@
         <p class="section-sub">Track total funds, balance health, reserve alerts, and premium account performance.</p>
 
         <div class="report-grid">
-          <div class="report-card">
-            <h4 class="kicker">Total Money Held</h4>
-            <div class="big-num" id="reportTotalMoney">₹0.00</div>
+          <div class="card">
+            <div class="kicker">Total Money Held</div>
+            <div class="big" id="reportTotal">₹0.00</div>
             <div class="muted">Aggregate balance across all stored client accounts.</div>
           </div>
 
-          <div class="report-card">
-            <h4 class="kicker">Low Balance Count</h4>
-            <div class="big-num" id="reportLowCount">0</div>
+          <div class="card">
+            <div class="kicker">Low Balance Count</div>
+            <div class="big" id="reportLowCount">0</div>
             <div class="muted">Accounts below the monitoring threshold.</div>
           </div>
 
-          <div class="report-card">
-            <h4 class="kicker">Transactions Logged</h4>
-            <div class="big-num" id="reportTxnCount">0</div>
+          <div class="card">
+            <div class="kicker">Transactions Logged</div>
+            <div class="big" id="reportTxnCount">0</div>
             <div class="muted">Total recorded deposits and withdrawals.</div>
           </div>
         </div>
 
         <div class="content-grid">
-          <div class="panel">
-            <div class="panel-head">
+          <div class="card">
+            <div class="head">
               <div>
                 <h3>Run Reports</h3>
                 <p>Generate quick balance and alert outputs.</p>
@@ -834,19 +742,19 @@
             </div>
 
             <div class="form-actions">
-              <button class="primary-btn" onclick="runTotalMoneyReport()">Run Total Money Report</button>
-              <button class="secondary-btn" onclick="runLowBalanceReport()">Run Low Balance Report</button>
+              <button type="button" class="primary-btn" onclick="runTotalMoneyReport()">Run Total Money Report</button>
+              <button type="button" class="secondary-btn" onclick="runLowBalanceReport()">Run Low Balance Report</button>
             </div>
           </div>
 
-          <div class="panel">
-            <div class="panel-head">
+          <div class="card">
+            <div class="head">
               <div>
                 <h3>Insight Summary</h3>
                 <p>Current operational position of the platform.</p>
               </div>
             </div>
-            <div class="info-strip" id="reportInsightText"></div>
+            <div class="info" id="reportInsight"></div>
           </div>
         </div>
       </div>
@@ -854,446 +762,370 @@
   </div>
 
   <script>
-const STORAGE_KEY = "velora_bank_state_v3";
+    const STORAGE_KEY = "velora_bank_final_working_v1";
 
-const state = {
-  accounts: [],
-  transactions: [],
-  lowBalanceThreshold: 1000,
-  activeSummaryTab: "Portfolio"
-};
+    const state = {
+      accounts: [],
+      transactions: [],
+      lowBalanceThreshold: 1000,
+      summaryTab: "Portfolio"
+    };
 
-function saveState() {
-  localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
-}
+    function saveState() {
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
+    }
 
-function loadState() {
-  const raw = localStorage.getItem(STORAGE_KEY);
-  if (!raw) return;
+    function loadState() {
+      const raw = localStorage.getItem(STORAGE_KEY);
+      if (!raw) return;
+      try {
+        const data = JSON.parse(raw);
+        state.accounts = Array.isArray(data.accounts) ? data.accounts : [];
+        state.transactions = Array.isArray(data.transactions) ? data.transactions : [];
+        state.lowBalanceThreshold = typeof data.lowBalanceThreshold === "number" ? data.lowBalanceThreshold : 1000;
+        state.summaryTab = data.summaryTab || "Portfolio";
+      } catch (e) {}
+    }
 
-  try {
-    const parsed = JSON.parse(raw);
-    state.accounts = Array.isArray(parsed.accounts) ? parsed.accounts : [];
-    state.transactions = Array.isArray(parsed.transactions) ? parsed.transactions : [];
-    state.lowBalanceThreshold =
-      typeof parsed.lowBalanceThreshold === "number" ? parsed.lowBalanceThreshold : 1000;
-    state.activeSummaryTab = parsed.activeSummaryTab || "Portfolio";
-  } catch (e) {
-    console.error("Load state failed:", e);
-  }
-}
+    function formatMoney(v) {
+      const n = Number(v) || 0;
+      return "₹" + n.toFixed(2);
+    }
 
-function formatMoney(value) {
-  const num = Number(value) || 0;
-  return "₹" + num.toFixed(2);
-}
+    function output(text) {
+      document.getElementById("outputBox").textContent = text;
+    }
 
-function setOutput(text) {
-  const box = document.getElementById("outputBox");
-  if (box) box.textContent = text;
-}
+    function clearOutput() {
+      output("Output cleared.");
+    }
 
-function clearOutput() {
-  setOutput("Output cleared.");
-}
+    function showPage(name) {
+      document.querySelectorAll(".page").forEach(p => p.classList.remove("active"));
+      const page = document.getElementById(name + "-page");
+      if (page) page.classList.add("active");
 
-function goToPage(pageName) {
-  document.querySelectorAll(".page").forEach(page => page.classList.remove("active"));
-  const page = document.getElementById(pageName + "-page");
-  if (page) page.classList.add("active");
+      document.querySelectorAll(".nav-btn").forEach(btn => btn.classList.remove("active"));
+      const navs = document.querySelectorAll(".nav-btn");
+      navs.forEach(btn => {
+        if (btn.textContent.trim().toLowerCase() === name) btn.classList.add("active");
+      });
+    }
 
-  document.querySelectorAll(".nav-btn").forEach(btn => btn.classList.remove("active"));
-  const activeBtn = document.querySelector(`.nav-btn[data-page="${pageName}"]`);
-  if (activeBtn) activeBtn.classList.add("active");
-}
+    function setSummaryTab(name) {
+      state.summaryTab = name;
+      document.getElementById("tab-portfolio").classList.toggle("active", name === "Portfolio");
+      document.getElementById("tab-status").classList.toggle("active", name === "Status");
+      document.getElementById("tab-monitoring").classList.toggle("active", name === "Monitoring");
+      renderSummaryBox();
+      saveState();
+    }
 
-function bindSidebarNavigation() {
-  document.querySelectorAll(".nav-btn").forEach(button => {
-    button.addEventListener("click", () => goToPage(button.dataset.page));
-  });
-}
+    function renderSummaryBox() {
+      const total = state.accounts.reduce((s,a)=>s+a.balance,0);
+      const count = state.accounts.length;
+      const low = state.accounts.filter(a=>a.balance < state.lowBalanceThreshold).length;
+      const highest = count ? Math.max(...state.accounts.map(a=>a.balance)) : 0;
+      const avg = count ? total / count : 0;
+      const box = document.getElementById("summaryBox");
 
-function updateSummaryTab() {
-  const totalBalance = state.accounts.reduce((sum, acc) => sum + acc.balance, 0);
-  const totalAccounts = state.accounts.length;
-  const lowCount = state.accounts.filter(acc => acc.balance < state.lowBalanceThreshold).length;
-  const highest = totalAccounts ? Math.max(...state.accounts.map(acc => acc.balance)) : 0;
-  const average = totalAccounts ? totalBalance / totalAccounts : 0;
+      if (state.summaryTab === "Portfolio") {
+        box.innerHTML = `
+          <strong>Total Accounts:</strong> ${count}<br />
+          <strong>Low Balance Profiles:</strong> ${low}<br />
+          <strong>Highest Balance:</strong> ${formatMoney(highest)}<br />
+          <strong>Average Balance:</strong> ${formatMoney(avg)}
+        `;
+      } else if (state.summaryTab === "Status") {
+        box.innerHTML = `
+          <strong>Healthy Accounts:</strong> ${count - low}<br />
+          <strong>Low Balance Accounts:</strong> ${low}<br />
+          <strong>Total Transactions:</strong> ${state.transactions.length}<br />
+          <strong>Overall Portfolio:</strong> ${formatMoney(total)}
+        `;
+      } else {
+        box.innerHTML = `
+          <strong>Monitoring Threshold:</strong> ${formatMoney(state.lowBalanceThreshold)}<br />
+          <strong>Latest Transaction Count:</strong> ${state.transactions.length}<br />
+          <strong>Registry Status:</strong> ${count === 0 ? "No Accounts Yet" : "Active"}<br />
+          <strong>System State:</strong> Live and Synced
+        `;
+      }
+    }
 
-  const box = document.getElementById("accountSummaryBox");
-  if (!box) return;
+    function updateMetrics() {
+      const total = state.accounts.reduce((s,a)=>s+a.balance,0);
+      const count = state.accounts.length;
+      const low = state.accounts.filter(a=>a.balance < state.lowBalanceThreshold).length;
+      const tx = state.transactions.length;
 
-  if (state.activeSummaryTab === "Portfolio") {
-    box.innerHTML = `
-      <strong>Total Accounts:</strong> ${totalAccounts}<br />
-      <strong>Low Balance Profiles:</strong> ${lowCount}<br />
-      <strong>Highest Balance:</strong> ${formatMoney(highest)}<br />
-      <strong>Average Balance:</strong> ${formatMoney(average)}
-    `;
-  } else if (state.activeSummaryTab === "Status") {
-    box.innerHTML = `
-      <strong>Healthy Accounts:</strong> ${totalAccounts - lowCount}<br />
-      <strong>Low Balance Accounts:</strong> ${lowCount}<br />
-      <strong>Total Transactions:</strong> ${state.transactions.length}<br />
-      <strong>Overall Portfolio:</strong> ${formatMoney(totalBalance)}
-    `;
-  } else {
-    box.innerHTML = `
-      <strong>Monitoring Threshold:</strong> ${formatMoney(state.lowBalanceThreshold)}<br />
-      <strong>Latest Transaction Count:</strong> ${state.transactions.length}<br />
-      <strong>Registry Status:</strong> ${totalAccounts === 0 ? "No Accounts Yet" : "Active"}<br />
-      <strong>System State:</strong> Live and Synced
-    `;
-  }
+      document.getElementById("dashboardTotal").textContent = formatMoney(total);
+      document.getElementById("sumBalance").textContent = formatMoney(total);
+      document.getElementById("sumAccounts").textContent = count;
+      document.getElementById("sumAlerts").textContent = low;
+      document.getElementById("quickAccounts").textContent = count;
+      document.getElementById("quickTransactions").textContent = tx;
+      document.getElementById("quickAlerts").textContent = low;
+      document.getElementById("reportTotal").textContent = formatMoney(total);
+      document.getElementById("reportLowCount").textContent = low;
+      document.getElementById("reportTxnCount").textContent = tx;
+      document.getElementById("dashboardFoot").textContent =
+        count === 0 ? "No portfolio activity yet." : `${count} active account${count===1?"":"s"} under management.`;
+      document.getElementById("reportInsight").textContent =
+        count === 0
+          ? "No report insights available yet. Create accounts and process transactions to unlock summary intelligence."
+          : `Velora currently manages ${count} account(s) with ${formatMoney(total)} in total holdings and ${low} low-balance alert(s).`;
 
-  document.querySelectorAll(".tab-chip").forEach(tab => {
-    tab.classList.toggle("active", tab.dataset.tab === state.activeSummaryTab);
-  });
+      renderSummaryBox();
+      saveState();
+    }
 
-  saveState();
-}
+    function renderRecentActivity() {
+      const list = document.getElementById("recentActivity");
+      if (state.transactions.length === 0) {
+        list.innerHTML = `
+          <div class="activity-item">
+            <div class="activity-icon">↗</div>
+            <div class="activity-main">
+              <div class="activity-title">No activity yet</div>
+              <div class="activity-sub">Create an account or process a transaction to begin.</div>
+            </div>
+            <div class="activity-amount plus">—</div>
+          </div>
+        `;
+        return;
+      }
 
-function bindSummaryTabs() {
-  document.querySelectorAll(".tab-chip").forEach(tab => {
-    tab.addEventListener("click", () => {
-      state.activeSummaryTab = tab.dataset.tab;
-      updateSummaryTab();
-    });
-  });
-}
-
-function updateDashboardMetrics() {
-  const totalBalance = state.accounts.reduce((sum, acc) => sum + acc.balance, 0);
-  const totalAccounts = state.accounts.length;
-  const lowCount = state.accounts.filter(acc => acc.balance < state.lowBalanceThreshold).length;
-  const txnCount = state.transactions.length;
-
-  const ids = {
-    dashboardTotalBalance: formatMoney(totalBalance),
-    summaryBalance: formatMoney(totalBalance),
-    summaryAccounts: totalAccounts,
-    summaryAlerts: lowCount,
-    quickAccounts: totalAccounts,
-    quickTransactions: txnCount,
-    quickAlerts: lowCount,
-    reportTotalMoney: formatMoney(totalBalance),
-    reportLowCount: lowCount,
-    reportTxnCount: txnCount
-  };
-
-  Object.entries(ids).forEach(([id, value]) => {
-    const el = document.getElementById(id);
-    if (el) el.textContent = value;
-  });
-
-  const foot = document.getElementById("dashboardFootText");
-  if (foot) {
-    foot.textContent =
-      totalAccounts === 0
-        ? "No portfolio activity yet."
-        : `${totalAccounts} active account${totalAccounts === 1 ? "" : "s"} under management.`;
-  }
-
-  const insight = document.getElementById("reportInsightText");
-  if (insight) {
-    insight.textContent =
-      totalAccounts === 0
-        ? "No report insights available yet. Create accounts and process transactions to unlock summary intelligence."
-        : `Velora currently manages ${totalAccounts} account(s) with ${formatMoney(totalBalance)} in total holdings and ${lowCount} low-balance alert(s).`;
-  }
-
-  updateSummaryTab();
-  saveState();
-}
-
-function renderRecentActivity() {
-  const list = document.getElementById("recentActivityList");
-  if (!list) return;
-
-  if (state.transactions.length === 0) {
-    list.innerHTML = `
-      <div class="activity-item">
-        <div class="activity-icon">↗</div>
-        <div class="activity-main">
-          <div class="activity-title">No activity yet</div>
-          <div class="activity-sub">Create an account or process a transaction to begin.</div>
+      const recent = [...state.transactions].slice(-5).reverse();
+      list.innerHTML = recent.map(t => `
+        <div class="activity-item">
+          <div class="activity-icon">${t.type === "Deposit" ? "↗" : "↘"}</div>
+          <div class="activity-main">
+            <div class="activity-title">${t.type} processed</div>
+            <div class="activity-sub">Account ${t.accNo}</div>
+          </div>
+          <div class="activity-amount ${t.type === "Deposit" ? "plus" : "minus"}">
+            ${t.type === "Deposit" ? "+" : "-"}${formatMoney(t.amount)}
+          </div>
         </div>
-        <div class="activity-amount amount-positive">—</div>
-      </div>
-    `;
-    return;
-  }
+      `).join("");
+    }
 
-  const recent = [...state.transactions].slice(-5).reverse();
-  list.innerHTML = recent.map(txn => {
-    const positive = txn.type === "Deposit";
-    return `
-      <div class="activity-item">
-        <div class="activity-icon">${positive ? "↗" : "↘"}</div>
-        <div class="activity-main">
-          <div class="activity-title">${txn.type} processed</div>
-          <div class="activity-sub">Account ${txn.accNo}</div>
-        </div>
-        <div class="activity-amount ${positive ? "amount-positive" : "amount-negative"}">
-          ${positive ? "+" : "-"}${formatMoney(txn.amount)}
-        </div>
-      </div>
-    `;
-  }).join("");
-}
+    function renderAccounts() {
+      const body = document.getElementById("accountsBody");
+      if (state.accounts.length === 0) {
+        body.innerHTML = `<tr><td colspan="4">No accounts available.</td></tr>`;
+        return;
+      }
 
-function renderAccountsTable() {
-  const body = document.getElementById("accountsTableBody");
-  if (!body) return;
+      body.innerHTML = state.accounts.map(a => `
+        <tr>
+          <td>${a.accNo}</td>
+          <td>${a.name}</td>
+          <td>${formatMoney(a.balance)}</td>
+          <td><span class="pill ${a.balance < state.lowBalanceThreshold ? "pill-bad" : "pill-ok"}">${a.balance < state.lowBalanceThreshold ? "Low Balance" : "Healthy"}</span></td>
+        </tr>
+      `).join("");
+    }
 
-  if (state.accounts.length === 0) {
-    body.innerHTML = `<tr><td colspan="4">No accounts available.</td></tr>`;
-    return;
-  }
+    function renderTransactions() {
+      const body = document.getElementById("transactionsBody");
+      if (state.transactions.length === 0) {
+        body.innerHTML = `<tr><td colspan="4">No transactions available.</td></tr>`;
+        return;
+      }
 
-  body.innerHTML = state.accounts.map(acc => {
-    const low = acc.balance < state.lowBalanceThreshold;
-    return `
-      <tr>
-        <td>${acc.accNo}</td>
-        <td>${acc.name}</td>
-        <td>${formatMoney(acc.balance)}</td>
-        <td>
-          <span class="pill ${low ? "pill-alert" : "pill-active"}">
-            ${low ? "Low Balance" : "Healthy"}
-          </span>
-        </td>
-      </tr>
-    `;
-  }).join("");
-}
+      body.innerHTML = [...state.transactions].reverse().map(t => `
+        <tr>
+          <td>${t.type}</td>
+          <td>${t.accNo}</td>
+          <td>${formatMoney(t.amount)}</td>
+          <td><span class="pill ${t.type === "Deposit" ? "pill-ok" : "pill-bad"}">${t.type === "Deposit" ? "Credit" : "Debit"}</span></td>
+        </tr>
+      `).join("");
+    }
 
-function renderTransactionsTable() {
-  const body = document.getElementById("transactionsTableBody");
-  if (!body) return;
+    function refreshAll() {
+      updateMetrics();
+      renderAccounts();
+      renderTransactions();
+      renderRecentActivity();
+      output("Insights refreshed.");
+    }
 
-  if (state.transactions.length === 0) {
-    body.innerHTML = `<tr><td colspan="4">No transactions available.</td></tr>`;
-    return;
-  }
+    function clearDashboardInputs() {
+      document.getElementById("dashAccNo").value = "";
+      document.getElementById("dashName").value = "";
+      document.getElementById("dashBal").value = "";
+      output("Dashboard create form cleared.");
+    }
 
-  body.innerHTML = [...state.transactions].reverse().map(txn => `
-    <tr>
-      <td>${txn.type}</td>
-      <td>${txn.accNo}</td>
-      <td>${formatMoney(txn.amount)}</td>
-      <td>
-        <span class="pill ${txn.type === "Deposit" ? "pill-active" : "pill-alert"}">
-          ${txn.type === "Deposit" ? "Credit" : "Debit"}
-        </span>
-      </td>
-    </tr>
-  `).join("");
-}
+    function clearAccountInputs() {
+      document.getElementById("createAccNo").value = "";
+      document.getElementById("createName").value = "";
+      document.getElementById("createBalance").value = "";
+      output("Account form cleared.");
+    }
 
-function refreshAll() {
-  updateDashboardMetrics();
-  renderAccountsTable();
-  renderTransactionsTable();
-  renderRecentActivity();
-  setOutput("Insights refreshed.");
-}
+    function clearDepositInputs() {
+      document.getElementById("depositAccNo").value = "";
+      document.getElementById("depositAmount").value = "";
+      output("Deposit form cleared.");
+    }
 
-function clearDashboardCreate() {
-  document.getElementById("dashAccNo").value = "";
-  document.getElementById("dashName").value = "";
-  document.getElementById("dashBalance").value = "";
-  setOutput("Dashboard create form cleared.");
-}
+    function clearWithdrawInputs() {
+      document.getElementById("withdrawAccNo").value = "";
+      document.getElementById("withdrawAmount").value = "";
+      output("Withdrawal form cleared.");
+    }
 
-function clearAccountForm() {
-  document.getElementById("createAccNo").value = "";
-  document.getElementById("createName").value = "";
-  document.getElementById("createBalance").value = "";
-  setOutput("Account form cleared.");
-}
+    function createFromDashboard() {
+      document.getElementById("createAccNo").value = document.getElementById("dashAccNo").value;
+      document.getElementById("createName").value = document.getElementById("dashName").value;
+      document.getElementById("createBalance").value = document.getElementById("dashBal").value;
+      showPage("accounts");
+      createAccount();
+    }
 
-function clearDepositForm() {
-  document.getElementById("depositAccNo").value = "";
-  document.getElementById("depositAmount").value = "";
-  setOutput("Deposit form cleared.");
-}
+    function createAccount() {
+      const accNo = parseInt(document.getElementById("createAccNo").value);
+      const name = document.getElementById("createName").value.trim();
+      const balance = parseFloat(document.getElementById("createBalance").value);
 
-function clearWithdrawForm() {
-  document.getElementById("withdrawAccNo").value = "";
-  document.getElementById("withdrawAmount").value = "";
-  setOutput("Withdrawal form cleared.");
-}
+      if (!accNo || !name || isNaN(balance)) {
+        output("Please fill all account fields correctly.");
+        return;
+      }
+      if (balance < 0) {
+        output("Initial balance cannot be negative.");
+        return;
+      }
+      if (state.accounts.find(a => a.accNo === accNo)) {
+        output("Account number already exists.");
+        return;
+      }
 
-function createAccountFromDashboard() {
-  document.getElementById("createAccNo").value = document.getElementById("dashAccNo").value;
-  document.getElementById("createName").value = document.getElementById("dashName").value;
-  document.getElementById("createBalance").value = document.getElementById("dashBalance").value;
-  goToPage("accounts");
-  createAccount();
-}
+      state.accounts.push({ accNo, name, balance });
+      updateMetrics();
+      renderAccounts();
+      renderRecentActivity();
+      clearAccountInputs();
+      clearDashboardInputs();
 
-function createAccount() {
-  const accNo = parseInt(document.getElementById("createAccNo").value);
-  const name = document.getElementById("createName").value.trim();
-  const balance = parseFloat(document.getElementById("createBalance").value);
-
-  if (!accNo || !name || isNaN(balance)) {
-    setOutput("Please fill all account fields correctly.");
-    return;
-  }
-
-  if (balance < 0) {
-    setOutput("Initial balance cannot be negative.");
-    return;
-  }
-
-  if (state.accounts.find(acc => acc.accNo === accNo)) {
-    setOutput("Account number already exists.");
-    return;
-  }
-
-  state.accounts.push({ accNo, name, balance });
-
-  updateDashboardMetrics();
-  renderAccountsTable();
-  renderRecentActivity();
-  clearAccountForm();
-  clearDashboardCreate();
-
-  setOutput(
-`Account created successfully.
+      output(`Account created successfully.
 Account No: ${accNo}
 Client Name: ${name}
-Opening Balance: ${formatMoney(balance)}`
-  );
-}
+Opening Balance: ${formatMoney(balance)}`);
+    }
 
-function depositMoney() {
-  const accNo = parseInt(document.getElementById("depositAccNo").value);
-  const amount = parseFloat(document.getElementById("depositAmount").value);
+    function depositMoney() {
+      const accNo = parseInt(document.getElementById("depositAccNo").value);
+      const amount = parseFloat(document.getElementById("depositAmount").value);
 
-  if (!accNo || isNaN(amount) || amount <= 0) {
-    setOutput("Please enter a valid account number and deposit amount.");
-    return;
-  }
+      if (!accNo || isNaN(amount) || amount <= 0) {
+        output("Please enter a valid account number and deposit amount.");
+        return;
+      }
 
-  const account = state.accounts.find(acc => acc.accNo === accNo);
-  if (!account) {
-    setOutput("Account not found.");
-    return;
-  }
+      const account = state.accounts.find(a => a.accNo === accNo);
+      if (!account) {
+        output("Account not found.");
+        return;
+      }
 
-  account.balance += amount;
-  state.transactions.push({ type: "Deposit", accNo, amount });
+      account.balance += amount;
+      state.transactions.push({ type: "Deposit", accNo, amount });
+      updateMetrics();
+      renderAccounts();
+      renderTransactions();
+      renderRecentActivity();
+      clearDepositInputs();
 
-  updateDashboardMetrics();
-  renderAccountsTable();
-  renderTransactionsTable();
-  renderRecentActivity();
-  clearDepositForm();
-
-  setOutput(
-`Deposit successful.
+      output(`Deposit successful.
 Account No: ${accNo}
 Deposited Amount: ${formatMoney(amount)}
-Updated Balance: ${formatMoney(account.balance)}`
-  );
-}
+Updated Balance: ${formatMoney(account.balance)}`);
+    }
 
-function withdrawMoney() {
-  const accNo = parseInt(document.getElementById("withdrawAccNo").value);
-  const amount = parseFloat(document.getElementById("withdrawAmount").value);
+    function withdrawMoney() {
+      const accNo = parseInt(document.getElementById("withdrawAccNo").value);
+      const amount = parseFloat(document.getElementById("withdrawAmount").value);
 
-  if (!accNo || isNaN(amount) || amount <= 0) {
-    setOutput("Please enter a valid account number and withdrawal amount.");
-    return;
-  }
+      if (!accNo || isNaN(amount) || amount <= 0) {
+        output("Please enter a valid account number and withdrawal amount.");
+        return;
+      }
 
-  const account = state.accounts.find(acc => acc.accNo === accNo);
-  if (!account) {
-    setOutput("Account not found.");
-    return;
-  }
+      const account = state.accounts.find(a => a.accNo === accNo);
+      if (!account) {
+        output("Account not found.");
+        return;
+      }
 
-  if (account.balance < amount) {
-    setOutput("Insufficient balance. Overdraft not allowed.");
-    return;
-  }
+      if (account.balance < amount) {
+        output("Insufficient balance. Overdraft not allowed.");
+        return;
+      }
 
-  account.balance -= amount;
-  state.transactions.push({ type: "Withdraw", accNo, amount });
+      account.balance -= amount;
+      state.transactions.push({ type: "Withdraw", accNo, amount });
+      updateMetrics();
+      renderAccounts();
+      renderTransactions();
+      renderRecentActivity();
+      clearWithdrawInputs();
 
-  updateDashboardMetrics();
-  renderAccountsTable();
-  renderTransactionsTable();
-  renderRecentActivity();
-  clearWithdrawForm();
-
-  setOutput(
-`Withdrawal successful.
+      output(`Withdrawal successful.
 Account No: ${accNo}
 Withdrawal Amount: ${formatMoney(amount)}
-Updated Balance: ${formatMoney(account.balance)}`
-  );
-}
+Updated Balance: ${formatMoney(account.balance)}`);
+    }
 
-function runTotalMoneyReport() {
-  const totalBalance = state.accounts.reduce((sum, acc) => sum + acc.balance, 0);
-
-  updateDashboardMetrics();
-
-  setOutput(
-`Total Money Report
+    function runTotalMoneyReport() {
+      const total = state.accounts.reduce((s,a)=>s+a.balance,0);
+      updateMetrics();
+      output(`Total Money Report
 -------------------------
 Total Accounts: ${state.accounts.length}
-Total Money Held Across All Accounts: ${formatMoney(totalBalance)}`
-  );
-}
+Total Money Held Across All Accounts: ${formatMoney(total)}`);
+    }
 
-function runLowBalanceReport() {
-  const thresholdInput = parseFloat(document.getElementById("thresholdValue").value);
+    function runLowBalanceReport() {
+      const t = parseFloat(document.getElementById("thresholdValue").value);
+      if (!isNaN(t)) state.lowBalanceThreshold = t;
 
-  if (!isNaN(thresholdInput)) {
-    state.lowBalanceThreshold = thresholdInput;
-  }
+      if (isNaN(state.lowBalanceThreshold) || state.lowBalanceThreshold < 0) {
+        output("Invalid threshold amount.");
+        return;
+      }
 
-  if (isNaN(state.lowBalanceThreshold) || state.lowBalanceThreshold < 0) {
-    setOutput("Invalid threshold amount.");
-    return;
-  }
+      const low = state.accounts.filter(a => a.balance < state.lowBalanceThreshold);
+      updateMetrics();
+      renderAccounts();
 
-  const low = state.accounts.filter(acc => acc.balance < state.lowBalanceThreshold);
+      if (low.length === 0) {
+        output("No accounts found below threshold.");
+        return;
+      }
 
-  updateDashboardMetrics();
-  renderAccountsTable();
-
-  if (low.length === 0) {
-    setOutput("No accounts found below threshold.");
-    return;
-  }
-
-  let out =
-`Low Balance Report
+      let txt = `Low Balance Report
 Threshold: ${formatMoney(state.lowBalanceThreshold)}
 -------------------------
 `;
-
-  low.forEach(acc => {
-    out += `Acc No: ${acc.accNo} | Name: ${acc.name} | Balance: ${formatMoney(acc.balance)}
+      low.forEach(a => {
+        txt += `Acc No: ${a.accNo} | Name: ${a.name} | Balance: ${formatMoney(a.balance)}
 `;
-  });
+      });
+      output(txt.trim());
+    }
 
-  setOutput(out.trim());
-}
-
-loadState();
-bindSidebarNavigation();
-bindSummaryTabs();
-updateDashboardMetrics();
-renderAccountsTable();
-renderTransactionsTable();
-renderRecentActivity();
-updateSummaryTab();
-setOutput("Velora Bank is ready.");
-</script>
+    loadState();
+    updateMetrics();
+    renderAccounts();
+    renderTransactions();
+    renderRecentActivity();
+    setSummaryTab(state.summaryTab || "Portfolio");
+    output("Velora Bank is ready.");
+  </script>
+</body>
+</html>
