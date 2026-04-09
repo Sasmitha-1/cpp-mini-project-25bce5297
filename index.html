@@ -9,32 +9,48 @@
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
   <style>
     :root{
-      --bg:#09080c;
-      --bg2:#141017;
-      --panel:#17131b;
-      --panel2:#211923;
-      --panel3:#2a202c;
+      --bg:#0A090D;
+      --bg2:#130F16;
+      --panel:#19141D;
+      --panel2:#241C27;
+      --panel3:#2D2431;
+
       --line:rgba(255,255,255,.07);
       --line2:rgba(255,255,255,.12);
-      --text:#f4eef4;
-      --muted:#b8acbb;
-      --muted2:#877d8c;
-      --burg:#871b35;
-      --burg2:#a61f42;
-      --burg3:#c7345b;
-      --rose:#ebc0cc;
-      --ok:#35b57c;
-      --err:#de6176;
-      --blue:#6ea0ff;
-      --gold:#c4a46d;
-      --cream:#f4ecd9;
-      --cream2:#efe4cf;
-      --ink:#2e241f;
+
+      --text:#F4EEF4;
+      --muted:#B8ACBB;
+      --muted2:#887B8A;
+
+      --burg:#5E1626;
+      --burg2:#7A1D31;
+      --burg3:#9B2944;
+      --rose:#E6BCC8;
+
+      --green:#6F927A;
+      --green-dim:rgba(111,146,122,.12);
+      --green-mid:rgba(111,146,122,.22);
+
+      --err:#D8647A;
+      --err-dim:rgba(216,100,122,.12);
+      --err-mid:rgba(216,100,122,.22);
+
+      --blue:#6E8FD8;
+      --blue-dim:rgba(110,143,216,.12);
+      --blue-mid:rgba(110,143,216,.22);
+
+      --cream:#F7EFDF;
+      --cream2:#EEE2C9;
+      --ink:#2D241D;
+
+      --silver:#C8CDD6;
+
       --shadow:0 28px 80px rgba(0,0,0,.48);
       --radius-xl:28px;
       --radius-lg:22px;
       --radius-md:16px;
       --radius-sm:12px;
+
       --sans:'Inter',sans-serif;
       --vintage:'Cormorant Garamond',serif;
     }
@@ -45,12 +61,12 @@
       margin:0;
       padding:0;
       height:100%;
-      font-family:var(--sans);
-      color:var(--text);
       background:
-        radial-gradient(circle at top left, rgba(166,31,66,.20), transparent 26%),
-        radial-gradient(circle at top right, rgba(199,52,91,.12), transparent 24%),
-        linear-gradient(135deg,var(--bg) 0%, #0f0c12 45%, var(--bg2) 100%);
+        radial-gradient(circle at top left, rgba(122,29,49,.18), transparent 25%),
+        radial-gradient(circle at top right, rgba(155,41,68,.10), transparent 22%),
+        linear-gradient(135deg,var(--bg),var(--bg2));
+      color:var(--text);
+      font-family:var(--sans);
       overflow:hidden;
     }
 
@@ -63,8 +79,8 @@
         linear-gradient(rgba(255,255,255,.02) 1px, transparent 1px),
         linear-gradient(90deg, rgba(255,255,255,.02) 1px, transparent 1px);
       background-size:34px 34px;
-      opacity:.16;
-      mask-image:linear-gradient(to bottom, rgba(0,0,0,.95), rgba(0,0,0,.25));
+      opacity:.14;
+      mask-image:linear-gradient(to bottom, rgba(0,0,0,.95), rgba(0,0,0,.20));
     }
 
     .app{
@@ -73,19 +89,23 @@
       display:grid;
       grid-template-columns:290px 1fr;
       height:100vh;
+      min-height:0;
+      overflow:hidden;
     }
 
     .sidebar{
-      background:linear-gradient(180deg, rgba(15,12,18,.98), rgba(10,8,12,.98));
+      background:linear-gradient(180deg, rgba(16,12,18,.98), rgba(10,8,12,.98));
       border-right:1px solid var(--line);
-      padding:20px 16px;
       display:flex;
       flex-direction:column;
+      padding:18px 16px;
       gap:18px;
+      min-height:0;
+      overflow:hidden;
     }
 
     .glass{
-      background:linear-gradient(180deg, rgba(24,19,28,.96), rgba(16,13,19,.98));
+      background:linear-gradient(180deg, rgba(25,20,29,.97), rgba(18,14,22,.98));
       border:1px solid var(--line);
       border-radius:22px;
       box-shadow:var(--shadow);
@@ -93,7 +113,7 @@
 
     .brand{
       padding:18px;
-      background:linear-gradient(145deg, rgba(166,31,66,.18), rgba(24,19,28,.96));
+      background:linear-gradient(145deg, rgba(94,22,38,.22), rgba(25,20,29,.97));
     }
 
     .brand-row{
@@ -104,23 +124,29 @@
     }
 
     .brand-icon{
-      width:54px;
-      height:54px;
+      width:56px;
+      height:56px;
       border-radius:18px;
       display:grid;
       place-items:center;
-      background:linear-gradient(145deg, var(--burg2), var(--burg3));
+      background:linear-gradient(145deg, rgba(122,29,49,.75), rgba(65,18,29,.95));
       border:1px solid rgba(255,255,255,.10);
-      font-family:var(--vintage);
-      font-size:24px;
-      color:#fff7f8;
-      box-shadow:0 10px 24px rgba(166,31,66,.28);
+      box-shadow:0 12px 28px rgba(94,22,38,.30), 0 0 18px rgba(155,41,68,.14);
+      position:relative;
+    }
+
+    .brand-icon::before{
+      content:"◆";
+      color:var(--silver);
+      font-size:22px;
+      line-height:1;
+      text-shadow:0 0 12px rgba(200,205,214,.18);
     }
 
     .brand h1{
       margin:0;
       font-family:var(--vintage);
-      font-size:1.7rem;
+      font-size:1.8rem;
       font-weight:700;
       letter-spacing:.01em;
     }
@@ -139,7 +165,7 @@
       border-radius:999px;
       background:rgba(255,255,255,.05);
       border:1px solid rgba(255,255,255,.07);
-      color:#f1d8df;
+      color:#ead8dd;
       font-size:.78rem;
     }
 
@@ -148,21 +174,22 @@
       width:6px;
       height:6px;
       border-radius:50%;
-      background:var(--ok);
-      display:block;
-      box-shadow:0 0 12px rgba(53,181,124,.55);
+      background:var(--green);
+      box-shadow:0 0 10px rgba(111,146,122,.25);
     }
 
     .nav-box{
       padding:10px;
+      overflow:auto;
+      min-height:0;
     }
 
     .nav-title{
       margin:8px 10px 12px;
-      font-size:.72rem;
-      letter-spacing:.16em;
-      text-transform:uppercase;
       color:var(--muted2);
+      font-size:.72rem;
+      text-transform:uppercase;
+      letter-spacing:.16em;
       font-weight:700;
     }
 
@@ -180,9 +207,9 @@
       font-family:var(--sans);
       font-size:.95rem;
       font-weight:600;
+      text-align:left;
       cursor:pointer;
       transition:.18s ease;
-      text-align:left;
     }
 
     .nav-btn:hover{
@@ -193,29 +220,31 @@
 
     .nav-btn.active{
       color:#fff;
-      background:linear-gradient(135deg, rgba(166,31,66,.34), rgba(135,27,53,.18));
-      border:1px solid rgba(199,52,91,.26);
+      background:linear-gradient(135deg, rgba(94,22,38,.34), rgba(122,29,49,.18));
+      border:1px solid rgba(155,41,68,.24);
+      box-shadow:0 0 14px rgba(155,41,68,.08);
     }
 
-    .nav-dot{
-      width:10px;
-      height:10px;
-      border-radius:50%;
-      background:linear-gradient(135deg, var(--burg3), var(--rose));
-      box-shadow:0 0 10px rgba(199,52,91,.36);
+    .nav-icon{
+      width:16px;
+      height:16px;
       flex-shrink:0;
+      stroke:currentColor;
+      opacity:.92;
+      filter:drop-shadow(0 0 6px rgba(255,255,255,.06));
     }
 
     .notice{
       margin-top:auto;
       padding:14px;
+      flex-shrink:0;
     }
 
     .notice h4{
       margin:0 0 8px;
       font-family:var(--vintage);
-      font-size:1.15rem;
-      color:#fff3ef;
+      font-size:1.2rem;
+      color:#fff2ef;
     }
 
     .notice p{
@@ -226,26 +255,49 @@
     }
 
     .main{
-      padding:22px;
-      overflow:auto;
+      min-height:0;
+      overflow:hidden;
+      display:flex;
+      flex-direction:column;
     }
 
-    .page{display:none}
-    .page.active{display:block}
+    .pages{
+      flex:1;
+      min-height:0;
+      overflow-y:auto;
+      overflow-x:hidden;
+      padding:22px;
+      scrollbar-width:thin;
+    }
+
+    .page{
+      display:none;
+      padding-bottom:84px;
+    }
+
+    .page.active{
+      display:block;
+      animation:fadeUp .18s ease;
+    }
+
+    @keyframes fadeUp{
+      from{opacity:0;transform:translateY(6px)}
+      to{opacity:1;transform:translateY(0)}
+    }
 
     .hero-grid,
     .summary-grid,
     .content-grid,
-    .form-grid,
-    .report-grid{
+    .report-grid,
+    .form-grid{
       display:grid;
       gap:18px;
     }
 
     .hero-grid{grid-template-columns:1.18fr .82fr}
-    .summary-grid{grid-template-columns:repeat(3,1fr); margin:18px 0}
-    .content-grid{grid-template-columns:1.18fr .82fr; margin-bottom:18px}
-    .report-grid{grid-template-columns:repeat(3,1fr); margin-bottom:18px}
+    .summary-grid{grid-template-columns:repeat(3,1fr);margin:18px 0}
+    .content-grid{grid-template-columns:1.18fr .82fr;margin-bottom:18px}
+    .report-grid{grid-template-columns:repeat(3,1fr);margin-bottom:18px}
     .form-grid{grid-template-columns:repeat(2,1fr)}
 
     .hero,.panel,.summary,.report-card,.output{
@@ -265,7 +317,7 @@
       top:-60px;
       right:-60px;
       border-radius:50%;
-      background:radial-gradient(circle, rgba(199,52,91,.26), transparent 68%);
+      background:radial-gradient(circle, rgba(155,41,68,.24), transparent 68%);
       filter:blur(8px);
       pointer-events:none;
     }
@@ -279,15 +331,15 @@
       background:rgba(255,255,255,.05);
       border:1px solid rgba(255,255,255,.07);
       font-size:.78rem;
-      color:#efd5dd;
+      color:#e8d8dd;
       margin-bottom:15px;
     }
 
     .hero h2{
       margin:0;
       font-family:var(--vintage);
-      font-size:2.7rem;
-      line-height:.98;
+      font-size:2.8rem;
+      line-height:.97;
       font-weight:600;
       letter-spacing:-.02em;
       max-width:12ch;
@@ -327,12 +379,17 @@
     .btn-primary{
       color:#fff;
       background:linear-gradient(135deg, var(--burg2), var(--burg3));
-      box-shadow:0 14px 28px rgba(166,31,66,.22);
+      box-shadow:
+        0 16px 34px rgba(122,29,49,.34),
+        0 0 22px rgba(155,41,68,.18);
     }
 
     .btn-primary:hover{
       transform:translateY(-1px);
       filter:brightness(1.05);
+      box-shadow:
+        0 18px 38px rgba(122,29,49,.38),
+        0 0 28px rgba(155,41,68,.24);
     }
 
     .btn-secondary{
@@ -375,9 +432,9 @@
     .live-pill{
       padding:7px 11px;
       border-radius:999px;
-      background:rgba(53,181,124,.10);
-      border:1px solid rgba(53,181,124,.20);
-      color:var(--ok);
+      background:var(--green-dim);
+      border:1px solid var(--green-mid);
+      color:#dfe9e1;
       font-size:.74rem;
       font-weight:700;
     }
@@ -385,12 +442,12 @@
     .mini-box{
       padding:22px;
       border-radius:18px;
-      background:linear-gradient(135deg, rgba(166,31,66,.34), rgba(35,26,38,.92));
+      background:linear-gradient(135deg, rgba(94,22,38,.34), rgba(35,26,38,.92));
       border:1px solid rgba(255,255,255,.08);
     }
 
     .mini-label{
-      color:#eed2d9;
+      color:#ead4da;
       font-size:.78rem;
       text-transform:uppercase;
       letter-spacing:.14em;
@@ -465,7 +522,7 @@
       left:-24px;
       bottom:-28px;
       border-radius:50%;
-      background:radial-gradient(circle, rgba(199,52,91,.16), transparent 68%);
+      background:radial-gradient(circle, rgba(155,41,68,.16), transparent 68%);
     }
 
     .row,
@@ -534,7 +591,7 @@
     .field select{
       width:100%;
       border:1px solid var(--line2);
-      background:rgba(255,255,255,.03);
+      background:linear-gradient(180deg,var(--panel2),#18131d);
       color:var(--text);
       padding:14px;
       border-radius:14px;
@@ -545,12 +602,27 @@
 
     .field input:focus,
     .field select:focus{
-      border-color:rgba(199,52,91,.35);
-      box-shadow:0 0 0 4px rgba(166,31,66,.12);
+      border-color:rgba(155,41,68,.35);
+      box-shadow:0 0 0 4px rgba(94,22,38,.12);
     }
 
     .field input::placeholder{
       color:var(--muted2);
+    }
+
+    .field select{
+      appearance:none;
+      -webkit-appearance:none;
+      -moz-appearance:none;
+      padding-right:38px;
+      background-image:
+        linear-gradient(45deg, transparent 50%, var(--muted) 50%),
+        linear-gradient(135deg, var(--muted) 50%, transparent 50%);
+      background-position:
+        calc(100% - 18px) calc(50% - 2px),
+        calc(100% - 12px) calc(50% - 2px);
+      background-size:6px 6px, 6px 6px;
+      background-repeat:no-repeat;
     }
 
     .info{
@@ -582,8 +654,8 @@
 
     .tab-btn.active{
       color:#fff;
-      background:rgba(166,31,66,.22);
-      border-color:rgba(199,52,91,.26);
+      background:rgba(94,22,38,.22);
+      border-color:rgba(155,41,68,.24);
     }
 
     .table-wrap{
@@ -632,21 +704,21 @@
     }
 
     .pill-ok{
-      background:rgba(53,181,124,.12);
-      color:#d6f2e5;
-      border-color:rgba(53,181,124,.22);
+      background:var(--green-dim);
+      color:#e3ece6;
+      border-color:var(--green-mid);
     }
 
     .pill-err{
-      background:rgba(222,97,118,.12);
-      color:#f6d1d9;
-      border-color:rgba(222,97,118,.22);
+      background:var(--err-dim);
+      color:#f6d6dd;
+      border-color:var(--err-mid);
     }
 
     .pill-info{
-      background:rgba(110,160,255,.12);
-      color:#dce7ff;
-      border-color:rgba(110,160,255,.22);
+      background:var(--blue-dim);
+      color:#dfe6f7;
+      border-color:var(--blue-mid);
     }
 
     .activity-list{
@@ -672,8 +744,8 @@
       border-radius:14px;
       display:grid;
       place-items:center;
-      background:rgba(166,31,66,.16);
-      border:1px solid rgba(199,52,91,.22);
+      background:rgba(94,22,38,.16);
+      border:1px solid rgba(155,41,68,.22);
       font-size:1rem;
     }
 
@@ -693,8 +765,8 @@
       font-size:.94rem;
     }
 
-    .plus{color:#cff0df}
-    .minus{color:#f4ccd4}
+    .plus{color:#deebe2}
+    .minus{color:#f6d1d8}
 
     .output-box{
       width:100%;
@@ -726,29 +798,37 @@
       line-height:1.7;
     }
 
-    /* cheque */
+    .cheque-wrap{
+      display:flex;
+      justify-content:center;
+      align-items:flex-start;
+      padding:8px 0;
+    }
+
     .cheque-paper{
       position:relative;
+      width:100%;
+      max-width:560px;
       background:linear-gradient(135deg, var(--cream), var(--cream2));
       color:var(--ink);
-      border:2px solid #d4c3a2;
+      border:2px solid #d8c8ad;
       border-radius:18px;
-      padding:22px 24px 18px;
+      padding:18px 20px 16px;
       box-shadow:0 18px 40px rgba(0,0,0,.30);
       overflow:hidden;
-      min-height:380px;
+      min-height:320px;
     }
 
     .cheque-paper::before{
       content:"VELORA BANK";
       position:absolute;
-      top:48%;
+      top:50%;
       left:50%;
       transform:translate(-50%,-50%) rotate(-28deg);
       font-family:var(--vintage);
-      font-size:5.8rem;
+      font-size:4.6rem;
       font-weight:700;
-      color:rgba(135,27,53,.05);
+      color:rgba(94,22,38,.05);
       white-space:nowrap;
       pointer-events:none;
       letter-spacing:.08em;
@@ -759,7 +839,7 @@
       top:0;
       left:0;
       right:0;
-      height:14px;
+      height:12px;
       background:linear-gradient(90deg, var(--burg), var(--burg3));
     }
 
@@ -767,15 +847,15 @@
       display:flex;
       justify-content:space-between;
       align-items:flex-start;
-      border-bottom:2px solid rgba(135,27,53,.18);
-      padding-bottom:14px;
-      margin-top:8px;
-      margin-bottom:16px;
+      border-bottom:2px solid rgba(94,22,38,.16);
+      padding-bottom:12px;
+      margin-top:6px;
+      margin-bottom:14px;
     }
 
     .cheque-bank{
       font-family:var(--vintage);
-      font-size:2rem;
+      font-size:1.85rem;
       font-weight:700;
       color:var(--burg);
       line-height:1;
@@ -783,18 +863,18 @@
 
     .cheque-sub{
       margin-top:4px;
-      font-size:.84rem;
-      color:#7a6656;
+      font-size:.78rem;
+      color:#7d6a5b;
       font-style:italic;
     }
 
     .cheque-no{
-      font-size:.92rem;
+      font-size:.86rem;
       font-weight:700;
-      background:rgba(135,27,53,.08);
+      background:rgba(94,22,38,.08);
       color:var(--burg);
-      border:1px solid rgba(135,27,53,.18);
-      padding:6px 10px;
+      border:1px solid rgba(94,22,38,.16);
+      padding:5px 9px;
       border-radius:8px;
     }
 
@@ -802,35 +882,35 @@
       display:flex;
       align-items:flex-end;
       gap:10px;
-      border-bottom:1px solid rgba(80,60,40,.28);
-      padding:7px 0;
-      margin-bottom:7px;
+      border-bottom:1px solid rgba(80,60,40,.25);
+      padding:6px 0;
+      margin-bottom:6px;
     }
 
     .cheque-label{
-      min-width:90px;
-      font-size:.82rem;
+      min-width:80px;
+      font-size:.78rem;
       text-transform:uppercase;
       letter-spacing:.08em;
-      color:#8a715a;
+      color:#876f5c;
       font-weight:700;
     }
 
     .cheque-value{
       flex:1;
       font-family:var(--vintage);
-      font-size:1.35rem;
+      font-size:1.18rem;
       font-weight:600;
       color:#2a1e17;
       line-height:1.1;
     }
 
     .cheque-amount-box{
-      margin-top:16px;
-      padding:12px 16px;
-      border:2px solid rgba(135,27,53,.18);
+      margin-top:14px;
+      padding:10px 14px;
+      border:2px solid rgba(94,22,38,.16);
       border-radius:10px;
-      background:rgba(255,255,255,.28);
+      background:rgba(255,255,255,.26);
       display:flex;
       justify-content:space-between;
       align-items:center;
@@ -840,13 +920,13 @@
     .cheque-amount-words{
       font-family:var(--vintage);
       font-style:italic;
-      font-size:1.12rem;
-      color:#594334;
+      font-size:1rem;
+      color:#584333;
       flex:1;
     }
 
     .cheque-amount-num{
-      font-size:1.4rem;
+      font-size:1.2rem;
       font-weight:800;
       color:var(--burg);
     }
@@ -855,46 +935,46 @@
       display:flex;
       justify-content:space-between;
       align-items:flex-end;
-      margin-top:22px;
-      gap:16px;
+      margin-top:18px;
+      gap:14px;
     }
 
     .cheque-date{
-      font-size:.92rem;
+      font-size:.84rem;
       color:#7e6655;
       font-weight:700;
     }
 
     .sig-block{
       text-align:center;
-      min-width:170px;
+      min-width:150px;
     }
 
     .sig-line{
       border-bottom:1px solid #433328;
       margin-bottom:6px;
-      height:26px;
+      height:22px;
     }
 
     .sig-text{
       font-family:var(--vintage);
-      font-size:1.3rem;
-      color:#3a2a20;
+      font-size:1.12rem;
+      color:#37281f;
     }
 
     .sig-label{
-      font-size:.76rem;
+      font-size:.72rem;
       color:#8a715a;
       text-transform:uppercase;
       letter-spacing:.08em;
     }
 
     .micr{
-      margin-top:16px;
-      padding-top:10px;
+      margin-top:14px;
+      padding-top:8px;
       border-top:1px dashed rgba(90,70,52,.35);
-      font-size:.95rem;
-      letter-spacing:.22em;
+      font-size:.82rem;
+      letter-spacing:.18em;
       color:#574435;
       text-align:center;
     }
@@ -907,9 +987,9 @@
       justify-content:center;
       pointer-events:none;
       font-family:var(--vintage);
-      font-size:4.8rem;
+      font-size:4.2rem;
       font-weight:700;
-      color:rgba(140,25,49,.14);
+      color:rgba(120,25,45,.14);
       transform:rotate(-24deg);
       letter-spacing:.08em;
     }
@@ -920,11 +1000,11 @@
 
     .cheque-status-badge{
       position:absolute;
-      top:20px;
-      right:20px;
-      padding:6px 12px;
+      top:18px;
+      right:18px;
+      padding:5px 11px;
       border-radius:8px;
-      font-size:.8rem;
+      font-size:.74rem;
       font-weight:800;
       letter-spacing:.08em;
       transform:rotate(2deg);
@@ -955,11 +1035,12 @@
       border-radius:16px;
       border:1px solid var(--line);
       background:rgba(255,255,255,.03);
+      margin-bottom:12px;
     }
 
     .fd-card{
-      background:linear-gradient(135deg, rgba(110,160,255,.12), rgba(110,160,255,.03));
-      border-color:rgba(110,160,255,.22);
+      background:linear-gradient(135deg, rgba(110,143,216,.10), rgba(110,143,216,.03));
+      border-color:rgba(110,143,216,.20);
     }
 
     .fd-row{
@@ -980,9 +1061,9 @@
 
     .fd-maturity{
       margin-top:10px;
-      font-size:1.3rem;
+      font-size:1.25rem;
       font-weight:800;
-      color:#cfe0ff;
+      color:#dae4f8;
     }
 
     .toast-wrap{
@@ -1011,11 +1092,11 @@
     }
 
     .toast.success{
-      background:linear-gradient(135deg, rgba(34,109,77,.96), rgba(24,80,56,.96));
+      background:linear-gradient(135deg, rgba(76,104,88,.96), rgba(55,78,65,.96));
     }
 
     .toast.error{
-      background:linear-gradient(135deg, rgba(129,28,52,.96), rgba(88,20,38,.96));
+      background:linear-gradient(135deg, rgba(120,31,51,.96), rgba(86,22,37,.96));
     }
 
     .toast.info{
@@ -1030,10 +1111,12 @@
     }
 
     @media (max-width:1280px){
-      .summary-grid,.report-grid{
+      .summary-grid,
+      .report-grid{
         grid-template-columns:1fr 1fr;
       }
-      .content-grid,.hero-grid{
+      .content-grid,
+      .hero-grid{
         grid-template-columns:1fr;
       }
     }
@@ -1042,17 +1125,20 @@
       .app{
         grid-template-columns:1fr;
       }
+
       .sidebar{
         display:none;
       }
-      .summary-grid,.report-grid,.form-grid,.quick-grid{
+
+      .summary-grid,
+      .report-grid,
+      .form-grid,
+      .quick-grid{
         grid-template-columns:1fr;
       }
-      .main{
-        padding:16px;
-      }
+
       .hero h2{
-        font-size:2.1rem;
+        font-size:2.2rem;
       }
     }
   </style>
@@ -1064,634 +1150,671 @@
     <aside class="sidebar">
       <div class="glass brand">
         <div class="brand-row">
-          <div class="brand-icon">V</div>
+          <div class="brand-icon"></div>
           <div>
             <h1>Velora Bank</h1>
-            <p>Private banking, reimagined.</p>
+            <p>Private banking services</p>
           </div>
         </div>
-        <span class="brand-chip">Vintage Client Portal</span>
+        <span class="brand-chip">Client Access</span>
       </div>
 
       <div class="glass nav-box">
-        <div class="nav-title">Navigation</div>
-        <button type="button" class="nav-btn active" data-page="dashboard"><span class="nav-dot"></span>Dashboard</button>
-        <button type="button" class="nav-btn" data-page="accounts"><span class="nav-dot"></span>Accounts</button>
-        <button type="button" class="nav-btn" data-page="deposit"><span class="nav-dot"></span>Deposit</button>
-        <button type="button" class="nav-btn" data-page="withdraw"><span class="nav-dot"></span>Withdraw</button>
-        <button type="button" class="nav-btn" data-page="transactions"><span class="nav-dot"></span>Transactions</button>
-        <button type="button" class="nav-btn" data-page="cheques"><span class="nav-dot"></span>Cheque Book</button>
-        <button type="button" class="nav-btn" data-page="fd"><span class="nav-dot"></span>Fixed Deposits</button>
-        <button type="button" class="nav-btn" data-page="statement"><span class="nav-dot"></span>Statement</button>
-        <button type="button" class="nav-btn" data-page="reports"><span class="nav-dot"></span>Reports</button>
+        <div class="nav-title">Main</div>
+        <button type="button" class="nav-btn active" data-page="dashboard">
+          <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke-width="1.8"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/></svg>
+          Dashboard
+        </button>
+        <button type="button" class="nav-btn" data-page="accounts">
+          <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke-width="1.8"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+          Accounts
+        </button>
+
+        <div class="nav-title">Transactions</div>
+        <button type="button" class="nav-btn" data-page="deposit">
+          <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke-width="1.8"><line x1="12" y1="5" x2="12" y2="19"/><polyline points="5 12 12 19 19 12"/></svg>
+          Deposit
+        </button>
+        <button type="button" class="nav-btn" data-page="withdraw">
+          <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke-width="1.8"><line x1="12" y1="19" x2="12" y2="5"/><polyline points="5 12 12 5 19 12"/></svg>
+          Withdraw
+        </button>
+        <button type="button" class="nav-btn" data-page="transactions">
+          <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke-width="1.8"><circle cx="12" cy="12" r="9"/><polyline points="12 7 12 12 15 14"/></svg>
+          History
+        </button>
+
+        <div class="nav-title">Services</div>
+        <button type="button" class="nav-btn" data-page="cheques">
+          <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke-width="1.8"><rect x="3" y="6" width="18" height="12" rx="2"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+          Cheque Book
+        </button>
+        <button type="button" class="nav-btn" data-page="fd">
+          <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke-width="1.8"><circle cx="12" cy="12" r="8"/><circle cx="12" cy="12" r="2"/><line x1="12" y1="2" x2="12" y2="4"/><line x1="12" y1="20" x2="12" y2="22"/></svg>
+          Fixed Deposits
+        </button>
+        <button type="button" class="nav-btn" data-page="statement">
+          <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke-width="1.8"><path d="M14 2H7a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V7z"/><polyline points="14 2 14 8 20 8"/><line x1="9" y1="13" x2="15" y2="13"/><line x1="9" y1="17" x2="15" y2="17"/></svg>
+          Statement
+        </button>
+
+        <div class="nav-title">Analytics</div>
+        <button type="button" class="nav-btn" data-page="reports">
+          <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke-width="1.8"><line x1="6" y1="20" x2="6" y2="12"/><line x1="12" y1="20" x2="12" y2="8"/><line x1="18" y1="20" x2="18" y2="4"/></svg>
+          Reports
+        </button>
       </div>
 
       <div class="glass notice">
         <h4>Client Notice</h4>
-        <p>Vintage private banking interface with working account management, transaction controls, cheque issue, fixed deposits, reporting, and statement view.</p>
+        <p>Access accounts, manage balances, review transactions, and monitor financial activity from a single banking workspace.</p>
       </div>
     </aside>
 
     <main class="main">
-      <!-- dashboard -->
-      <section class="page active" id="dashboard-page">
-        <div class="hero-grid">
-          <div class="glass hero">
-            <div class="hero-tag">Velora Signature Banking</div>
-            <h2>Elegant finance with disciplined control.</h2>
-            <p>Create accounts, deposit and withdraw funds, issue cheques, create fixed deposits, and generate reports through a refined vintage-style banking dashboard.</p>
-            <div class="actions">
-              <button type="button" class="btn-primary" id="heroOpenAccounts">Open Accounts</button>
-              <button type="button" class="btn-secondary" id="heroOpenDeposit">Make Deposit</button>
-              <button type="button" class="btn-ghost" id="heroOpenReports">View Reports</button>
+      <div class="pages">
+        <!-- dashboard -->
+        <section class="page active" id="dashboard-page">
+          <div class="hero-grid">
+            <div class="glass hero">
+              <div class="hero-tag">Velora Private Banking</div>
+              <h2>Personal savings and account services.</h2>
+              <p>Manage accounts, process transactions, issue cheques, create fixed deposits, and review statements in one place.</p>
+              <div class="actions">
+                <button type="button" class="btn-primary" id="heroOpenAccounts">Open Accounts</button>
+                <button type="button" class="btn-secondary" id="heroOpenDeposit">Make Deposit</button>
+                <button type="button" class="btn-ghost" id="heroOpenReports">View Reports</button>
+              </div>
+            </div>
+
+            <div class="glass snapshot">
+              <div class="snapshot-head">
+                <h3>Portfolio Snapshot</h3>
+                <span class="live-pill">Live</span>
+              </div>
+
+              <div class="mini-box">
+                <div class="mini-label">Total Holdings</div>
+                <div class="mini-value" id="dashboardTotal">₹0.00</div>
+                <div class="mini-sub" id="dashboardFoot">No portfolio activity yet.</div>
+              </div>
+
+              <div class="quick-grid">
+                <div class="metric">
+                  <div class="metric-k">Accounts</div>
+                  <div class="metric-v" id="quickAccounts">0</div>
+                </div>
+                <div class="metric">
+                  <div class="metric-k">Transactions</div>
+                  <div class="metric-v" id="quickTransactions">0</div>
+                </div>
+                <div class="metric">
+                  <div class="metric-k">Alerts</div>
+                  <div class="metric-v" id="quickAlerts">0</div>
+                </div>
+              </div>
             </div>
           </div>
 
-          <div class="glass snapshot">
-            <div class="snapshot-head">
-              <h3>Portfolio Snapshot</h3>
-              <span class="live-pill">Live</span>
-            </div>
-
-            <div class="mini-box">
-              <div class="mini-label">Total Holdings</div>
-              <div class="mini-value" id="dashboardTotal">₹0.00</div>
-              <div class="mini-sub" id="dashboardFoot">No portfolio activity yet.</div>
-            </div>
-
-            <div class="quick-grid">
-              <div class="metric">
-                <div class="metric-k">Accounts</div>
-                <div class="metric-v" id="quickAccounts">0</div>
+          <div class="summary-grid">
+            <div class="glass summary">
+              <div class="row">
+                <div class="k">Total Balance</div>
+                <div class="summary-icon">₹</div>
               </div>
-              <div class="metric">
-                <div class="metric-k">Transactions</div>
-                <div class="metric-v" id="quickTransactions">0</div>
-              </div>
-              <div class="metric">
-                <div class="metric-k">Alerts</div>
-                <div class="metric-v" id="quickAlerts">0</div>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <div class="summary-grid">
-          <div class="glass summary">
-            <div class="row">
-              <div class="k">Total Balance</div>
-              <div class="summary-icon">₹</div>
-            </div>
-            <div class="v" id="sumBalance">₹0.00</div>
-            <div class="muted">Consolidated balance across all client accounts.</div>
-          </div>
-
-          <div class="glass summary">
-            <div class="row">
-              <div class="k">Client Accounts</div>
-              <div class="summary-icon">◎</div>
-            </div>
-            <div class="v" id="sumAccounts">0</div>
-            <div class="muted">Active banking profiles currently managed in the system.</div>
-          </div>
-
-          <div class="glass summary">
-            <div class="row">
-              <div class="k">Low Balance Alerts</div>
-              <div class="summary-icon">!</div>
-            </div>
-            <div class="v" id="sumAlerts">0</div>
-            <div class="muted">Accounts below the reserve threshold.</div>
-          </div>
-        </div>
-
-        <div class="content-grid">
-          <div class="glass panel">
-            <div class="head">
-              <div>
-                <h3>Quick Create Account</h3>
-                <p>Create a new account directly from the dashboard.</p>
-              </div>
+              <div class="v" id="sumBalance">₹0.00</div>
+              <div class="muted">Consolidated balance across all client accounts.</div>
             </div>
 
-            <div class="form-grid">
-              <div class="field">
-                <label>Account Number</label>
-                <input id="dashAccNo" type="number" placeholder="e.g. 1001" />
+            <div class="glass summary">
+              <div class="row">
+                <div class="k">Client Accounts</div>
+                <div class="summary-icon">◎</div>
               </div>
-              <div class="field">
-                <label>Client Name</label>
-                <input id="dashName" type="text" placeholder="e.g. Sasha" />
-              </div>
-              <div class="field full">
-                <label>Opening Balance</label>
-                <input id="dashBal" type="number" step="0.01" placeholder="e.g. 25000" />
-              </div>
+              <div class="v" id="sumAccounts">0</div>
+              <div class="muted">Active banking profiles currently managed in the system.</div>
             </div>
 
-            <div class="form-actions">
-              <button type="button" class="btn-primary" id="btnCreateDashboard">Create Premium Account</button>
-              <button type="button" class="btn-secondary" id="btnClearDashboard">Clear</button>
-            </div>
-
-            <div class="info">New accounts appear instantly in the registry, dashboard, statement, and reports.</div>
-          </div>
-
-          <div class="glass panel">
-            <div class="head">
-              <div>
-                <h3>Recent Activity</h3>
-                <p>Latest movements across the platform.</p>
+            <div class="glass summary">
+              <div class="row">
+                <div class="k">Low Balance Alerts</div>
+                <div class="summary-icon">!</div>
               </div>
-            </div>
-            <div class="activity-list" id="recentActivity"></div>
-          </div>
-        </div>
-
-        <div class="glass output">
-          <div class="output-head">
-            <h3>System Response</h3>
-            <div class="output-actions">
-              <button type="button" class="btn-secondary" id="btnClearOutput">Clear</button>
-              <button type="button" class="btn-ghost" id="btnRefreshAll">Refresh Insights</button>
-            </div>
-          </div>
-          <div class="output-box" id="outputBox">Velora Bank is ready.</div>
-        </div>
-      </section>
-
-      <!-- accounts -->
-      <section class="page" id="accounts-page">
-        <h2 class="section-title">Accounts</h2>
-        <p class="section-sub">Create, review, and manage premium client accounts with a structured registry.</p>
-
-        <div class="content-grid">
-          <div class="glass panel">
-            <div class="head">
-              <div>
-                <h3>Create New Account</h3>
-                <p>Register a client account with a number, name, and opening balance.</p>
-              </div>
-            </div>
-
-            <div class="form-grid">
-              <div class="field">
-                <label>Account Number</label>
-                <input id="createAccNo" type="number" placeholder="Enter account number" />
-              </div>
-              <div class="field">
-                <label>Client Name</label>
-                <input id="createName" type="text" placeholder="Enter client name" />
-              </div>
-              <div class="field full">
-                <label>Opening Balance</label>
-                <input id="createBalance" type="number" step="0.01" placeholder="Enter opening balance" />
-              </div>
-            </div>
-
-            <div class="form-actions">
-              <button type="button" class="btn-primary" id="btnCreateAccount">Create Account</button>
-              <button type="button" class="btn-secondary" id="btnResetAccount">Reset Form</button>
+              <div class="v" id="sumAlerts">0</div>
+              <div class="muted">Accounts below the reserve threshold.</div>
             </div>
           </div>
 
-          <div class="glass panel">
-            <div class="head">
-              <div>
-                <h3>Account Summary</h3>
-                <p>Switch between portfolio, status, and monitoring.</p>
+          <div class="content-grid">
+            <div class="glass panel">
+              <div class="head">
+                <div>
+                  <h3>Quick Create Account</h3>
+                  <p>Create a new account directly from the dashboard.</p>
+                </div>
               </div>
+
+              <div class="form-grid">
+                <div class="field">
+                  <label>Account Number</label>
+                  <input id="dashAccNo" type="number" placeholder="e.g. 1001" />
+                </div>
+                <div class="field">
+                  <label>Client Name</label>
+                  <input id="dashName" type="text" placeholder="e.g. Sasha" />
+                </div>
+                <div class="field full">
+                  <label>Opening Balance</label>
+                  <input id="dashBal" type="number" step="0.01" placeholder="e.g. 25000" />
+                </div>
+              </div>
+
+              <div class="form-actions">
+                <button type="button" class="btn-primary" id="btnCreateDashboard">Create Account</button>
+                <button type="button" class="btn-secondary" id="btnClearDashboard">Clear</button>
+              </div>
+
+              <div class="info">New accounts appear instantly in the registry, reports, and statement view.</div>
             </div>
 
-            <div class="tabs">
-              <button type="button" class="tab-btn active" id="tabPortfolio">Portfolio</button>
-              <button type="button" class="tab-btn" id="tabStatus">Status</button>
-              <button type="button" class="tab-btn" id="tabMonitoring">Monitoring</button>
+            <div class="glass panel">
+              <div class="head">
+                <div>
+                  <h3>Recent Activity</h3>
+                  <p>Latest movements across the platform.</p>
+                </div>
+              </div>
+              <div class="activity-list" id="recentActivity"></div>
             </div>
-
-            <div class="info" id="summaryBox"></div>
           </div>
-        </div>
 
-        <div class="glass panel">
-          <div class="head">
-            <div>
-              <h3>Account Registry</h3>
-              <p>All client accounts currently stored in the system.</p>
+          <div class="glass output">
+            <div class="output-head">
+              <h3>System Response</h3>
+              <div class="output-actions">
+                <button type="button" class="btn-secondary" id="btnClearOutput">Clear</button>
+                <button type="button" class="btn-ghost" id="btnRefreshAll">Refresh Insights</button>
+              </div>
             </div>
-            <button type="button" class="btn-secondary" id="btnRefreshAccounts">Refresh Table</button>
+            <div class="output-box" id="outputBox">Velora Bank is ready.</div>
           </div>
+        </section>
 
-          <div class="table-wrap">
-            <table>
-              <thead>
-                <tr>
-                  <th>Account No</th>
-                  <th>Client Name</th>
-                  <th>Balance</th>
-                  <th>Status</th>
-                </tr>
-              </thead>
-              <tbody id="accountsBody"></tbody>
-            </table>
-          </div>
-        </div>
-      </section>
+        <!-- accounts -->
+        <section class="page" id="accounts-page">
+          <h2 class="section-title">Accounts</h2>
+          <p class="section-sub">Create, review, and manage premium client accounts with a structured registry.</p>
 
-      <!-- deposit -->
-      <section class="page" id="deposit-page">
-        <h2 class="section-title">Deposit Funds</h2>
-        <p class="section-sub">Process incoming funds securely and reflect changes instantly across balances and reports.</p>
+          <div class="content-grid">
+            <div class="glass panel">
+              <div class="head">
+                <div>
+                  <h3>Create New Account</h3>
+                  <p>Register a client account with a number, name, and opening balance.</p>
+                </div>
+              </div>
 
-        <div class="content-grid">
-          <div class="glass panel">
-            <div class="head">
-              <div>
-                <h3>New Deposit</h3>
-                <p>Add funds to a client account.</p>
+              <div class="form-grid">
+                <div class="field">
+                  <label>Account Number</label>
+                  <input id="createAccNo" type="number" placeholder="Enter account number" />
+                </div>
+                <div class="field">
+                  <label>Client Name</label>
+                  <input id="createName" type="text" placeholder="Enter client name" />
+                </div>
+                <div class="field full">
+                  <label>Opening Balance</label>
+                  <input id="createBalance" type="number" step="0.01" placeholder="Enter opening balance" />
+                </div>
+              </div>
+
+              <div class="form-actions">
+                <button type="button" class="btn-primary" id="btnCreateAccount">Create Account</button>
+                <button type="button" class="btn-secondary" id="btnResetAccount">Reset Form</button>
               </div>
             </div>
 
-            <div class="form-grid">
-              <div class="field">
-                <label>Account Number</label>
-                <input id="depositAccNo" type="number" placeholder="Enter account number" />
+            <div class="glass panel">
+              <div class="head">
+                <div>
+                  <h3>Account Summary</h3>
+                  <p>Switch between portfolio, status, and monitoring.</p>
+                </div>
               </div>
-              <div class="field">
-                <label>Amount</label>
-                <input id="depositAmount" type="number" step="0.01" placeholder="Enter deposit amount" />
-              </div>
-            </div>
 
-            <div class="form-actions">
-              <button type="button" class="btn-primary" id="btnProcessDeposit">Process Deposit</button>
-              <button type="button" class="btn-secondary" id="btnClearDeposit">Clear</button>
+              <div class="tabs">
+                <button type="button" class="tab-btn active" id="tabPortfolio">Portfolio</button>
+                <button type="button" class="tab-btn" id="tabStatus">Status</button>
+                <button type="button" class="tab-btn" id="tabMonitoring">Monitoring</button>
+              </div>
+
+              <div class="info" id="summaryBox"></div>
             </div>
           </div>
 
           <div class="glass panel">
             <div class="head">
               <div>
-                <h3>Deposit Notes</h3>
-                <p>Operational guidance for premium account funding.</p>
+                <h3>Account Registry</h3>
+                <p>All client accounts currently stored in the system.</p>
+              </div>
+              <button type="button" class="btn-secondary" id="btnRefreshAccounts">Refresh Table</button>
+            </div>
+
+            <div class="table-wrap">
+              <table>
+                <thead>
+                  <tr>
+                    <th>Account No</th>
+                    <th>Client Name</th>
+                    <th>Balance</th>
+                    <th>Status</th>
+                  </tr>
+                </thead>
+                <tbody id="accountsBody"></tbody>
+              </table>
+            </div>
+          </div>
+        </section>
+
+        <!-- deposit -->
+        <section class="page" id="deposit-page">
+          <h2 class="section-title">Deposit</h2>
+          <p class="section-sub">Process incoming funds securely and reflect changes instantly.</p>
+
+          <div class="content-grid">
+            <div class="glass panel">
+              <div class="head">
+                <div>
+                  <h3>New Deposit</h3>
+                  <p>Add funds to a client account.</p>
+                </div>
+              </div>
+
+              <div class="form-grid">
+                <div class="field">
+                  <label>Account Number</label>
+                  <input id="depositAccNo" type="number" placeholder="Enter account number" />
+                </div>
+                <div class="field">
+                  <label>Amount</label>
+                  <input id="depositAmount" type="number" step="0.01" placeholder="Enter deposit amount" />
+                </div>
+              </div>
+
+              <div class="form-actions">
+                <button type="button" class="btn-primary" id="btnProcessDeposit">Process Deposit</button>
+                <button type="button" class="btn-secondary" id="btnClearDeposit">Clear</button>
               </div>
             </div>
-            <div class="info">Deposits update the account registry, statement, transaction history, and dashboard metrics in real time.</div>
+
+            <div class="glass panel">
+              <div class="head">
+                <div>
+                  <h3>Deposit Notes</h3>
+                  <p>Operational guidance for account funding.</p>
+                </div>
+              </div>
+              <div class="info">Deposits update the account registry, statement, history, and dashboard metrics in real time.</div>
+            </div>
           </div>
-        </div>
-      </section>
+        </section>
 
-      <!-- withdraw -->
-      <section class="page" id="withdraw-page">
-        <h2 class="section-title">Withdraw Funds</h2>
-        <p class="section-sub">Execute withdrawals with overdraft protection and visible error handling.</p>
+        <!-- withdraw -->
+        <section class="page" id="withdraw-page">
+          <h2 class="section-title">Withdraw</h2>
+          <p class="section-sub">Execute withdrawals with overdraft protection and visible error handling.</p>
 
-        <div class="content-grid">
+          <div class="content-grid">
+            <div class="glass panel">
+              <div class="head">
+                <div>
+                  <h3>New Withdrawal</h3>
+                  <p>Remove funds from a selected client account.</p>
+                </div>
+              </div>
+
+              <div class="form-grid">
+                <div class="field">
+                  <label>Account Number</label>
+                  <input id="withdrawAccNo" type="number" placeholder="Enter account number" />
+                </div>
+                <div class="field">
+                  <label>Amount</label>
+                  <input id="withdrawAmount" type="number" step="0.01" placeholder="Enter withdrawal amount" />
+                </div>
+              </div>
+
+              <div class="form-actions">
+                <button type="button" class="btn-primary" id="btnProcessWithdraw">Process Withdrawal</button>
+                <button type="button" class="btn-secondary" id="btnClearWithdraw">Clear</button>
+              </div>
+            </div>
+
+            <div class="glass panel">
+              <div class="head">
+                <div>
+                  <h3>Risk Control</h3>
+                  <p>Protected balance handling.</p>
+                </div>
+              </div>
+              <div class="info">If a withdrawal exceeds available balance or breaks the minimum-balance rule, the system blocks it and shows an error.</div>
+            </div>
+          </div>
+        </section>
+
+        <!-- transactions -->
+        <section class="page" id="transactions-page">
+          <h2 class="section-title">History</h2>
+          <p class="section-sub">Review all recorded deposits, withdrawals, cheque clearing, and FD creation.</p>
+
           <div class="glass panel">
             <div class="head">
               <div>
-                <h3>New Withdrawal</h3>
-                <p>Remove funds from a selected client account.</p>
+                <h3>Transaction History</h3>
+                <p>Chronological record of movements.</p>
               </div>
+              <button type="button" class="btn-secondary" id="btnRefreshTransactions">Refresh Transactions</button>
             </div>
 
-            <div class="form-grid">
-              <div class="field">
-                <label>Account Number</label>
-                <input id="withdrawAccNo" type="number" placeholder="Enter account number" />
-              </div>
-              <div class="field">
-                <label>Amount</label>
-                <input id="withdrawAmount" type="number" step="0.01" placeholder="Enter withdrawal amount" />
-              </div>
-            </div>
-
-            <div class="form-actions">
-              <button type="button" class="btn-primary" id="btnProcessWithdraw">Process Withdrawal</button>
-              <button type="button" class="btn-secondary" id="btnClearWithdraw">Clear</button>
+            <div class="table-wrap">
+              <table>
+                <thead>
+                  <tr>
+                    <th>Type</th>
+                    <th>Account No</th>
+                    <th>Amount</th>
+                    <th>Direction</th>
+                  </tr>
+                </thead>
+                <tbody id="transactionsBody"></tbody>
+              </table>
             </div>
           </div>
+        </section>
 
-          <div class="glass panel">
-            <div class="head">
-              <div>
-                <h3>Risk Control</h3>
-                <p>Velora prevents overdraft on protected accounts.</p>
+        <!-- cheques -->
+        <section class="page" id="cheques-page">
+          <h2 class="section-title">Cheque Book</h2>
+          <p class="section-sub">Issue, cancel, and clear cheque leaves with a vintage cream design.</p>
+
+          <div class="content-grid">
+            <div class="glass panel">
+              <div class="head">
+                <div>
+                  <h3>Issue New Cheque</h3>
+                  <p>Create a cheque for an existing account.</p>
+                </div>
               </div>
-            </div>
-            <div class="info">If a withdrawal exceeds available balance, the system blocks the operation and shows a protected error response in both toast and output panel.</div>
-          </div>
-        </div>
-      </section>
 
-      <!-- transactions -->
-      <section class="page" id="transactions-page">
-        <h2 class="section-title">Transactions</h2>
-        <p class="section-sub">Review all recorded deposits, withdrawals, cheque clearing, and FD creation.</p>
-
-        <div class="glass panel">
-          <div class="head">
-            <div>
-              <h3>Transaction History</h3>
-              <p>Chronological record of movements.</p>
-            </div>
-            <button type="button" class="btn-secondary" id="btnRefreshTransactions">Refresh Transactions</button>
-          </div>
-
-          <div class="table-wrap">
-            <table>
-              <thead>
-                <tr>
-                  <th>Type</th>
-                  <th>Account No</th>
-                  <th>Amount</th>
-                  <th>Direction</th>
-                </tr>
-              </thead>
-              <tbody id="transactionsBody"></tbody>
-            </table>
-          </div>
-        </div>
-      </section>
-
-      <!-- cheques -->
-      <section class="page" id="cheques-page">
-        <h2 class="section-title">Cheque Book</h2>
-        <p class="section-sub">Issue, cancel, and clear premium cheque leaves with a vintage cream design.</p>
-
-        <div class="content-grid">
-          <div class="glass panel">
-            <div class="head">
-              <div>
-                <h3>Issue New Cheque</h3>
-                <p>Create a cheque for an existing account.</p>
+              <div class="form-grid">
+                <div class="field">
+                  <label>Account Number</label>
+                  <input id="chequeAccNo" type="number" placeholder="Enter account number" />
+                </div>
+                <div class="field">
+                  <label>Payee Name</label>
+                  <input id="chequePayee" type="text" placeholder="Enter payee name" />
+                </div>
+                <div class="field full">
+                  <label>Amount</label>
+                  <input id="chequeAmount" type="number" step="0.01" placeholder="Enter cheque amount" />
+                </div>
               </div>
-            </div>
 
-            <div class="form-grid">
-              <div class="field">
-                <label>Account Number</label>
-                <input id="chequeAccNo" type="number" placeholder="Enter account number" />
+              <div class="form-actions">
+                <button type="button" class="btn-primary" id="btnIssueCheque">Issue Cheque</button>
+                <button type="button" class="btn-secondary" id="btnClearChequeForm">Clear</button>
               </div>
-              <div class="field">
-                <label>Payee Name</label>
-                <input id="chequePayee" type="text" placeholder="Enter payee name" />
+
+              <div class="info">Issued cheques do not reduce balance immediately. Balance reduces only when the cheque is cleared.</div>
+            </div>
+
+            <div class="cheque-wrap">
+              <div class="cheque-paper" id="chequePreview">
+                <div class="cheque-top-strip"></div>
+                <div class="watermark" id="chequeWatermark">CANCELLED</div>
+                <div class="cheque-status-badge badge-issued" id="chequeStatusBadge">ISSUED</div>
+
+                <div class="cheque-header">
+                  <div>
+                    <div class="cheque-bank">Velora Bank</div>
+                    <div class="cheque-sub">Private Banking Division</div>
+                  </div>
+                  <div class="cheque-no" id="chequeNoText">Cheque No: 1001</div>
+                </div>
+
+                <div class="cheque-line">
+                  <div class="cheque-label">Pay To</div>
+                  <div class="cheque-value" id="chequePayeeText">—</div>
+                </div>
+
+                <div class="cheque-line">
+                  <div class="cheque-label">Account</div>
+                  <div class="cheque-value" id="chequeAccText">—</div>
+                </div>
+
+                <div class="cheque-line">
+                  <div class="cheque-label">Date</div>
+                  <div class="cheque-value" id="chequeDateText">—</div>
+                </div>
+
+                <div class="cheque-amount-box">
+                  <div class="cheque-amount-words" id="chequeAmtWords">Amount in words</div>
+                  <div class="cheque-amount-num" id="chequeAmtNum">₹0.00</div>
+                </div>
+
+                <div class="cheque-footer">
+                  <div class="cheque-date" id="chequeFooterDate">Issued on —</div>
+                  <div class="sig-block">
+                    <div class="sig-line"></div>
+                    <div class="sig-text">Velora Bank</div>
+                    <div class="sig-label">Authorised Signature</div>
+                  </div>
+                </div>
+
+                <div class="micr" id="chequeMicr">|: 0001001 :| 1001 || 25001 ||</div>
               </div>
-              <div class="field full">
-                <label>Amount</label>
-                <input id="chequeAmount" type="number" step="0.01" placeholder="Enter cheque amount" />
-              </div>
-            </div>
-
-            <div class="form-actions">
-              <button type="button" class="btn-primary" id="btnIssueCheque">Issue Cheque</button>
-              <button type="button" class="btn-secondary" id="btnClearChequeForm">Clear</button>
-            </div>
-
-            <div class="info">Issued cheques do not reduce balance immediately. Balance is reduced only when you click clear cheque.</div>
-          </div>
-
-          <div class="cheque-paper" id="chequePreview">
-            <div class="cheque-top-strip"></div>
-            <div class="watermark" id="chequeWatermark">CANCELLED</div>
-            <div class="cheque-status-badge badge-issued" id="chequeStatusBadge">ISSUED</div>
-
-            <div class="cheque-header">
-              <div>
-                <div class="cheque-bank">Velora Bank</div>
-                <div class="cheque-sub">Private Banking Division · Heritage Series</div>
-              </div>
-              <div class="cheque-no" id="chequeNoText">Cheque No: 1001</div>
-            </div>
-
-            <div class="cheque-line">
-              <div class="cheque-label">Pay To</div>
-              <div class="cheque-value" id="chequePayeeText">—</div>
-            </div>
-
-            <div class="cheque-line">
-              <div class="cheque-label">Account</div>
-              <div class="cheque-value" id="chequeAccText">—</div>
-            </div>
-
-            <div class="cheque-line">
-              <div class="cheque-label">Date</div>
-              <div class="cheque-value" id="chequeDateText">—</div>
-            </div>
-
-            <div class="cheque-amount-box">
-              <div class="cheque-amount-words" id="chequeAmtWords">Amount in words</div>
-              <div class="cheque-amount-num" id="chequeAmtNum">₹0.00</div>
-            </div>
-
-            <div class="cheque-footer">
-              <div class="cheque-date" id="chequeFooterDate">Issued on —</div>
-              <div class="sig-block">
-                <div class="sig-line"></div>
-                <div class="sig-text">Velora Bank</div>
-                <div class="sig-label">Authorised Signature</div>
-              </div>
-            </div>
-
-            <div class="micr" id="chequeMicr">|: 0001001 :| 1001 || 25001 ||</div>
-          </div>
-        </div>
-
-        <div class="glass panel">
-          <div class="head">
-            <div>
-              <h3>Issued Cheques</h3>
-              <p>Manage issued cheque leaves.</p>
-            </div>
-          </div>
-
-          <div class="table-wrap">
-            <table>
-              <thead>
-                <tr>
-                  <th>Cheque No</th>
-                  <th>Account No</th>
-                  <th>Payee</th>
-                  <th>Amount</th>
-                  <th>Status</th>
-                  <th>Action</th>
-                </tr>
-              </thead>
-              <tbody id="chequesBody"></tbody>
-            </table>
-          </div>
-        </div>
-      </section>
-
-      <!-- fd -->
-      <section class="page" id="fd-page">
-        <h2 class="section-title">Fixed Deposits</h2>
-        <p class="section-sub">Create fixed deposits with maturity calculation and portfolio inclusion.</p>
-
-        <div class="content-grid">
-          <div class="glass panel">
-            <div class="head">
-              <div>
-                <h3>Create Fixed Deposit</h3>
-                <p>Principal is debited from the chosen account immediately.</p>
-              </div>
-            </div>
-
-            <div class="form-grid">
-              <div class="field">
-                <label>Account Number</label>
-                <input id="fdAccNo" type="number" placeholder="Enter account number" />
-              </div>
-              <div class="field">
-                <label>Principal Amount</label>
-                <input id="fdAmount" type="number" step="0.01" placeholder="Minimum 1000" />
-              </div>
-              <div class="field full">
-                <label>Tenure (Months)</label>
-                <select id="fdMonths">
-                  <option value="6">6 Months</option>
-                  <option value="12">12 Months</option>
-                  <option value="24">24 Months</option>
-                  <option value="36">36 Months</option>
-                  <option value="60">60 Months</option>
-                </select>
-              </div>
-            </div>
-
-            <div class="form-actions">
-              <button type="button" class="btn-primary" id="btnCreateFD">Create FD</button>
-              <button type="button" class="btn-secondary" id="btnClearFD">Clear</button>
             </div>
           </div>
 
           <div class="glass panel">
             <div class="head">
               <div>
-                <h3>FD Overview</h3>
-                <p>Rates scale gently with tenure.</p>
-              </div>
-            </div>
-            <div class="info">
-              6–12 months: 6.5% p.a.<br>
-              24–36 months: 7.0% p.a.<br>
-              60 months: 7.5% p.a.
-            </div>
-          </div>
-        </div>
-
-        <div class="glass panel">
-          <div class="head">
-            <div>
-              <h3>FD Portfolio</h3>
-              <p>All active fixed deposits.</p>
-            </div>
-          </div>
-          <div id="fdList"></div>
-        </div>
-      </section>
-
-      <!-- statement -->
-      <section class="page" id="statement-page">
-        <h2 class="section-title">Statement</h2>
-        <p class="section-sub">Generate a concise account statement view from existing transactions.</p>
-
-        <div class="content-grid">
-          <div class="glass panel">
-            <div class="head">
-              <div>
-                <h3>Generate Statement</h3>
-                <p>Show a statement for one account.</p>
+                <h3>Issued Cheques</h3>
+                <p>Manage issued cheque leaves.</p>
               </div>
             </div>
 
-            <div class="form-grid">
-              <div class="field full">
-                <label>Account Number</label>
-                <input id="statementAccNo" type="number" placeholder="Enter account number" />
+            <div class="table-wrap">
+              <table>
+                <thead>
+                  <tr>
+                    <th>Cheque No</th>
+                    <th>Account No</th>
+                    <th>Payee</th>
+                    <th>Amount</th>
+                    <th>Status</th>
+                    <th>Action</th>
+                  </tr>
+                </thead>
+                <tbody id="chequesBody"></tbody>
+              </table>
+            </div>
+          </div>
+        </section>
+
+        <!-- fd -->
+        <section class="page" id="fd-page">
+          <h2 class="section-title">Fixed Deposits</h2>
+          <p class="section-sub">Create fixed deposits with maturity calculation and portfolio inclusion.</p>
+
+          <div class="content-grid">
+            <div class="glass panel">
+              <div class="head">
+                <div>
+                  <h3>Create Fixed Deposit</h3>
+                  <p>Principal is debited from the chosen account immediately.</p>
+                </div>
+              </div>
+
+              <div class="form-grid">
+                <div class="field">
+                  <label>Account Number</label>
+                  <input id="fdAccNo" type="number" placeholder="Enter account number" />
+                </div>
+                <div class="field">
+                  <label>Principal Amount</label>
+                  <input id="fdAmount" type="number" step="0.01" placeholder="Minimum 1000" />
+                </div>
+                <div class="field full">
+                  <label>Tenure (Months)</label>
+                  <select id="fdMonths">
+                    <option value="6">6 Months</option>
+                    <option value="12">12 Months</option>
+                    <option value="24">24 Months</option>
+                    <option value="36">36 Months</option>
+                    <option value="60">60 Months</option>
+                  </select>
+                </div>
+              </div>
+
+              <div class="form-actions">
+                <button type="button" class="btn-primary" id="btnCreateFD">Create FD</button>
+                <button type="button" class="btn-secondary" id="btnClearFD">Clear</button>
               </div>
             </div>
 
-            <div class="form-actions">
-              <button type="button" class="btn-primary" id="btnGenerateStatement">Generate Statement</button>
-              <button type="button" class="btn-secondary" id="btnClearStatement">Clear</button>
-            </div>
-          </div>
-
-          <div class="glass panel">
-            <div class="head">
-              <div>
-                <h3>Statement Output</h3>
-                <p>Summary and ledger view.</p>
+            <div class="glass panel">
+              <div class="head">
+                <div>
+                  <h3>FD Overview</h3>
+                  <p>Rates scale gently with tenure.</p>
+                </div>
               </div>
-            </div>
-            <div id="statementOutput" class="info">No statement generated yet.</div>
-          </div>
-        </div>
-      </section>
-
-      <!-- reports -->
-      <section class="page" id="reports-page">
-        <h2 class="section-title">Reports</h2>
-        <p class="section-sub">Track total funds, low balances, and transaction volume.</p>
-
-        <div class="report-grid">
-          <div class="glass report-card">
-            <div class="k">Total Money Held</div>
-            <div class="v" id="reportTotal">₹0.00</div>
-            <div class="muted">Aggregate balance across all stored client accounts.</div>
-          </div>
-
-          <div class="glass report-card">
-            <div class="k">Low Balance Count</div>
-            <div class="v" id="reportLowCount">0</div>
-            <div class="muted">Accounts below the monitoring threshold.</div>
-          </div>
-
-          <div class="glass report-card">
-            <div class="k">Transactions Logged</div>
-            <div class="v" id="reportTxnCount">0</div>
-            <div class="muted">Total recorded transactions.</div>
-          </div>
-        </div>
-
-        <div class="content-grid">
-          <div class="glass panel">
-            <div class="head">
-              <div>
-                <h3>Run Reports</h3>
-                <p>Generate quick financial outputs.</p>
+              <div class="info">
+                6–12 months: 6.5% p.a.<br>
+                24–36 months: 7.0% p.a.<br>
+                60 months: 7.5% p.a.
               </div>
-            </div>
-
-            <div class="form-grid">
-              <div class="field full">
-                <label>Low Balance Threshold</label>
-                <input id="thresholdValue" type="number" step="0.01" placeholder="Enter threshold value" />
-              </div>
-            </div>
-
-            <div class="form-actions">
-              <button type="button" class="btn-primary" id="btnRunTotalReport">Run Total Money Report</button>
-              <button type="button" class="btn-secondary" id="btnRunLowReport">Run Low Balance Report</button>
             </div>
           </div>
 
           <div class="glass panel">
             <div class="head">
               <div>
-                <h3>Insight Summary</h3>
-                <p>Current position of the platform.</p>
+                <h3>FD Portfolio</h3>
+                <p>All active fixed deposits.</p>
               </div>
             </div>
-            <div class="info" id="reportInsight"></div>
+            <div id="fdList"></div>
           </div>
-        </div>
-      </section>
+        </section>
+
+        <!-- statement -->
+        <section class="page" id="statement-page">
+          <h2 class="section-title">Statement</h2>
+          <p class="section-sub">Generate a concise account statement view from existing transactions.</p>
+
+          <div class="content-grid">
+            <div class="glass panel">
+              <div class="head">
+                <div>
+                  <h3>Generate Statement</h3>
+                  <p>Show a statement for one account.</p>
+                </div>
+              </div>
+
+              <div class="form-grid">
+                <div class="field full">
+                  <label>Account Number</label>
+                  <input id="statementAccNo" type="number" placeholder="Enter account number" />
+                </div>
+              </div>
+
+              <div class="form-actions">
+                <button type="button" class="btn-primary" id="btnGenerateStatement">Generate Statement</button>
+                <button type="button" class="btn-secondary" id="btnClearStatement">Clear</button>
+              </div>
+            </div>
+
+            <div class="glass panel">
+              <div class="head">
+                <div>
+                  <h3>Statement Output</h3>
+                  <p>Summary and ledger view.</p>
+                </div>
+              </div>
+              <div id="statementOutput" class="info">No statement generated yet.</div>
+            </div>
+          </div>
+        </section>
+
+        <!-- reports -->
+        <section class="page" id="reports-page">
+          <h2 class="section-title">Reports</h2>
+          <p class="section-sub">Track total funds, low balances, and transaction volume.</p>
+
+          <div class="report-grid">
+            <div class="glass report-card">
+              <div class="k">Total Money Held</div>
+              <div class="v" id="reportTotal">₹0.00</div>
+              <div class="muted">Aggregate balance across all stored client accounts.</div>
+            </div>
+
+            <div class="glass report-card">
+              <div class="k">Low Balance Count</div>
+              <div class="v" id="reportLowCount">0</div>
+              <div class="muted">Accounts below the monitoring threshold.</div>
+            </div>
+
+            <div class="glass report-card">
+              <div class="k">Transactions Logged</div>
+              <div class="v" id="reportTxnCount">0</div>
+              <div class="muted">Total recorded transactions.</div>
+            </div>
+          </div>
+
+          <div class="content-grid">
+            <div class="glass panel">
+              <div class="head">
+                <div>
+                  <h3>Run Reports</h3>
+                  <p>Generate quick financial outputs.</p>
+                </div>
+              </div>
+
+              <div class="form-grid">
+                <div class="field full">
+                  <label>Low Balance Threshold</label>
+                  <input id="thresholdValue" type="number" step="0.01" placeholder="Enter threshold value" />
+                </div>
+              </div>
+
+              <div class="form-actions">
+                <button type="button" class="btn-primary" id="btnRunTotalReport">Run Total Money Report</button>
+                <button type="button" class="btn-secondary" id="btnRunLowReport">Run Low Balance Report</button>
+              </div>
+            </div>
+
+            <div class="glass panel">
+              <div class="head">
+                <div>
+                  <h3>Insight Summary</h3>
+                  <p>Current position of the platform.</p>
+                </div>
+              </div>
+              <div class="info" id="reportInsight"></div>
+            </div>
+          </div>
+        </section>
+      </div>
     </main>
   </div>
 
   <script>
-    const STORAGE_KEY = "velora_final_html_vintage_working";
+    const STORAGE_KEY = "velora_final_r3g4c3d3s3f1l3";
     const MIN_BALANCE = 500;
 
     const state = {
@@ -1960,7 +2083,7 @@
       }
 
       container.innerHTML = state.fds.slice().reverse().map(fd => `
-        <div class="fd-card" style="margin-bottom:12px">
+        <div class="fd-card">
           <div class="fd-row"><span class="fd-label">FD Number</span><span class="fd-value">${fd.fdNo}</span></div>
           <div class="fd-row"><span class="fd-label">Account Number</span><span class="fd-value">${fd.accNo}</span></div>
           <div class="fd-row"><span class="fd-label">Principal</span><span class="fd-value">${formatMoney(fd.amount)}</span></div>
@@ -2031,9 +2154,9 @@
       `;
 
       if (txns.length === 0) {
-        html += `<div class="statement-card" style="margin-top:12px">No transactions found for this account.</div>`;
+        html += `<div class="statement-card">No transactions found for this account.</div>`;
       } else {
-        html += `<div class="statement-card" style="margin-top:12px"><strong>Ledger</strong><br><br>`;
+        html += `<div class="statement-card"><strong>Ledger</strong><br><br>`;
         txns.slice().reverse().forEach(t => {
           html += `${t.type} · ${formatMoney(t.amount)}<br>`;
         });
