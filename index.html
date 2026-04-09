@@ -13,50 +13,34 @@
       --bg2:#130F16;
       --panel:#19141D;
       --panel2:#241C27;
-      --panel3:#2D2431;
-
       --line:rgba(255,255,255,.07);
       --line2:rgba(255,255,255,.12);
-
       --text:#F4EEF4;
       --muted:#B8ACBB;
       --muted2:#887B8A;
-
       --burg:#5E1626;
       --burg2:#7A1D31;
       --burg3:#9B2944;
       --rose:#E6BCC8;
-
       --green:#6F927A;
       --green-dim:rgba(111,146,122,.12);
       --green-mid:rgba(111,146,122,.22);
-
       --err:#D8647A;
       --err-dim:rgba(216,100,122,.12);
       --err-mid:rgba(216,100,122,.22);
-
       --blue:#6E8FD8;
       --blue-dim:rgba(110,143,216,.12);
       --blue-mid:rgba(110,143,216,.22);
-
       --cream:#F7EFDF;
       --cream2:#EEE2C9;
       --ink:#2D241D;
-
       --silver:#C8CDD6;
-
       --shadow:0 28px 80px rgba(0,0,0,.48);
-      --radius-xl:28px;
-      --radius-lg:22px;
-      --radius-md:16px;
-      --radius-sm:12px;
-
       --sans:'Inter',sans-serif;
       --vintage:'Cormorant Garamond',serif;
     }
 
     *{box-sizing:border-box}
-
     html,body{
       margin:0;
       padding:0;
@@ -285,11 +269,7 @@
       to{opacity:1;transform:translateY(0)}
     }
 
-    .hero-grid,
-    .summary-grid,
-    .content-grid,
-    .report-grid,
-    .form-grid{
+    .hero-grid,.summary-grid,.content-grid,.report-grid,.form-grid{
       display:grid;
       gap:18px;
     }
@@ -300,9 +280,7 @@
     .report-grid{grid-template-columns:repeat(3,1fr);margin-bottom:18px}
     .form-grid{grid-template-columns:repeat(2,1fr)}
 
-    .hero,.panel,.summary,.report-card,.output{
-      padding:22px;
-    }
+    .hero,.panel,.summary,.report-card,.output{padding:22px}
 
     .hero{
       position:relative;
@@ -353,19 +331,14 @@
       max-width:54ch;
     }
 
-    .actions,
-    .form-actions,
-    .output-actions{
+    .actions,.form-actions,.output-actions{
       display:flex;
       gap:12px;
       flex-wrap:wrap;
       margin-top:18px;
     }
 
-    .btn-primary,
-    .btn-secondary,
-    .btn-ghost,
-    .tab-btn{
+    .btn-primary,.btn-secondary,.btn-ghost,.tab-btn{
       border:none;
       border-radius:14px;
       padding:13px 18px;
@@ -398,8 +371,7 @@
       border:1px solid rgba(255,255,255,.08);
     }
 
-    .btn-secondary:hover,
-    .btn-ghost:hover{
+    .btn-secondary:hover,.btn-ghost:hover{
       background:rgba(255,255,255,.08);
     }
 
@@ -492,8 +464,7 @@
       font-weight:800;
     }
 
-    .summary .k,
-    .report-card .k{
+    .summary .k,.report-card .k{
       color:var(--muted);
       font-size:.78rem;
       text-transform:uppercase;
@@ -501,8 +472,7 @@
       margin-bottom:8px;
     }
 
-    .summary .v,
-    .report-card .v{
+    .summary .v,.report-card .v{
       font-size:2rem;
       font-weight:800;
       letter-spacing:-.04em;
@@ -525,9 +495,7 @@
       background:radial-gradient(circle, rgba(155,41,68,.16), transparent 68%);
     }
 
-    .row,
-    .head,
-    .output-head{
+    .row,.head,.output-head{
       display:flex;
       align-items:center;
       justify-content:space-between;
@@ -551,13 +519,11 @@
       line-height:1.65;
     }
 
-    .head,
-    .output-head{
+    .head,.output-head{
       margin-bottom:18px;
     }
 
-    .head h3,
-    .output-head h3{
+    .head h3,.output-head h3{
       margin:0;
       font-size:1.08rem;
       font-weight:700;
@@ -587,8 +553,7 @@
       text-transform:uppercase;
     }
 
-    .field input,
-    .field select{
+    .field input,.field select{
       width:100%;
       border:1px solid var(--line2);
       background:linear-gradient(180deg,var(--panel2),#18131d);
@@ -600,8 +565,7 @@
       font-family:var(--sans);
     }
 
-    .field input:focus,
-    .field select:focus{
+    .field input:focus,.field select:focus{
       border-color:rgba(155,41,68,.35);
       box-shadow:0 0 0 4px rgba(94,22,38,.12);
     }
@@ -799,39 +763,47 @@
     }
 
     .cheque-wrap{
-      display:flex;
-      justify-content:center;
-      align-items:flex-start;
-      padding:8px 0;
+      padding:8px 0 0;
     }
 
     .cheque-paper{
       position:relative;
       width:100%;
-      max-width:560px;
-      background:linear-gradient(135deg, var(--cream), var(--cream2));
+      min-height:340px;
+      background:
+        linear-gradient(135deg, var(--cream), var(--cream2)),
+        radial-gradient(circle at 20% 18%, rgba(255,255,255,.25), transparent 45%);
       color:var(--ink);
       border:2px solid #d8c8ad;
-      border-radius:18px;
-      padding:18px 20px 16px;
       box-shadow:0 18px 40px rgba(0,0,0,.30);
       overflow:hidden;
-      min-height:320px;
+      padding:18px 22px 16px;
+      clip-path:polygon(
+        0.8% 1%, 3% 0.4%, 7% 0.8%, 12% 0.2%, 18% 0.6%, 25% 0.3%, 32% 0.8%, 40% 0.2%, 48% 0.7%, 56% 0.1%, 64% 0.6%, 72% 0.2%, 80% 0.7%, 88% 0.3%, 95% 0.8%, 99.2% 1.2%,
+        99.7% 8%, 99.1% 15%, 99.6% 22%, 99% 30%, 99.7% 38%, 99.1% 46%, 99.6% 54%, 99% 62%, 99.7% 70%, 99.1% 78%, 99.5% 86%, 99% 93%, 98.8% 99.2%,
+        94% 99.6%, 88% 99.1%, 80% 99.8%, 72% 99.2%, 64% 99.7%, 56% 99.1%, 48% 99.8%, 40% 99.2%, 32% 99.7%, 24% 99.1%, 16% 99.8%, 8% 99.2%, 2% 99.7%, 0.6% 98.5%,
+        0.2% 92%, 0.9% 84%, 0.3% 76%, 0.8% 68%, 0.2% 60%, 0.9% 52%, 0.3% 44%, 0.8% 36%, 0.2% 28%, 0.9% 20%, 0.3% 12%, 0.7% 5%
+      );
     }
 
     .cheque-paper::before{
-      content:"VELORA BANK";
+      content:"";
       position:absolute;
-      top:50%;
-      left:50%;
-      transform:translate(-50%,-50%) rotate(-28deg);
-      font-family:var(--vintage);
-      font-size:4.6rem;
-      font-weight:700;
-      color:rgba(94,22,38,.05);
-      white-space:nowrap;
+      inset:0;
+      background:
+        radial-gradient(circle at 10% 20%, rgba(120,90,45,.06), transparent 18%),
+        radial-gradient(circle at 80% 75%, rgba(120,90,45,.05), transparent 16%),
+        radial-gradient(circle at 60% 35%, rgba(120,90,45,.04), transparent 14%);
       pointer-events:none;
-      letter-spacing:.08em;
+      mix-blend-mode:multiply;
+    }
+
+    .cheque-paper::after{
+      content:"";
+      position:absolute;
+      inset:0;
+      background:linear-gradient(90deg, rgba(190,150,85,.08), transparent 10%, transparent 90%, rgba(190,150,85,.06));
+      pointer-events:none;
     }
 
     .cheque-top-strip{
@@ -840,7 +812,8 @@
       left:0;
       right:0;
       height:12px;
-      background:linear-gradient(90deg, var(--burg), var(--burg3));
+      background:linear-gradient(90deg, #d3b16d, var(--burg), var(--burg3), #d3b16d);
+      opacity:.95;
     }
 
     .cheque-header{
@@ -851,19 +824,22 @@
       padding-bottom:12px;
       margin-top:6px;
       margin-bottom:14px;
+      position:relative;
+      z-index:2;
     }
 
     .cheque-bank{
       font-family:var(--vintage);
-      font-size:1.85rem;
+      font-size:2rem;
       font-weight:700;
       color:var(--burg);
       line-height:1;
+      letter-spacing:.03em;
     }
 
     .cheque-sub{
       margin-top:4px;
-      font-size:.78rem;
+      font-size:.8rem;
       color:#7d6a5b;
       font-style:italic;
     }
@@ -875,7 +851,7 @@
       color:var(--burg);
       border:1px solid rgba(94,22,38,.16);
       padding:5px 9px;
-      border-radius:8px;
+      border-radius:4px;
     }
 
     .cheque-line{
@@ -885,10 +861,12 @@
       border-bottom:1px solid rgba(80,60,40,.25);
       padding:6px 0;
       margin-bottom:6px;
+      position:relative;
+      z-index:2;
     }
 
     .cheque-label{
-      min-width:80px;
+      min-width:82px;
       font-size:.78rem;
       text-transform:uppercase;
       letter-spacing:.08em;
@@ -909,12 +887,14 @@
       margin-top:14px;
       padding:10px 14px;
       border:2px solid rgba(94,22,38,.16);
-      border-radius:10px;
+      border-radius:4px;
       background:rgba(255,255,255,.26);
       display:flex;
       justify-content:space-between;
       align-items:center;
       gap:12px;
+      position:relative;
+      z-index:2;
     }
 
     .cheque-amount-words{
@@ -937,6 +917,8 @@
       align-items:flex-end;
       margin-top:18px;
       gap:14px;
+      position:relative;
+      z-index:2;
     }
 
     .cheque-date{
@@ -977,6 +959,8 @@
       letter-spacing:.18em;
       color:#574435;
       text-align:center;
+      position:relative;
+      z-index:2;
     }
 
     .watermark{
@@ -987,10 +971,10 @@
       justify-content:center;
       pointer-events:none;
       font-family:var(--vintage);
-      font-size:4.2rem;
+      font-size:5rem;
       font-weight:700;
-      color:rgba(120,25,45,.14);
-      transform:rotate(-24deg);
+      color:rgba(120,25,45,.10);
+      transform:rotate(-28deg);
       letter-spacing:.08em;
     }
 
@@ -1003,11 +987,12 @@
       top:18px;
       right:18px;
       padding:5px 11px;
-      border-radius:8px;
+      border-radius:4px;
       font-size:.74rem;
       font-weight:800;
       letter-spacing:.08em;
       transform:rotate(2deg);
+      z-index:3;
     }
 
     .badge-issued{
@@ -1029,8 +1014,7 @@
       transform:rotate(-4deg);
     }
 
-    .statement-card,
-    .fd-card{
+    .statement-card,.fd-card{
       padding:18px 20px;
       border-radius:16px;
       border:1px solid var(--line);
@@ -1111,35 +1095,21 @@
     }
 
     @media (max-width:1280px){
-      .summary-grid,
-      .report-grid{
+      .summary-grid,.report-grid{
         grid-template-columns:1fr 1fr;
       }
-      .content-grid,
-      .hero-grid{
+      .content-grid,.hero-grid{
         grid-template-columns:1fr;
       }
     }
 
     @media (max-width:980px){
-      .app{
+      .app{grid-template-columns:1fr}
+      .sidebar{display:none}
+      .summary-grid,.report-grid,.form-grid,.quick-grid{
         grid-template-columns:1fr;
       }
-
-      .sidebar{
-        display:none;
-      }
-
-      .summary-grid,
-      .report-grid,
-      .form-grid,
-      .quick-grid{
-        grid-template-columns:1fr;
-      }
-
-      .hero h2{
-        font-size:2.2rem;
-      }
+      .hero h2{font-size:2.2rem}
     }
   </style>
 </head>
@@ -1161,48 +1131,21 @@
 
       <div class="glass nav-box">
         <div class="nav-title">Main</div>
-        <button type="button" class="nav-btn active" data-page="dashboard">
-          <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke-width="1.8"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/></svg>
-          Dashboard
-        </button>
-        <button type="button" class="nav-btn" data-page="accounts">
-          <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke-width="1.8"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
-          Accounts
-        </button>
+        <button type="button" class="nav-btn active" data-page="dashboard"><svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke-width="1.8"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/></svg>Dashboard</button>
+        <button type="button" class="nav-btn" data-page="accounts"><svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke-width="1.8"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>Accounts</button>
 
         <div class="nav-title">Transactions</div>
-        <button type="button" class="nav-btn" data-page="deposit">
-          <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke-width="1.8"><line x1="12" y1="5" x2="12" y2="19"/><polyline points="5 12 12 19 19 12"/></svg>
-          Deposit
-        </button>
-        <button type="button" class="nav-btn" data-page="withdraw">
-          <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke-width="1.8"><line x1="12" y1="19" x2="12" y2="5"/><polyline points="5 12 12 5 19 12"/></svg>
-          Withdraw
-        </button>
-        <button type="button" class="nav-btn" data-page="transactions">
-          <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke-width="1.8"><circle cx="12" cy="12" r="9"/><polyline points="12 7 12 12 15 14"/></svg>
-          History
-        </button>
+        <button type="button" class="nav-btn" data-page="deposit"><svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke-width="1.8"><line x1="12" y1="5" x2="12" y2="19"/><polyline points="5 12 12 19 19 12"/></svg>Deposit</button>
+        <button type="button" class="nav-btn" data-page="withdraw"><svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke-width="1.8"><line x1="12" y1="19" x2="12" y2="5"/><polyline points="5 12 12 5 19 12"/></svg>Withdraw</button>
+        <button type="button" class="nav-btn" data-page="transactions"><svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke-width="1.8"><circle cx="12" cy="12" r="9"/><polyline points="12 7 12 12 15 14"/></svg>History</button>
 
         <div class="nav-title">Services</div>
-        <button type="button" class="nav-btn" data-page="cheques">
-          <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke-width="1.8"><rect x="3" y="6" width="18" height="12" rx="2"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
-          Cheque Book
-        </button>
-        <button type="button" class="nav-btn" data-page="fd">
-          <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke-width="1.8"><circle cx="12" cy="12" r="8"/><circle cx="12" cy="12" r="2"/><line x1="12" y1="2" x2="12" y2="4"/><line x1="12" y1="20" x2="12" y2="22"/></svg>
-          Fixed Deposits
-        </button>
-        <button type="button" class="nav-btn" data-page="statement">
-          <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke-width="1.8"><path d="M14 2H7a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V7z"/><polyline points="14 2 14 8 20 8"/><line x1="9" y1="13" x2="15" y2="13"/><line x1="9" y1="17" x2="15" y2="17"/></svg>
-          Statement
-        </button>
+        <button type="button" class="nav-btn" data-page="cheques"><svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke-width="1.8"><rect x="3" y="6" width="18" height="12" rx="2"/><line x1="3" y1="10" x2="21" y2="10"/></svg>Cheque Book</button>
+        <button type="button" class="nav-btn" data-page="fd"><svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke-width="1.8"><circle cx="12" cy="12" r="8"/><circle cx="12" cy="12" r="2"/><line x1="12" y1="2" x2="12" y2="4"/><line x1="12" y1="20" x2="12" y2="22"/></svg>Fixed Deposits</button>
+        <button type="button" class="nav-btn" data-page="statement"><svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke-width="1.8"><path d="M14 2H7a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V7z"/><polyline points="14 2 14 8 20 8"/><line x1="9" y1="13" x2="15" y2="13"/><line x1="9" y1="17" x2="15" y2="17"/></svg>Statement</button>
 
         <div class="nav-title">Analytics</div>
-        <button type="button" class="nav-btn" data-page="reports">
-          <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke-width="1.8"><line x1="6" y1="20" x2="6" y2="12"/><line x1="12" y1="20" x2="12" y2="8"/><line x1="18" y1="20" x2="18" y2="4"/></svg>
-          Reports
-        </button>
+        <button type="button" class="nav-btn" data-page="reports"><svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke-width="1.8"><line x1="6" y1="20" x2="6" y2="12"/><line x1="12" y1="20" x2="12" y2="8"/><line x1="18" y1="20" x2="18" y2="4"/></svg>Reports</button>
       </div>
 
       <div class="glass notice">
@@ -1240,46 +1183,26 @@
               </div>
 
               <div class="quick-grid">
-                <div class="metric">
-                  <div class="metric-k">Accounts</div>
-                  <div class="metric-v" id="quickAccounts">0</div>
-                </div>
-                <div class="metric">
-                  <div class="metric-k">Transactions</div>
-                  <div class="metric-v" id="quickTransactions">0</div>
-                </div>
-                <div class="metric">
-                  <div class="metric-k">Alerts</div>
-                  <div class="metric-v" id="quickAlerts">0</div>
-                </div>
+                <div class="metric"><div class="metric-k">Accounts</div><div class="metric-v" id="quickAccounts">0</div></div>
+                <div class="metric"><div class="metric-k">Transactions</div><div class="metric-v" id="quickTransactions">0</div></div>
+                <div class="metric"><div class="metric-k">Alerts</div><div class="metric-v" id="quickAlerts">0</div></div>
               </div>
             </div>
           </div>
 
           <div class="summary-grid">
             <div class="glass summary">
-              <div class="row">
-                <div class="k">Total Balance</div>
-                <div class="summary-icon">₹</div>
-              </div>
+              <div class="row"><div class="k">Total Balance</div><div class="summary-icon">₹</div></div>
               <div class="v" id="sumBalance">₹0.00</div>
               <div class="muted">Consolidated balance across all client accounts.</div>
             </div>
-
             <div class="glass summary">
-              <div class="row">
-                <div class="k">Client Accounts</div>
-                <div class="summary-icon">◎</div>
-              </div>
+              <div class="row"><div class="k">Client Accounts</div><div class="summary-icon">◎</div></div>
               <div class="v" id="sumAccounts">0</div>
               <div class="muted">Active banking profiles currently managed in the system.</div>
             </div>
-
             <div class="glass summary">
-              <div class="row">
-                <div class="k">Low Balance Alerts</div>
-                <div class="summary-icon">!</div>
-              </div>
+              <div class="row"><div class="k">Low Balance Alerts</div><div class="summary-icon">!</div></div>
               <div class="v" id="sumAlerts">0</div>
               <div class="muted">Accounts below the reserve threshold.</div>
             </div>
@@ -1287,43 +1210,21 @@
 
           <div class="content-grid">
             <div class="glass panel">
-              <div class="head">
-                <div>
-                  <h3>Quick Create Account</h3>
-                  <p>Create a new account directly from the dashboard.</p>
-                </div>
-              </div>
-
+              <div class="head"><div><h3>Quick Create Account</h3><p>Create a new account directly from the dashboard.</p></div></div>
               <div class="form-grid">
-                <div class="field">
-                  <label>Account Number</label>
-                  <input id="dashAccNo" type="number" placeholder="e.g. 1001" />
-                </div>
-                <div class="field">
-                  <label>Client Name</label>
-                  <input id="dashName" type="text" placeholder="e.g. Sasha" />
-                </div>
-                <div class="field full">
-                  <label>Opening Balance</label>
-                  <input id="dashBal" type="number" step="0.01" placeholder="e.g. 25000" />
-                </div>
+                <div class="field"><label>Account Number</label><input id="dashAccNo" type="number" placeholder="e.g. 1001" /></div>
+                <div class="field"><label>Client Name</label><input id="dashName" type="text" placeholder="e.g. Sasha" /></div>
+                <div class="field full"><label>Opening Balance</label><input id="dashBal" type="number" step="0.01" placeholder="e.g. 25000" /></div>
               </div>
-
               <div class="form-actions">
                 <button type="button" class="btn-primary" id="btnCreateDashboard">Create Account</button>
                 <button type="button" class="btn-secondary" id="btnClearDashboard">Clear</button>
               </div>
-
               <div class="info">New accounts appear instantly in the registry, reports, and statement view.</div>
             </div>
 
             <div class="glass panel">
-              <div class="head">
-                <div>
-                  <h3>Recent Activity</h3>
-                  <p>Latest movements across the platform.</p>
-                </div>
-              </div>
+              <div class="head"><div><h3>Recent Activity</h3><p>Latest movements across the platform.</p></div></div>
               <div class="activity-list" id="recentActivity"></div>
             </div>
           </div>
@@ -1347,28 +1248,12 @@
 
           <div class="content-grid">
             <div class="glass panel">
-              <div class="head">
-                <div>
-                  <h3>Create New Account</h3>
-                  <p>Register a client account with a number, name, and opening balance.</p>
-                </div>
-              </div>
-
+              <div class="head"><div><h3>Create New Account</h3><p>Register a client account with a number, name, and opening balance.</p></div></div>
               <div class="form-grid">
-                <div class="field">
-                  <label>Account Number</label>
-                  <input id="createAccNo" type="number" placeholder="Enter account number" />
-                </div>
-                <div class="field">
-                  <label>Client Name</label>
-                  <input id="createName" type="text" placeholder="Enter client name" />
-                </div>
-                <div class="field full">
-                  <label>Opening Balance</label>
-                  <input id="createBalance" type="number" step="0.01" placeholder="Enter opening balance" />
-                </div>
+                <div class="field"><label>Account Number</label><input id="createAccNo" type="number" placeholder="Enter account number" /></div>
+                <div class="field"><label>Client Name</label><input id="createName" type="text" placeholder="Enter client name" /></div>
+                <div class="field full"><label>Opening Balance</label><input id="createBalance" type="number" step="0.01" placeholder="Enter opening balance" /></div>
               </div>
-
               <div class="form-actions">
                 <button type="button" class="btn-primary" id="btnCreateAccount">Create Account</button>
                 <button type="button" class="btn-secondary" id="btnResetAccount">Reset Form</button>
@@ -1376,42 +1261,24 @@
             </div>
 
             <div class="glass panel">
-              <div class="head">
-                <div>
-                  <h3>Account Summary</h3>
-                  <p>Switch between portfolio, status, and monitoring.</p>
-                </div>
-              </div>
-
+              <div class="head"><div><h3>Account Summary</h3><p>Switch between portfolio, status, and monitoring.</p></div></div>
               <div class="tabs">
                 <button type="button" class="tab-btn active" id="tabPortfolio">Portfolio</button>
                 <button type="button" class="tab-btn" id="tabStatus">Status</button>
                 <button type="button" class="tab-btn" id="tabMonitoring">Monitoring</button>
               </div>
-
               <div class="info" id="summaryBox"></div>
             </div>
           </div>
 
           <div class="glass panel">
             <div class="head">
-              <div>
-                <h3>Account Registry</h3>
-                <p>All client accounts currently stored in the system.</p>
-              </div>
+              <div><h3>Account Registry</h3><p>All client accounts currently stored in the system.</p></div>
               <button type="button" class="btn-secondary" id="btnRefreshAccounts">Refresh Table</button>
             </div>
-
             <div class="table-wrap">
               <table>
-                <thead>
-                  <tr>
-                    <th>Account No</th>
-                    <th>Client Name</th>
-                    <th>Balance</th>
-                    <th>Status</th>
-                  </tr>
-                </thead>
+                <thead><tr><th>Account No</th><th>Client Name</th><th>Balance</th><th>Status</th></tr></thead>
                 <tbody id="accountsBody"></tbody>
               </table>
             </div>
@@ -1425,24 +1292,11 @@
 
           <div class="content-grid">
             <div class="glass panel">
-              <div class="head">
-                <div>
-                  <h3>New Deposit</h3>
-                  <p>Add funds to a client account.</p>
-                </div>
-              </div>
-
+              <div class="head"><div><h3>New Deposit</h3><p>Add funds to a client account.</p></div></div>
               <div class="form-grid">
-                <div class="field">
-                  <label>Account Number</label>
-                  <input id="depositAccNo" type="number" placeholder="Enter account number" />
-                </div>
-                <div class="field">
-                  <label>Amount</label>
-                  <input id="depositAmount" type="number" step="0.01" placeholder="Enter deposit amount" />
-                </div>
+                <div class="field"><label>Account Number</label><input id="depositAccNo" type="number" placeholder="Enter account number" /></div>
+                <div class="field"><label>Amount</label><input id="depositAmount" type="number" step="0.01" placeholder="Enter deposit amount" /></div>
               </div>
-
               <div class="form-actions">
                 <button type="button" class="btn-primary" id="btnProcessDeposit">Process Deposit</button>
                 <button type="button" class="btn-secondary" id="btnClearDeposit">Clear</button>
@@ -1450,12 +1304,7 @@
             </div>
 
             <div class="glass panel">
-              <div class="head">
-                <div>
-                  <h3>Deposit Notes</h3>
-                  <p>Operational guidance for account funding.</p>
-                </div>
-              </div>
+              <div class="head"><div><h3>Deposit Notes</h3><p>Operational guidance for account funding.</p></div></div>
               <div class="info">Deposits update the account registry, statement, history, and dashboard metrics in real time.</div>
             </div>
           </div>
@@ -1468,24 +1317,11 @@
 
           <div class="content-grid">
             <div class="glass panel">
-              <div class="head">
-                <div>
-                  <h3>New Withdrawal</h3>
-                  <p>Remove funds from a selected client account.</p>
-                </div>
-              </div>
-
+              <div class="head"><div><h3>New Withdrawal</h3><p>Remove funds from a selected client account.</p></div></div>
               <div class="form-grid">
-                <div class="field">
-                  <label>Account Number</label>
-                  <input id="withdrawAccNo" type="number" placeholder="Enter account number" />
-                </div>
-                <div class="field">
-                  <label>Amount</label>
-                  <input id="withdrawAmount" type="number" step="0.01" placeholder="Enter withdrawal amount" />
-                </div>
+                <div class="field"><label>Account Number</label><input id="withdrawAccNo" type="number" placeholder="Enter account number" /></div>
+                <div class="field"><label>Amount</label><input id="withdrawAmount" type="number" step="0.01" placeholder="Enter withdrawal amount" /></div>
               </div>
-
               <div class="form-actions">
                 <button type="button" class="btn-primary" id="btnProcessWithdraw">Process Withdrawal</button>
                 <button type="button" class="btn-secondary" id="btnClearWithdraw">Clear</button>
@@ -1493,12 +1329,7 @@
             </div>
 
             <div class="glass panel">
-              <div class="head">
-                <div>
-                  <h3>Risk Control</h3>
-                  <p>Protected balance handling.</p>
-                </div>
-              </div>
+              <div class="head"><div><h3>Risk Control</h3><p>Protected balance handling.</p></div></div>
               <div class="info">If a withdrawal exceeds available balance or breaks the minimum-balance rule, the system blocks it and shows an error.</div>
             </div>
           </div>
@@ -1511,23 +1342,12 @@
 
           <div class="glass panel">
             <div class="head">
-              <div>
-                <h3>Transaction History</h3>
-                <p>Chronological record of movements.</p>
-              </div>
+              <div><h3>Transaction History</h3><p>Chronological record of movements.</p></div>
               <button type="button" class="btn-secondary" id="btnRefreshTransactions">Refresh Transactions</button>
             </div>
-
             <div class="table-wrap">
               <table>
-                <thead>
-                  <tr>
-                    <th>Type</th>
-                    <th>Account No</th>
-                    <th>Amount</th>
-                    <th>Direction</th>
-                  </tr>
-                </thead>
+                <thead><tr><th>Type</th><th>Account No</th><th>Amount</th><th>Direction</th></tr></thead>
                 <tbody id="transactionsBody"></tbody>
               </table>
             </div>
@@ -1541,33 +1361,16 @@
 
           <div class="content-grid">
             <div class="glass panel">
-              <div class="head">
-                <div>
-                  <h3>Issue New Cheque</h3>
-                  <p>Create a cheque for an existing account.</p>
-                </div>
-              </div>
-
+              <div class="head"><div><h3>Issue New Cheque</h3><p>Create a cheque for an existing account.</p></div></div>
               <div class="form-grid">
-                <div class="field">
-                  <label>Account Number</label>
-                  <input id="chequeAccNo" type="number" placeholder="Enter account number" />
-                </div>
-                <div class="field">
-                  <label>Payee Name</label>
-                  <input id="chequePayee" type="text" placeholder="Enter payee name" />
-                </div>
-                <div class="field full">
-                  <label>Amount</label>
-                  <input id="chequeAmount" type="number" step="0.01" placeholder="Enter cheque amount" />
-                </div>
+                <div class="field"><label>Account Number</label><input id="chequeAccNo" type="number" placeholder="Enter account number" /></div>
+                <div class="field"><label>Payee Name</label><input id="chequePayee" type="text" placeholder="Enter payee name" /></div>
+                <div class="field full"><label>Amount</label><input id="chequeAmount" type="number" step="0.01" placeholder="Enter cheque amount" /></div>
               </div>
-
               <div class="form-actions">
                 <button type="button" class="btn-primary" id="btnIssueCheque">Issue Cheque</button>
                 <button type="button" class="btn-secondary" id="btnClearChequeForm">Clear</button>
               </div>
-
               <div class="info">Issued cheques do not reduce balance immediately. Balance reduces only when the cheque is cleared.</div>
             </div>
 
@@ -1585,20 +1388,9 @@
                   <div class="cheque-no" id="chequeNoText">Cheque No: 1001</div>
                 </div>
 
-                <div class="cheque-line">
-                  <div class="cheque-label">Pay To</div>
-                  <div class="cheque-value" id="chequePayeeText">—</div>
-                </div>
-
-                <div class="cheque-line">
-                  <div class="cheque-label">Account</div>
-                  <div class="cheque-value" id="chequeAccText">—</div>
-                </div>
-
-                <div class="cheque-line">
-                  <div class="cheque-label">Date</div>
-                  <div class="cheque-value" id="chequeDateText">—</div>
-                </div>
+                <div class="cheque-line"><div class="cheque-label">Pay To</div><div class="cheque-value" id="chequePayeeText">—</div></div>
+                <div class="cheque-line"><div class="cheque-label">Account</div><div class="cheque-value" id="chequeAccText">—</div></div>
+                <div class="cheque-line"><div class="cheque-label">Date</div><div class="cheque-value" id="chequeDateText">—</div></div>
 
                 <div class="cheque-amount-box">
                   <div class="cheque-amount-words" id="chequeAmtWords">Amount in words</div>
@@ -1620,25 +1412,10 @@
           </div>
 
           <div class="glass panel">
-            <div class="head">
-              <div>
-                <h3>Issued Cheques</h3>
-                <p>Manage issued cheque leaves.</p>
-              </div>
-            </div>
-
+            <div class="head"><div><h3>Issued Cheques</h3><p>Manage issued cheque leaves.</p></div></div>
             <div class="table-wrap">
               <table>
-                <thead>
-                  <tr>
-                    <th>Cheque No</th>
-                    <th>Account No</th>
-                    <th>Payee</th>
-                    <th>Amount</th>
-                    <th>Status</th>
-                    <th>Action</th>
-                  </tr>
-                </thead>
+                <thead><tr><th>Cheque No</th><th>Account No</th><th>Payee</th><th>Amount</th><th>Status</th><th>Action</th></tr></thead>
                 <tbody id="chequesBody"></tbody>
               </table>
             </div>
@@ -1652,24 +1429,11 @@
 
           <div class="content-grid">
             <div class="glass panel">
-              <div class="head">
-                <div>
-                  <h3>Create Fixed Deposit</h3>
-                  <p>Principal is debited from the chosen account immediately.</p>
-                </div>
-              </div>
-
+              <div class="head"><div><h3>Create Fixed Deposit</h3><p>Principal is debited from the chosen account immediately.</p></div></div>
               <div class="form-grid">
-                <div class="field">
-                  <label>Account Number</label>
-                  <input id="fdAccNo" type="number" placeholder="Enter account number" />
-                </div>
-                <div class="field">
-                  <label>Principal Amount</label>
-                  <input id="fdAmount" type="number" step="0.01" placeholder="Minimum 1000" />
-                </div>
-                <div class="field full">
-                  <label>Tenure (Months)</label>
+                <div class="field"><label>Account Number</label><input id="fdAccNo" type="number" placeholder="Enter account number" /></div>
+                <div class="field"><label>Principal Amount</label><input id="fdAmount" type="number" step="0.01" placeholder="Minimum 1000" /></div>
+                <div class="field full"><label>Tenure (Months)</label>
                   <select id="fdMonths">
                     <option value="6">6 Months</option>
                     <option value="12">12 Months</option>
@@ -1679,7 +1443,6 @@
                   </select>
                 </div>
               </div>
-
               <div class="form-actions">
                 <button type="button" class="btn-primary" id="btnCreateFD">Create FD</button>
                 <button type="button" class="btn-secondary" id="btnClearFD">Clear</button>
@@ -1687,27 +1450,13 @@
             </div>
 
             <div class="glass panel">
-              <div class="head">
-                <div>
-                  <h3>FD Overview</h3>
-                  <p>Rates scale gently with tenure.</p>
-                </div>
-              </div>
-              <div class="info">
-                6–12 months: 6.5% p.a.<br>
-                24–36 months: 7.0% p.a.<br>
-                60 months: 7.5% p.a.
-              </div>
+              <div class="head"><div><h3>FD Overview</h3><p>Rates scale gently with tenure.</p></div></div>
+              <div class="info">6–12 months: 6.5% p.a.<br>24–36 months: 7.0% p.a.<br>60 months: 7.5% p.a.</div>
             </div>
           </div>
 
           <div class="glass panel">
-            <div class="head">
-              <div>
-                <h3>FD Portfolio</h3>
-                <p>All active fixed deposits.</p>
-              </div>
-            </div>
+            <div class="head"><div><h3>FD Portfolio</h3><p>All active fixed deposits.</p></div></div>
             <div id="fdList"></div>
           </div>
         </section>
@@ -1719,20 +1468,10 @@
 
           <div class="content-grid">
             <div class="glass panel">
-              <div class="head">
-                <div>
-                  <h3>Generate Statement</h3>
-                  <p>Show a statement for one account.</p>
-                </div>
-              </div>
-
+              <div class="head"><div><h3>Generate Statement</h3><p>Show a statement for one account.</p></div></div>
               <div class="form-grid">
-                <div class="field full">
-                  <label>Account Number</label>
-                  <input id="statementAccNo" type="number" placeholder="Enter account number" />
-                </div>
+                <div class="field full"><label>Account Number</label><input id="statementAccNo" type="number" placeholder="Enter account number" /></div>
               </div>
-
               <div class="form-actions">
                 <button type="button" class="btn-primary" id="btnGenerateStatement">Generate Statement</button>
                 <button type="button" class="btn-secondary" id="btnClearStatement">Clear</button>
@@ -1740,12 +1479,7 @@
             </div>
 
             <div class="glass panel">
-              <div class="head">
-                <div>
-                  <h3>Statement Output</h3>
-                  <p>Summary and ledger view.</p>
-                </div>
-              </div>
+              <div class="head"><div><h3>Statement Output</h3><p>Summary and ledger view.</p></div></div>
               <div id="statementOutput" class="info">No statement generated yet.</div>
             </div>
           </div>
@@ -1757,41 +1491,17 @@
           <p class="section-sub">Track total funds, low balances, and transaction volume.</p>
 
           <div class="report-grid">
-            <div class="glass report-card">
-              <div class="k">Total Money Held</div>
-              <div class="v" id="reportTotal">₹0.00</div>
-              <div class="muted">Aggregate balance across all stored client accounts.</div>
-            </div>
-
-            <div class="glass report-card">
-              <div class="k">Low Balance Count</div>
-              <div class="v" id="reportLowCount">0</div>
-              <div class="muted">Accounts below the monitoring threshold.</div>
-            </div>
-
-            <div class="glass report-card">
-              <div class="k">Transactions Logged</div>
-              <div class="v" id="reportTxnCount">0</div>
-              <div class="muted">Total recorded transactions.</div>
-            </div>
+            <div class="glass report-card"><div class="k">Total Money Held</div><div class="v" id="reportTotal">₹0.00</div><div class="muted">Aggregate balance across all stored client accounts.</div></div>
+            <div class="glass report-card"><div class="k">Low Balance Count</div><div class="v" id="reportLowCount">0</div><div class="muted">Accounts below the monitoring threshold.</div></div>
+            <div class="glass report-card"><div class="k">Transactions Logged</div><div class="v" id="reportTxnCount">0</div><div class="muted">Total recorded transactions.</div></div>
           </div>
 
           <div class="content-grid">
             <div class="glass panel">
-              <div class="head">
-                <div>
-                  <h3>Run Reports</h3>
-                  <p>Generate quick financial outputs.</p>
-                </div>
-              </div>
-
+              <div class="head"><div><h3>Run Reports</h3><p>Generate quick financial outputs.</p></div></div>
               <div class="form-grid">
-                <div class="field full">
-                  <label>Low Balance Threshold</label>
-                  <input id="thresholdValue" type="number" step="0.01" placeholder="Enter threshold value" />
-                </div>
+                <div class="field full"><label>Low Balance Threshold</label><input id="thresholdValue" type="number" step="0.01" placeholder="Enter threshold value" /></div>
               </div>
-
               <div class="form-actions">
                 <button type="button" class="btn-primary" id="btnRunTotalReport">Run Total Money Report</button>
                 <button type="button" class="btn-secondary" id="btnRunLowReport">Run Low Balance Report</button>
@@ -1799,12 +1509,7 @@
             </div>
 
             <div class="glass panel">
-              <div class="head">
-                <div>
-                  <h3>Insight Summary</h3>
-                  <p>Current position of the platform.</p>
-                </div>
-              </div>
+              <div class="head"><div><h3>Insight Summary</h3><p>Current position of the platform.</p></div></div>
               <div class="info" id="reportInsight"></div>
             </div>
           </div>
@@ -1854,12 +1559,10 @@
       toast.className = `toast ${type}`;
       toast.textContent = message;
       wrap.appendChild(toast);
-
       setTimeout(() => {
         toast.style.opacity = "0";
         toast.style.transform = "translateY(-8px)";
       }, 2200);
-
       setTimeout(() => {
         toast.remove();
       }, 2600);
@@ -1886,7 +1589,6 @@
       document.querySelectorAll(".page").forEach(p => p.classList.remove("active"));
       const page = document.getElementById(`${name}-page`);
       if (page) page.classList.add("active");
-
       document.querySelectorAll(".nav-btn").forEach(btn => {
         btn.classList.toggle("active", btn.dataset.page === name);
       });
@@ -1903,7 +1605,6 @@
     function moneyToWords(amount) {
       const units = ["","One","Two","Three","Four","Five","Six","Seven","Eight","Nine","Ten","Eleven","Twelve","Thirteen","Fourteen","Fifteen","Sixteen","Seventeen","Eighteen","Nineteen"];
       const tens = ["","","Twenty","Thirty","Forty","Fifty","Sixty","Seventy","Eighty","Ninety"];
-
       function words(n) {
         if (n < 20) return units[n];
         if (n < 100) return tens[Math.floor(n / 10)] + (n % 10 ? " " + units[n % 10] : "");
@@ -1912,7 +1613,6 @@
         if (n < 10000000) return words(Math.floor(n / 100000)) + " Lakh" + (n % 100000 ? " " + words(n % 100000) : "");
         return String(n);
       }
-
       const rupees = Math.floor(amount || 0);
       if (rupees === 0) return "Zero Rupees Only";
       return `${words(rupees)} Rupees Only`;
@@ -1936,26 +1636,11 @@
       const box = document.getElementById("summaryBox");
 
       if (state.summaryTab === "Portfolio") {
-        box.innerHTML = `
-          <strong>Total Accounts:</strong> ${count}<br>
-          <strong>Low Balance Profiles:</strong> ${low}<br>
-          <strong>Highest Balance:</strong> ${formatMoney(highest)}<br>
-          <strong>Average Balance:</strong> ${formatMoney(avg)}
-        `;
+        box.innerHTML = `<strong>Total Accounts:</strong> ${count}<br><strong>Low Balance Profiles:</strong> ${low}<br><strong>Highest Balance:</strong> ${formatMoney(highest)}<br><strong>Average Balance:</strong> ${formatMoney(avg)}`;
       } else if (state.summaryTab === "Status") {
-        box.innerHTML = `
-          <strong>Healthy Accounts:</strong> ${count - low}<br>
-          <strong>Low Balance Accounts:</strong> ${low}<br>
-          <strong>Total Transactions:</strong> ${state.transactions.length}<br>
-          <strong>Issued Cheques:</strong> ${state.cheques.length}
-        `;
+        box.innerHTML = `<strong>Healthy Accounts:</strong> ${count - low}<br><strong>Low Balance Accounts:</strong> ${low}<br><strong>Total Transactions:</strong> ${state.transactions.length}<br><strong>Issued Cheques:</strong> ${state.cheques.length}`;
       } else {
-        box.innerHTML = `
-          <strong>Monitoring Threshold:</strong> ${formatMoney(state.lowBalanceThreshold)}<br>
-          <strong>Fixed Deposits:</strong> ${state.fds.length}<br>
-          <strong>Registry Status:</strong> ${count === 0 ? "No Accounts Yet" : "Active"}<br>
-          <strong>System State:</strong> Live and Synced
-        `;
+        box.innerHTML = `<strong>Monitoring Threshold:</strong> ${formatMoney(state.lowBalanceThreshold)}<br><strong>Fixed Deposits:</strong> ${state.fds.length}<br><strong>Registry Status:</strong> ${count === 0 ? "No Accounts Yet" : "Active"}<br><strong>System State:</strong> Live and Synced`;
       }
     }
 
@@ -1991,16 +1676,7 @@
     function renderRecentActivity() {
       const list = document.getElementById("recentActivity");
       if (state.transactions.length === 0) {
-        list.innerHTML = `
-          <div class="activity-item">
-            <div class="activity-icon">↗</div>
-            <div>
-              <div class="activity-title">No activity yet</div>
-              <div class="activity-sub">Create an account or process a transaction to begin.</div>
-            </div>
-            <div class="activity-amount plus">—</div>
-          </div>
-        `;
+        list.innerHTML = `<div class="activity-item"><div class="activity-icon">↗</div><div><div class="activity-title">No activity yet</div><div class="activity-sub">Create an account or process a transaction to begin.</div></div><div class="activity-amount plus">—</div></div>`;
         return;
       }
 
@@ -2215,12 +1891,7 @@
         return;
       }
 
-      state.accounts.push({
-        accNo,
-        name,
-        balance
-      });
-
+      state.accounts.push({ accNo, name, balance });
       updateMetrics();
       renderAccounts();
       renderRecentActivity();
@@ -2251,12 +1922,7 @@ Opening Balance: ${formatMoney(balance)}`);
       }
 
       acc.balance += amount;
-      state.transactions.push({
-        type: "Deposit",
-        accNo,
-        amount,
-        date: todayString()
-      });
+      state.transactions.push({ type: "Deposit", accNo, amount, date: todayString() });
 
       updateMetrics();
       renderAccounts();
@@ -2301,12 +1967,7 @@ Updated Balance: ${formatMoney(acc.balance)}`);
       }
 
       acc.balance -= amount;
-      state.transactions.push({
-        type: "Withdraw",
-        accNo,
-        amount,
-        date: todayString()
-      });
+      state.transactions.push({ type: "Withdraw", accNo, amount, date: todayString() });
 
       updateMetrics();
       renderAccounts();
@@ -2421,12 +2082,7 @@ Status: ISSUED`);
 
       acc.balance -= cheque.amount;
       cheque.status = "CLEARED";
-      state.transactions.push({
-        type: "Cheque",
-        accNo: cheque.accNo,
-        amount: cheque.amount,
-        date: todayString()
-      });
+      state.transactions.push({ type: "Cheque", accNo: cheque.accNo, amount: cheque.amount, date: todayString() });
 
       updateChequePreview(cheque);
       renderCheques();
@@ -2472,22 +2128,8 @@ Updated Balance: ${formatMoney(acc.balance)}`);
       acc.balance -= amount;
       const maturity = amount * (1 + (rate / 100) * (months / 12));
 
-      state.fds.push({
-        fdNo: state.nextFDNo++,
-        accNo,
-        amount,
-        months,
-        rate,
-        maturity,
-        date: todayString()
-      });
-
-      state.transactions.push({
-        type: "FD Created",
-        accNo,
-        amount,
-        date: todayString()
-      });
+      state.fds.push({ fdNo: state.nextFDNo++, accNo, amount, months, rate, maturity, date: todayString() });
+      state.transactions.push({ type: "FD Created", accNo, amount, date: todayString() });
 
       updateMetrics();
       renderAccounts();
