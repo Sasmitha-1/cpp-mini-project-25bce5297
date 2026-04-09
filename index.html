@@ -1,949 +1,2520 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8"/>
-<meta name="viewport" content="width=device-width,initial-scale=1.0"/>
-<title>Velora Bank</title>
-<link rel="preconnect" href="https://fonts.googleapis.com"/>
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@300;400;500&display=swap" rel="stylesheet"/>
-<style>
-*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
-:root{
-  --bg:#08070b;--s1:#0f0d14;--s2:#161320;--s3:#1e1a29;--s4:#272234;
-  --line:rgba(255,255,255,0.06);--line2:rgba(255,255,255,0.11);
-  --t1:#f0ecf6;--t2:#a89dba;--t3:#5c5370;
-  --burg:#9f1837;--burg2:#c12a4f;--burg3:#e0527a;--rose:#f4c2d0;
-  --ok:#2ecc8e;--ok-dim:#2ecc8e12;--ok-mid:#2ecc8e28;
-  --err:#e05060;--err-dim:#e0506012;
-  --amber:#f0a922;--amber-dim:#f0a92212;
-  --blue:#4a9eff;--blue-dim:#4a9eff12;
-  --font:'Inter',sans-serif;--mono:'JetBrains Mono',monospace;
-}
-html,body{height:100%;background:var(--bg);color:var(--t1);font-family:var(--font);font-size:14px;overflow:hidden}
-body{background-image:radial-gradient(ellipse at 0% 0%,rgba(159,24,55,.2) 0%,transparent 40%),radial-gradient(ellipse at 100% 0%,rgba(193,42,79,.1) 0%,transparent 35%)}
-.app{display:grid;grid-template-columns:252px 1fr;height:100vh;overflow:hidden}
- 
-/* SIDEBAR */
-.sidebar{background:linear-gradient(180deg,rgba(14,12,19,.99),rgba(9,7,13,.99));border-right:1px solid var(--line);display:flex;flex-direction:column;overflow:hidden}
-.brand{padding:22px 18px 18px;border-bottom:1px solid var(--line);background:linear-gradient(135deg,rgba(159,24,55,.15),transparent)}
-.brand-row{display:flex;align-items:center;gap:12px;margin-bottom:13px}
-.brand-icon{width:44px;height:44px;border-radius:14px;background:linear-gradient(145deg,rgba(193,42,79,.45),rgba(100,12,32,.45));border:1px solid rgba(193,42,79,.35);display:grid;place-items:center;font-size:18px;box-shadow:0 6px 20px rgba(159,24,55,.3)}
-.brand-name{font-size:15px;font-weight:800;letter-spacing:-.3px}
-.brand-sub{font-size:10px;color:var(--t3);margin-top:2px}
-.brand-chip{display:inline-flex;align-items:center;gap:6px;padding:5px 11px;border-radius:999px;background:rgba(255,255,255,.04);border:1px solid var(--line2);font-size:10px;color:var(--t2)}
-.brand-chip::before{content:'';width:5px;height:5px;border-radius:50%;background:var(--ok);animation:blink 2.5s ease-in-out infinite}
-@keyframes blink{0%,100%{opacity:1}50%{opacity:.2}}
-.nav{flex:1;padding:10px 8px;overflow-y:auto;display:flex;flex-direction:column;gap:1px;scrollbar-width:none}
-.nav::-webkit-scrollbar{display:none}
-.nav-sep{font-size:9px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:var(--t3);padding:12px 12px 4px}
-.nav-btn{width:100%;display:flex;align-items:center;gap:9px;padding:8px 11px;border-radius:8px;background:transparent;border:1px solid transparent;font-family:var(--font);font-size:12px;font-weight:500;color:var(--t2);cursor:pointer;transition:all .13s ease;text-align:left}
-.nav-btn svg{flex-shrink:0;opacity:.45;transition:opacity .13s}
-.nav-btn:hover{background:var(--s3);color:var(--t1)}
-.nav-btn:hover svg{opacity:.75}
-.nav-btn.active{background:linear-gradient(135deg,rgba(159,24,55,.3),rgba(100,12,32,.18));border-color:rgba(193,42,79,.28);color:white}
-.nav-btn.active svg{opacity:1}
-.sb-foot{padding:12px 8px;border-top:1px solid var(--line)}
-.sb-badge{display:flex;align-items:center;gap:8px;padding:9px 12px;border-radius:8px;background:var(--s2);border:1px solid var(--line)}
-.sb-dot{width:5px;height:5px;border-radius:50%;background:var(--ok);flex-shrink:0;animation:blink 3s ease-in-out infinite}
-.sb-txt{font-family:var(--mono);font-size:10px;color:var(--t3)}
-.sb-txt strong{color:var(--t2);font-weight:400}
- 
-/* MAIN */
-.main{display:flex;flex-direction:column;overflow:hidden}
-.topbar{display:flex;align-items:center;justify-content:space-between;padding:0 26px;height:50px;background:rgba(8,7,11,.96);border-bottom:1px solid var(--line);flex-shrink:0}
-.tb-title{font-size:12px;font-weight:500;color:var(--t2)}
-.tb-right{display:flex;align-items:center;gap:16px}
-.tb-reg{font-family:var(--mono);font-size:10px;color:var(--t3)}
-.tb-live{display:flex;align-items:center;gap:5px;font-size:10px;color:var(--ok);font-family:var(--mono)}
-.tb-live::before{content:'';width:4px;height:4px;border-radius:50%;background:var(--ok);display:inline-block}
- 
-/* PAGES */
-.pages{flex:1;overflow-y:auto;scrollbar-width:thin;scrollbar-color:var(--s4) transparent}
-.pages::-webkit-scrollbar{width:4px}
-.pages::-webkit-scrollbar-thumb{background:var(--s4);border-radius:2px}
-.page{display:none;padding:24px 28px 40px}
-.page.active{display:block;animation:up .18s ease}
-@keyframes up{from{opacity:0;transform:translateY(7px)}to{opacity:1;transform:translateY(0)}}
-.ptitle{font-size:20px;font-weight:300;letter-spacing:-.7px;margin-bottom:3px}
-.psub{font-size:11px;color:var(--t3);margin-bottom:22px}
- 
-/* LAYOUT */
-.g2{display:grid;grid-template-columns:1fr 1fr;gap:14px}
-.g3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:12px}
-.gw{display:grid;grid-template-columns:1.3fr .9fr;gap:14px}
- 
-/* CARD */
-.card{background:var(--s1);border:1px solid var(--line);border-radius:14px;padding:20px}
-.ctitle{font-size:11px;font-weight:600;color:var(--t2);text-transform:uppercase;letter-spacing:.06em;margin-bottom:13px}
- 
-/* STAT */
-.stat{background:var(--s1);border:1px solid var(--line);border-radius:12px;padding:16px 18px;display:flex;flex-direction:column;gap:4px;transition:border-color .2s}
-.stat:hover{border-color:rgba(193,42,79,.2)}
-.slabel{font-size:10px;color:var(--t3);text-transform:uppercase;letter-spacing:.07em}
-.sval{font-size:24px;font-weight:300;letter-spacing:-1px;font-family:var(--mono)}
-.sval.r{color:var(--burg3)}.sval.g{color:var(--ok)}.sval.b{color:var(--blue)}
-.smeta{font-size:10px;color:var(--t3)}
- 
-/* HERO */
-.hero{background:linear-gradient(135deg,rgba(20,17,27,.97),rgba(13,10,18,.97));border:1px solid var(--line);border-radius:14px;padding:26px 28px;position:relative;overflow:hidden}
-.hero::after{content:'';position:absolute;top:-70px;right:-70px;width:260px;height:260px;border-radius:50%;background:radial-gradient(circle,rgba(193,42,79,.22),transparent 65%);pointer-events:none}
-.hero-tag{display:inline-flex;align-items:center;gap:5px;padding:4px 11px;border-radius:999px;background:rgba(193,42,79,.1);border:1px solid rgba(193,42,79,.22);font-size:10px;color:var(--rose);margin-bottom:14px}
-.hero h2{font-size:26px;font-weight:300;letter-spacing:-1px;line-height:1.1;max-width:14ch;margin-bottom:10px}
-.hero-sub{font-size:11px;color:var(--t3);line-height:1.7;max-width:48ch}
-.hero-actions{display:flex;gap:8px;flex-wrap:wrap;margin-top:18px}
- 
-/* PORTFOLIO */
-.portfolio{background:var(--s1);border:1px solid var(--line);border-radius:14px;padding:18px;display:flex;flex-direction:column;gap:12px}
-.phead{display:flex;align-items:center;justify-content:space-between}
-.phead h3{font-size:12px;font-weight:600}
-.live-pill{display:flex;align-items:center;gap:5px;padding:3px 9px;border-radius:999px;background:rgba(46,204,142,.08);border:1px solid rgba(46,204,142,.2);font-size:10px;color:var(--ok);font-family:var(--mono)}
-.live-pill::before{content:'';width:4px;height:4px;border-radius:50%;background:var(--ok)}
-.ptotal{background:linear-gradient(135deg,rgba(159,24,55,.28),rgba(100,12,32,.22));border:1px solid rgba(193,42,79,.22);border-radius:10px;padding:16px}
-.ptotal-lbl{font-size:10px;color:#e4a1b4;text-transform:uppercase;letter-spacing:.07em;margin-bottom:5px}
-.ptotal-val{font-size:26px;font-weight:300;letter-spacing:-1.2px;font-family:var(--mono)}
-.pmini-row{display:grid;grid-template-columns:repeat(3,1fr);gap:7px}
-.pmini{background:rgba(255,255,255,.03);border:1px solid var(--line);border-radius:9px;padding:10px;text-align:center}
-.pmini-lbl{font-size:9px;color:var(--t3);text-transform:uppercase;letter-spacing:.06em;margin-bottom:3px}
-.pmini-val{font-size:15px;font-weight:600;font-family:var(--mono)}
- 
-/* FORMS */
-.fg{display:grid;gap:12px}
-.fg.c2{grid-template-columns:1fr 1fr}
-.field{display:flex;flex-direction:column;gap:5px}
-.field label{font-size:10px;font-weight:600;color:var(--t3);text-transform:uppercase;letter-spacing:.06em}
-.field input,.field select{background:var(--s2);border:1px solid var(--line2);border-radius:7px;padding:9px 12px;font-family:var(--mono);font-size:12px;color:var(--t1);outline:none;transition:border-color .13s,box-shadow .13s}
-.field input:focus,.field select:focus{border-color:rgba(193,42,79,.4);box-shadow:0 0 0 3px rgba(159,24,55,.1)}
-.field input::placeholder{color:var(--t3)}
-.field select option{background:var(--s2)}
- 
-/* BUTTONS */
-.btn{display:inline-flex;align-items:center;justify-content:center;gap:6px;padding:8px 16px;border-radius:7px;border:none;outline:none;font-family:var(--font);font-size:12px;font-weight:600;cursor:pointer;transition:all .13s ease;user-select:none}
-.bp{background:linear-gradient(135deg,var(--burg),var(--burg2));color:white;box-shadow:0 3px 12px rgba(159,24,55,.3)}
-.bp:hover{background:linear-gradient(135deg,var(--burg2),var(--burg3));box-shadow:0 5px 18px rgba(193,42,79,.4);transform:translateY(-1px)}
-.bp:active{transform:scale(.98)}
-.bs{background:rgba(255,255,255,.05);border:1px solid var(--line2);color:var(--t2)}
-.bs:hover{background:var(--s3);color:var(--t1)}
-.bg{background:transparent;border:1px solid var(--line);color:var(--t3)}
-.bg:hover{background:var(--s2);color:var(--t2)}
-.brow{display:flex;gap:8px;margin-top:14px;flex-wrap:wrap}
- 
-/* RESULT */
-.result{margin-top:12px;padding:11px 13px;border-radius:7px;font-family:var(--mono);font-size:11px;line-height:1.75;display:none;border:1px solid transparent;white-space:pre-wrap}
-.result.show{display:block;animation:up .18s ease}
-.result.ok{background:var(--ok-dim);border-color:var(--ok-mid);color:var(--ok)}
-.result.err{background:var(--err-dim);border-color:#e0506020;color:var(--err)}
-.result.info{background:var(--blue-dim);border-color:#4a9eff20;color:var(--blue)}
- 
-/* TABLE */
-.twrap{overflow:auto;border-radius:9px;border:1px solid var(--line);background:rgba(255,255,255,.01);margin-top:12px}
-table{width:100%;border-collapse:collapse;min-width:500px}
-thead th{text-align:left;padding:10px 14px;font-size:9px;font-weight:600;text-transform:uppercase;letter-spacing:.1em;color:var(--t3);background:rgba(255,255,255,.02);border-bottom:1px solid var(--line)}
-tbody td{padding:10px 14px;font-size:11.5px;color:#ddd6ea;border-bottom:1px solid rgba(255,255,255,.03)}
-tbody tr:last-child td{border-bottom:none}
-tbody tr:hover{background:rgba(255,255,255,.02)}
-.pill{display:inline-flex;align-items:center;padding:3px 9px;border-radius:999px;font-size:10px;font-weight:600}
-.p-ok{background:var(--ok-dim);color:var(--ok);border:1px solid var(--ok-mid)}
-.p-err{background:var(--err-dim);color:var(--err);border:1px solid #e0506020}
-.p-dep{background:rgba(46,204,142,.1);color:#7be8be;border:1px solid rgba(46,204,142,.2)}
-.p-wdr{background:rgba(224,80,96,.1);color:#f4a0aa;border:1px solid rgba(224,80,96,.2)}
-.p-amber{background:var(--amber-dim);color:var(--amber);border:1px solid #f0a92220}
-.p-blue{background:var(--blue-dim);color:var(--blue);border:1px solid #4a9eff20}
- 
-/* TABS */
-.tabs{display:flex;gap:5px;margin-bottom:13px}
-.tab{padding:5px 12px;border-radius:6px;font-size:11px;font-weight:600;background:rgba(255,255,255,.03);border:1px solid var(--line);color:var(--t3);cursor:pointer;transition:all .13s}
-.tab.active{background:rgba(159,24,55,.2);border-color:rgba(193,42,79,.25);color:white}
-.tc{display:none}
-.tc.active{display:block;animation:up .14s ease}
- 
-/* INFOBOX */
-.infobox{padding:12px 14px;border-radius:8px;background:rgba(255,255,255,.02);border:1px solid var(--line);font-size:11.5px;color:var(--t2);line-height:1.7}
-.infobox strong{color:var(--t1);font-weight:500}
- 
-/* ACTIVITY */
-.activity{display:flex;flex-direction:column;gap:8px;margin-top:4px}
-.act{display:grid;grid-template-columns:34px 1fr auto;align-items:center;gap:10px;padding:10px 13px;border-radius:9px;background:rgba(255,255,255,.02);border:1px solid var(--line)}
-.act-icon{width:34px;height:34px;border-radius:9px;display:grid;place-items:center;font-size:13px;background:rgba(159,24,55,.15);border:1px solid rgba(193,42,79,.2)}
-.act-t{font-size:11.5px;font-weight:600;margin-bottom:2px}
-.act-s{font-size:10px;color:var(--t3)}
-.act-a{font-family:var(--mono);font-size:11.5px;font-weight:600}
-.act-a.plus{color:var(--ok)}.act-a.minus{color:var(--err)}
- 
-/* SYSOUT */
-.sysout{background:var(--s1);border:1px solid var(--line);border-radius:14px;overflow:hidden}
-.sysout-bar{display:flex;align-items:center;justify-content:space-between;padding:9px 16px;border-bottom:1px solid var(--line);background:rgba(255,255,255,.02)}
-.sysout-bl{display:flex;align-items:center;gap:9px}
-.sdots{display:flex;gap:4px}
-.sd{width:8px;height:8px;border-radius:50%}
-.sd.r{background:#ff5f57;opacity:.6}.sd.y{background:#ffbd2e;opacity:.6}.sd.g{background:#28ca41;opacity:.6}
-.spath{font-family:var(--mono);font-size:10px;color:var(--t3);margin-left:3px}
-.spath span{color:var(--burg3)}
-#outbox{padding:14px 18px;font-family:var(--mono);font-size:11px;line-height:1.85;color:#c8a8d8;min-height:80px;max-height:160px;overflow-y:auto;white-space:pre-wrap;word-break:break-word;scrollbar-width:thin;scrollbar-color:var(--s4) transparent}
-#outbox::-webkit-scrollbar{width:3px}
-#outbox::-webkit-scrollbar-thumb{background:var(--s4)}
- 
-/* ── CHEQUE ── */
-.cheque-card{
-  background:linear-gradient(135deg,#fdfaf4,#f5f0e8);
-  border:2px solid #c9a84c;border-radius:12px;padding:24px 28px;
-  font-family:'Georgia',serif;color:#1a1008;
-  box-shadow:0 8px 32px rgba(0,0,0,.4);max-width:600px;margin:0 auto;
-  position:relative;overflow:hidden;
-}
-.cheque-card::before{
-  content:'VELORA BANK';position:absolute;top:50%;left:50%;
-  transform:translate(-50%,-50%) rotate(-30deg);
-  font-size:80px;font-weight:900;color:rgba(159,24,55,.04);
-  white-space:nowrap;pointer-events:none;letter-spacing:.1em;
-}
-.cheque-header{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:20px;border-bottom:2px solid #c9a84c;padding-bottom:14px}
-.cheque-bank-name{font-size:20px;font-weight:700;color:#7b1029;letter-spacing:-.3px}
-.cheque-bank-sub{font-size:10px;color:#8b6914;margin-top:2px;font-style:italic}
-.cheque-no{font-family:var(--mono);font-size:12px;color:#5a3e1b;background:#f0e8d0;padding:4px 10px;border-radius:4px;border:1px solid #c9a84c}
-.cheque-row{display:flex;align-items:baseline;gap:8px;margin:10px 0;border-bottom:1px solid #d4b878}
-.cheque-label{font-size:10px;color:#8b6914;text-transform:uppercase;letter-spacing:.08em;white-space:nowrap;min-width:80px}
-.cheque-value{font-size:15px;font-weight:600;color:#1a1008;flex:1;padding-bottom:4px}
-.cheque-amount-box{display:flex;justify-content:space-between;align-items:center;margin-top:16px;padding:10px 16px;border:2px solid #c9a84c;border-radius:6px;background:#faf4e8}
-.cheque-amt-words{font-size:11px;color:#5a3e1b;font-style:italic;flex:1}
-.cheque-amt-num{font-size:18px;font-weight:700;color:#7b1029;font-family:var(--mono)}
-.cheque-footer{display:flex;justify-content:space-between;align-items:flex-end;margin-top:16px;padding-top:12px;border-top:1px solid #d4b878}
-.cheque-date{font-size:11px;color:#8b6914}
-.cheque-sig{text-align:right}
-.cheque-sig-line{width:120px;border-bottom:1px solid #1a1008;margin-bottom:4px}
-.cheque-sig-label{font-size:10px;color:#8b6914;text-align:center}
-.cheque-micr{font-family:var(--mono);font-size:10px;color:#5a3e1b;letter-spacing:.2em;margin-top:12px;padding-top:8px;border-top:1px dashed #c9a84c;text-align:center}
-.cheque-status-badge{position:absolute;top:16px;right:16px;padding:4px 12px;border-radius:4px;font-size:11px;font-weight:700;letter-spacing:.08em;transform:rotate(3deg)}
-.cheque-status-badge.issued{background:#fff3cd;color:#856404;border:1px solid #ffc107}
-.cheque-status-badge.cancelled{background:#f8d7da;color:#842029;border:1px solid #f5c2c7;transform:rotate(-5deg)}
-.cheque-status-badge.cleared{background:#d1e7dd;color:#0f5132;border:1px solid #badbcc}
- 
-/* FD CARD */
-.fd-card{background:linear-gradient(135deg,rgba(74,158,255,.08),rgba(74,158,255,.03));border:1px solid rgba(74,158,255,.2);border-radius:12px;padding:18px 20px;display:flex;flex-direction:column;gap:8px}
-.fd-row{display:flex;justify-content:space-between;font-size:12px}
-.fd-label{color:var(--t3)}
-.fd-value{font-family:var(--mono);color:var(--t1);font-weight:500}
-.fd-maturity{font-family:var(--mono);font-size:18px;font-weight:300;color:var(--blue);letter-spacing:-.5px}
- 
-/* LOADING */
-#loading{position:fixed;inset:0;background:var(--bg);z-index:999;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:18px;transition:opacity .5s ease}
-#loading.fade{opacity:0;pointer-events:none}
-.lname{font-size:22px;font-weight:300;letter-spacing:-1px}
-.lname span{color:var(--burg3)}
-.ltrack{width:150px;height:1px;background:var(--s4);border-radius:1px;overflow:hidden}
-.lfill{height:100%;background:linear-gradient(90deg,var(--burg),var(--burg3));animation:lf 2.5s ease forwards}
-@keyframes lf{from{width:0}to{width:100%}}
-.ltxt{font-family:var(--mono);font-size:10px;color:var(--t3)}
- 
-/* TOAST */
-.toast{position:fixed;bottom:22px;right:22px;z-index:99;display:flex;align-items:center;gap:9px;padding:11px 16px;border-radius:9px;font-size:12px;font-weight:500;transform:translateY(8px);opacity:0;transition:all .25s ease;pointer-events:none}
-.toast.show{transform:translateY(0);opacity:1}
-.toast.ok{background:rgba(46,204,142,.12);border:1px solid rgba(46,204,142,.25);color:var(--ok)}
-.toast.err{background:rgba(224,80,96,.12);border:1px solid rgba(224,80,96,.25);color:var(--err)}
- 
-/* CHEQUES LIST */
-.cheques-grid{display:flex;flex-direction:column;gap:12px;margin-top:4px}
-</style>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Velora Bank</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+  <style>
+    :root{
+      --bg:#09080c;
+      --bg2:#141017;
+      --panel:#17131b;
+      --panel2:#211923;
+      --panel3:#2a202c;
+      --line:rgba(255,255,255,.07);
+      --line2:rgba(255,255,255,.12);
+      --text:#f4eef4;
+      --muted:#b8acbb;
+      --muted2:#877d8c;
+      --burg:#871b35;
+      --burg2:#a61f42;
+      --burg3:#c7345b;
+      --rose:#ebc0cc;
+      --ok:#35b57c;
+      --err:#de6176;
+      --blue:#6ea0ff;
+      --gold:#c4a46d;
+      --cream:#f4ecd9;
+      --cream2:#efe4cf;
+      --ink:#2e241f;
+      --shadow:0 28px 80px rgba(0,0,0,.48);
+      --radius-xl:28px;
+      --radius-lg:22px;
+      --radius-md:16px;
+      --radius-sm:12px;
+      --sans:'Inter',sans-serif;
+      --vintage:'Cormorant Garamond',serif;
+    }
+
+    *{box-sizing:border-box}
+
+    html,body{
+      margin:0;
+      padding:0;
+      height:100%;
+      font-family:var(--sans);
+      color:var(--text);
+      background:
+        radial-gradient(circle at top left, rgba(166,31,66,.20), transparent 26%),
+        radial-gradient(circle at top right, rgba(199,52,91,.12), transparent 24%),
+        linear-gradient(135deg,var(--bg) 0%, #0f0c12 45%, var(--bg2) 100%);
+      overflow:hidden;
+    }
+
+    body::before{
+      content:"";
+      position:fixed;
+      inset:0;
+      pointer-events:none;
+      background:
+        linear-gradient(rgba(255,255,255,.02) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255,255,255,.02) 1px, transparent 1px);
+      background-size:34px 34px;
+      opacity:.16;
+      mask-image:linear-gradient(to bottom, rgba(0,0,0,.95), rgba(0,0,0,.25));
+    }
+
+    .app{
+      position:relative;
+      z-index:1;
+      display:grid;
+      grid-template-columns:290px 1fr;
+      height:100vh;
+    }
+
+    .sidebar{
+      background:linear-gradient(180deg, rgba(15,12,18,.98), rgba(10,8,12,.98));
+      border-right:1px solid var(--line);
+      padding:20px 16px;
+      display:flex;
+      flex-direction:column;
+      gap:18px;
+    }
+
+    .glass{
+      background:linear-gradient(180deg, rgba(24,19,28,.96), rgba(16,13,19,.98));
+      border:1px solid var(--line);
+      border-radius:22px;
+      box-shadow:var(--shadow);
+    }
+
+    .brand{
+      padding:18px;
+      background:linear-gradient(145deg, rgba(166,31,66,.18), rgba(24,19,28,.96));
+    }
+
+    .brand-row{
+      display:flex;
+      align-items:center;
+      gap:14px;
+      margin-bottom:12px;
+    }
+
+    .brand-icon{
+      width:54px;
+      height:54px;
+      border-radius:18px;
+      display:grid;
+      place-items:center;
+      background:linear-gradient(145deg, var(--burg2), var(--burg3));
+      border:1px solid rgba(255,255,255,.10);
+      font-family:var(--vintage);
+      font-size:24px;
+      color:#fff7f8;
+      box-shadow:0 10px 24px rgba(166,31,66,.28);
+    }
+
+    .brand h1{
+      margin:0;
+      font-family:var(--vintage);
+      font-size:1.7rem;
+      font-weight:700;
+      letter-spacing:.01em;
+    }
+
+    .brand p{
+      margin:2px 0 0;
+      color:var(--muted);
+      font-size:.88rem;
+    }
+
+    .brand-chip{
+      display:inline-flex;
+      align-items:center;
+      gap:8px;
+      padding:7px 12px;
+      border-radius:999px;
+      background:rgba(255,255,255,.05);
+      border:1px solid rgba(255,255,255,.07);
+      color:#f1d8df;
+      font-size:.78rem;
+    }
+
+    .brand-chip::before{
+      content:"";
+      width:6px;
+      height:6px;
+      border-radius:50%;
+      background:var(--ok);
+      display:block;
+      box-shadow:0 0 12px rgba(53,181,124,.55);
+    }
+
+    .nav-box{
+      padding:10px;
+    }
+
+    .nav-title{
+      margin:8px 10px 12px;
+      font-size:.72rem;
+      letter-spacing:.16em;
+      text-transform:uppercase;
+      color:var(--muted2);
+      font-weight:700;
+    }
+
+    .nav-btn{
+      width:100%;
+      display:flex;
+      align-items:center;
+      gap:12px;
+      padding:12px 13px;
+      margin-bottom:6px;
+      border:none;
+      border-radius:14px;
+      background:transparent;
+      color:var(--muted);
+      font-family:var(--sans);
+      font-size:.95rem;
+      font-weight:600;
+      cursor:pointer;
+      transition:.18s ease;
+      text-align:left;
+    }
+
+    .nav-btn:hover{
+      background:rgba(255,255,255,.05);
+      color:var(--text);
+      transform:translateX(2px);
+    }
+
+    .nav-btn.active{
+      color:#fff;
+      background:linear-gradient(135deg, rgba(166,31,66,.34), rgba(135,27,53,.18));
+      border:1px solid rgba(199,52,91,.26);
+    }
+
+    .nav-dot{
+      width:10px;
+      height:10px;
+      border-radius:50%;
+      background:linear-gradient(135deg, var(--burg3), var(--rose));
+      box-shadow:0 0 10px rgba(199,52,91,.36);
+      flex-shrink:0;
+    }
+
+    .notice{
+      margin-top:auto;
+      padding:14px;
+    }
+
+    .notice h4{
+      margin:0 0 8px;
+      font-family:var(--vintage);
+      font-size:1.15rem;
+      color:#fff3ef;
+    }
+
+    .notice p{
+      margin:0;
+      color:var(--muted);
+      font-size:.84rem;
+      line-height:1.55;
+    }
+
+    .main{
+      padding:22px;
+      overflow:auto;
+    }
+
+    .page{display:none}
+    .page.active{display:block}
+
+    .hero-grid,
+    .summary-grid,
+    .content-grid,
+    .form-grid,
+    .report-grid{
+      display:grid;
+      gap:18px;
+    }
+
+    .hero-grid{grid-template-columns:1.18fr .82fr}
+    .summary-grid{grid-template-columns:repeat(3,1fr); margin:18px 0}
+    .content-grid{grid-template-columns:1.18fr .82fr; margin-bottom:18px}
+    .report-grid{grid-template-columns:repeat(3,1fr); margin-bottom:18px}
+    .form-grid{grid-template-columns:repeat(2,1fr)}
+
+    .hero,.panel,.summary,.report-card,.output{
+      padding:22px;
+    }
+
+    .hero{
+      position:relative;
+      overflow:hidden;
+    }
+
+    .hero::after{
+      content:"";
+      position:absolute;
+      width:260px;
+      height:260px;
+      top:-60px;
+      right:-60px;
+      border-radius:50%;
+      background:radial-gradient(circle, rgba(199,52,91,.26), transparent 68%);
+      filter:blur(8px);
+      pointer-events:none;
+    }
+
+    .hero-tag{
+      display:inline-flex;
+      align-items:center;
+      gap:8px;
+      padding:8px 12px;
+      border-radius:999px;
+      background:rgba(255,255,255,.05);
+      border:1px solid rgba(255,255,255,.07);
+      font-size:.78rem;
+      color:#efd5dd;
+      margin-bottom:15px;
+    }
+
+    .hero h2{
+      margin:0;
+      font-family:var(--vintage);
+      font-size:2.7rem;
+      line-height:.98;
+      font-weight:600;
+      letter-spacing:-.02em;
+      max-width:12ch;
+    }
+
+    .hero p{
+      margin:14px 0 0;
+      color:var(--muted);
+      font-size:.97rem;
+      line-height:1.75;
+      max-width:54ch;
+    }
+
+    .actions,
+    .form-actions,
+    .output-actions{
+      display:flex;
+      gap:12px;
+      flex-wrap:wrap;
+      margin-top:18px;
+    }
+
+    .btn-primary,
+    .btn-secondary,
+    .btn-ghost,
+    .tab-btn{
+      border:none;
+      border-radius:14px;
+      padding:13px 18px;
+      font-family:var(--sans);
+      font-size:.94rem;
+      font-weight:700;
+      cursor:pointer;
+      transition:.18s ease;
+    }
+
+    .btn-primary{
+      color:#fff;
+      background:linear-gradient(135deg, var(--burg2), var(--burg3));
+      box-shadow:0 14px 28px rgba(166,31,66,.22);
+    }
+
+    .btn-primary:hover{
+      transform:translateY(-1px);
+      filter:brightness(1.05);
+    }
+
+    .btn-secondary{
+      color:var(--text);
+      background:rgba(255,255,255,.05);
+      border:1px solid rgba(255,255,255,.08);
+    }
+
+    .btn-secondary:hover,
+    .btn-ghost:hover{
+      background:rgba(255,255,255,.08);
+    }
+
+    .btn-ghost{
+      color:var(--muted);
+      background:transparent;
+      border:1px solid var(--line);
+    }
+
+    .snapshot{
+      padding:20px;
+      display:flex;
+      flex-direction:column;
+      gap:14px;
+    }
+
+    .snapshot-head{
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:12px;
+    }
+
+    .snapshot h3{
+      margin:0;
+      font-size:1rem;
+      font-weight:700;
+    }
+
+    .live-pill{
+      padding:7px 11px;
+      border-radius:999px;
+      background:rgba(53,181,124,.10);
+      border:1px solid rgba(53,181,124,.20);
+      color:var(--ok);
+      font-size:.74rem;
+      font-weight:700;
+    }
+
+    .mini-box{
+      padding:22px;
+      border-radius:18px;
+      background:linear-gradient(135deg, rgba(166,31,66,.34), rgba(35,26,38,.92));
+      border:1px solid rgba(255,255,255,.08);
+    }
+
+    .mini-label{
+      color:#eed2d9;
+      font-size:.78rem;
+      text-transform:uppercase;
+      letter-spacing:.14em;
+      margin-bottom:10px;
+    }
+
+    .mini-value{
+      font-size:2rem;
+      font-weight:800;
+      letter-spacing:-.04em;
+    }
+
+    .mini-sub{
+      margin-top:8px;
+      color:var(--muted);
+      font-size:.9rem;
+    }
+
+    .quick-grid{
+      display:grid;
+      grid-template-columns:repeat(3,1fr);
+      gap:10px;
+    }
+
+    .metric{
+      padding:14px;
+      border-radius:16px;
+      background:rgba(255,255,255,.04);
+      border:1px solid var(--line);
+    }
+
+    .metric-k{
+      color:var(--muted);
+      font-size:.76rem;
+      text-transform:uppercase;
+      letter-spacing:.14em;
+      margin-bottom:8px;
+    }
+
+    .metric-v{
+      font-size:1.1rem;
+      font-weight:800;
+    }
+
+    .summary .k,
+    .report-card .k{
+      color:var(--muted);
+      font-size:.78rem;
+      text-transform:uppercase;
+      letter-spacing:.14em;
+      margin-bottom:8px;
+    }
+
+    .summary .v,
+    .report-card .v{
+      font-size:2rem;
+      font-weight:800;
+      letter-spacing:-.04em;
+      margin-bottom:10px;
+    }
+
+    .summary{
+      position:relative;
+      overflow:hidden;
+    }
+
+    .summary::before{
+      content:"";
+      position:absolute;
+      width:120px;
+      height:120px;
+      left:-24px;
+      bottom:-28px;
+      border-radius:50%;
+      background:radial-gradient(circle, rgba(199,52,91,.16), transparent 68%);
+    }
+
+    .row,
+    .head,
+    .output-head{
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:12px;
+    }
+
+    .summary-icon{
+      width:42px;
+      height:42px;
+      border-radius:14px;
+      display:grid;
+      place-items:center;
+      background:rgba(255,255,255,.05);
+      border:1px solid rgba(255,255,255,.05);
+      font-size:1rem;
+    }
+
+    .muted{
+      color:var(--muted);
+      font-size:.92rem;
+      line-height:1.65;
+    }
+
+    .head,
+    .output-head{
+      margin-bottom:18px;
+    }
+
+    .head h3,
+    .output-head h3{
+      margin:0;
+      font-size:1.08rem;
+      font-weight:700;
+    }
+
+    .head p{
+      margin:6px 0 0;
+      color:var(--muted);
+      font-size:.9rem;
+    }
+
+    .field{
+      display:flex;
+      flex-direction:column;
+      gap:8px;
+    }
+
+    .field.full{
+      grid-column:1 / -1;
+    }
+
+    .field label{
+      color:var(--muted);
+      font-size:.84rem;
+      font-weight:700;
+      letter-spacing:.05em;
+      text-transform:uppercase;
+    }
+
+    .field input,
+    .field select{
+      width:100%;
+      border:1px solid var(--line2);
+      background:rgba(255,255,255,.03);
+      color:var(--text);
+      padding:14px;
+      border-radius:14px;
+      outline:none;
+      font-size:.95rem;
+      font-family:var(--sans);
+    }
+
+    .field input:focus,
+    .field select:focus{
+      border-color:rgba(199,52,91,.35);
+      box-shadow:0 0 0 4px rgba(166,31,66,.12);
+    }
+
+    .field input::placeholder{
+      color:var(--muted2);
+    }
+
+    .info{
+      margin-top:16px;
+      border-radius:16px;
+      padding:14px 16px;
+      border:1px solid var(--line);
+      background:rgba(255,255,255,.03);
+      color:var(--muted);
+      font-size:.92rem;
+      line-height:1.65;
+    }
+
+    .tabs{
+      display:flex;
+      gap:10px;
+      flex-wrap:wrap;
+      margin-bottom:14px;
+    }
+
+    .tab-btn{
+      background:rgba(255,255,255,.03);
+      color:var(--muted);
+      border:1px solid var(--line);
+      border-radius:999px;
+      padding:10px 14px;
+      font-size:.82rem;
+    }
+
+    .tab-btn.active{
+      color:#fff;
+      background:rgba(166,31,66,.22);
+      border-color:rgba(199,52,91,.26);
+    }
+
+    .table-wrap{
+      overflow:auto;
+      border-radius:18px;
+      border:1px solid var(--line);
+      background:rgba(255,255,255,.02);
+    }
+
+    table{
+      width:100%;
+      border-collapse:collapse;
+      min-width:720px;
+    }
+
+    thead th{
+      text-align:left;
+      padding:15px 16px;
+      color:var(--muted);
+      font-size:.76rem;
+      text-transform:uppercase;
+      letter-spacing:.14em;
+      border-bottom:1px solid var(--line);
+      background:rgba(255,255,255,.02);
+    }
+
+    tbody td{
+      padding:15px 16px;
+      border-bottom:1px solid rgba(255,255,255,.04);
+      font-size:.94rem;
+      color:#eee7f1;
+    }
+
+    tbody tr:hover{
+      background:rgba(255,255,255,.025);
+    }
+
+    .pill{
+      display:inline-flex;
+      align-items:center;
+      padding:8px 12px;
+      border-radius:999px;
+      font-size:.76rem;
+      font-weight:700;
+      border:1px solid transparent;
+    }
+
+    .pill-ok{
+      background:rgba(53,181,124,.12);
+      color:#d6f2e5;
+      border-color:rgba(53,181,124,.22);
+    }
+
+    .pill-err{
+      background:rgba(222,97,118,.12);
+      color:#f6d1d9;
+      border-color:rgba(222,97,118,.22);
+    }
+
+    .pill-info{
+      background:rgba(110,160,255,.12);
+      color:#dce7ff;
+      border-color:rgba(110,160,255,.22);
+    }
+
+    .activity-list{
+      display:flex;
+      flex-direction:column;
+      gap:12px;
+    }
+
+    .activity-item{
+      display:grid;
+      grid-template-columns:42px 1fr auto;
+      gap:12px;
+      align-items:center;
+      padding:14px;
+      border-radius:16px;
+      background:rgba(255,255,255,.03);
+      border:1px solid var(--line);
+    }
+
+    .activity-icon{
+      width:42px;
+      height:42px;
+      border-radius:14px;
+      display:grid;
+      place-items:center;
+      background:rgba(166,31,66,.16);
+      border:1px solid rgba(199,52,91,.22);
+      font-size:1rem;
+    }
+
+    .activity-title{
+      font-size:.94rem;
+      font-weight:700;
+    }
+
+    .activity-sub{
+      font-size:.83rem;
+      color:var(--muted);
+      margin-top:3px;
+    }
+
+    .activity-amount{
+      font-weight:800;
+      font-size:.94rem;
+    }
+
+    .plus{color:#cff0df}
+    .minus{color:#f4ccd4}
+
+    .output-box{
+      width:100%;
+      min-height:180px;
+      border-radius:18px;
+      border:1px solid rgba(255,255,255,.05);
+      padding:18px;
+      background:#09090d;
+      color:#f4eef6;
+      font-size:.94rem;
+      line-height:1.75;
+      white-space:pre-wrap;
+      overflow:auto;
+    }
+
+    .section-title{
+      margin:0 0 6px;
+      font-family:var(--vintage);
+      font-size:2.2rem;
+      line-height:1;
+      font-weight:600;
+      letter-spacing:-.02em;
+    }
+
+    .section-sub{
+      margin:0 0 20px;
+      color:var(--muted);
+      font-size:.98rem;
+      line-height:1.7;
+    }
+
+    /* cheque */
+    .cheque-paper{
+      position:relative;
+      background:linear-gradient(135deg, var(--cream), var(--cream2));
+      color:var(--ink);
+      border:2px solid #d4c3a2;
+      border-radius:18px;
+      padding:22px 24px 18px;
+      box-shadow:0 18px 40px rgba(0,0,0,.30);
+      overflow:hidden;
+      min-height:380px;
+    }
+
+    .cheque-paper::before{
+      content:"VELORA BANK";
+      position:absolute;
+      top:48%;
+      left:50%;
+      transform:translate(-50%,-50%) rotate(-28deg);
+      font-family:var(--vintage);
+      font-size:5.8rem;
+      font-weight:700;
+      color:rgba(135,27,53,.05);
+      white-space:nowrap;
+      pointer-events:none;
+      letter-spacing:.08em;
+    }
+
+    .cheque-top-strip{
+      position:absolute;
+      top:0;
+      left:0;
+      right:0;
+      height:14px;
+      background:linear-gradient(90deg, var(--burg), var(--burg3));
+    }
+
+    .cheque-header{
+      display:flex;
+      justify-content:space-between;
+      align-items:flex-start;
+      border-bottom:2px solid rgba(135,27,53,.18);
+      padding-bottom:14px;
+      margin-top:8px;
+      margin-bottom:16px;
+    }
+
+    .cheque-bank{
+      font-family:var(--vintage);
+      font-size:2rem;
+      font-weight:700;
+      color:var(--burg);
+      line-height:1;
+    }
+
+    .cheque-sub{
+      margin-top:4px;
+      font-size:.84rem;
+      color:#7a6656;
+      font-style:italic;
+    }
+
+    .cheque-no{
+      font-size:.92rem;
+      font-weight:700;
+      background:rgba(135,27,53,.08);
+      color:var(--burg);
+      border:1px solid rgba(135,27,53,.18);
+      padding:6px 10px;
+      border-radius:8px;
+    }
+
+    .cheque-line{
+      display:flex;
+      align-items:flex-end;
+      gap:10px;
+      border-bottom:1px solid rgba(80,60,40,.28);
+      padding:7px 0;
+      margin-bottom:7px;
+    }
+
+    .cheque-label{
+      min-width:90px;
+      font-size:.82rem;
+      text-transform:uppercase;
+      letter-spacing:.08em;
+      color:#8a715a;
+      font-weight:700;
+    }
+
+    .cheque-value{
+      flex:1;
+      font-family:var(--vintage);
+      font-size:1.35rem;
+      font-weight:600;
+      color:#2a1e17;
+      line-height:1.1;
+    }
+
+    .cheque-amount-box{
+      margin-top:16px;
+      padding:12px 16px;
+      border:2px solid rgba(135,27,53,.18);
+      border-radius:10px;
+      background:rgba(255,255,255,.28);
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+      gap:12px;
+    }
+
+    .cheque-amount-words{
+      font-family:var(--vintage);
+      font-style:italic;
+      font-size:1.12rem;
+      color:#594334;
+      flex:1;
+    }
+
+    .cheque-amount-num{
+      font-size:1.4rem;
+      font-weight:800;
+      color:var(--burg);
+    }
+
+    .cheque-footer{
+      display:flex;
+      justify-content:space-between;
+      align-items:flex-end;
+      margin-top:22px;
+      gap:16px;
+    }
+
+    .cheque-date{
+      font-size:.92rem;
+      color:#7e6655;
+      font-weight:700;
+    }
+
+    .sig-block{
+      text-align:center;
+      min-width:170px;
+    }
+
+    .sig-line{
+      border-bottom:1px solid #433328;
+      margin-bottom:6px;
+      height:26px;
+    }
+
+    .sig-text{
+      font-family:var(--vintage);
+      font-size:1.3rem;
+      color:#3a2a20;
+    }
+
+    .sig-label{
+      font-size:.76rem;
+      color:#8a715a;
+      text-transform:uppercase;
+      letter-spacing:.08em;
+    }
+
+    .micr{
+      margin-top:16px;
+      padding-top:10px;
+      border-top:1px dashed rgba(90,70,52,.35);
+      font-size:.95rem;
+      letter-spacing:.22em;
+      color:#574435;
+      text-align:center;
+    }
+
+    .watermark{
+      position:absolute;
+      inset:0;
+      display:none;
+      align-items:center;
+      justify-content:center;
+      pointer-events:none;
+      font-family:var(--vintage);
+      font-size:4.8rem;
+      font-weight:700;
+      color:rgba(140,25,49,.14);
+      transform:rotate(-24deg);
+      letter-spacing:.08em;
+    }
+
+    .watermark.show{
+      display:flex;
+    }
+
+    .cheque-status-badge{
+      position:absolute;
+      top:20px;
+      right:20px;
+      padding:6px 12px;
+      border-radius:8px;
+      font-size:.8rem;
+      font-weight:800;
+      letter-spacing:.08em;
+      transform:rotate(2deg);
+    }
+
+    .badge-issued{
+      background:#fff2cb;
+      color:#836000;
+      border:1px solid #f0d16c;
+    }
+
+    .badge-cleared{
+      background:#dbf4e7;
+      color:#186443;
+      border:1px solid #8bd4b0;
+    }
+
+    .badge-cancelled{
+      background:#f8d8df;
+      color:#8f2740;
+      border:1px solid #ebb1c0;
+      transform:rotate(-4deg);
+    }
+
+    .statement-card,
+    .fd-card{
+      padding:18px 20px;
+      border-radius:16px;
+      border:1px solid var(--line);
+      background:rgba(255,255,255,.03);
+    }
+
+    .fd-card{
+      background:linear-gradient(135deg, rgba(110,160,255,.12), rgba(110,160,255,.03));
+      border-color:rgba(110,160,255,.22);
+    }
+
+    .fd-row{
+      display:flex;
+      justify-content:space-between;
+      gap:12px;
+      margin-bottom:8px;
+      font-size:.94rem;
+    }
+
+    .fd-label{
+      color:var(--muted);
+    }
+
+    .fd-value{
+      font-weight:700;
+    }
+
+    .fd-maturity{
+      margin-top:10px;
+      font-size:1.3rem;
+      font-weight:800;
+      color:#cfe0ff;
+    }
+
+    .toast-wrap{
+      position:fixed;
+      top:18px;
+      right:18px;
+      z-index:9999;
+      display:flex;
+      flex-direction:column;
+      gap:10px;
+      pointer-events:none;
+    }
+
+    .toast{
+      min-width:260px;
+      max-width:380px;
+      padding:14px 16px;
+      border-radius:16px;
+      box-shadow:var(--shadow);
+      color:#fff;
+      font-size:.92rem;
+      line-height:1.5;
+      opacity:0;
+      transform:translateY(-8px);
+      animation:toastIn .18s ease forwards;
+    }
+
+    .toast.success{
+      background:linear-gradient(135deg, rgba(34,109,77,.96), rgba(24,80,56,.96));
+    }
+
+    .toast.error{
+      background:linear-gradient(135deg, rgba(129,28,52,.96), rgba(88,20,38,.96));
+    }
+
+    .toast.info{
+      background:linear-gradient(135deg, rgba(56,45,66,.96), rgba(36,29,43,.96));
+    }
+
+    @keyframes toastIn{
+      to{
+        opacity:1;
+        transform:translateY(0);
+      }
+    }
+
+    @media (max-width:1280px){
+      .summary-grid,.report-grid{
+        grid-template-columns:1fr 1fr;
+      }
+      .content-grid,.hero-grid{
+        grid-template-columns:1fr;
+      }
+    }
+
+    @media (max-width:980px){
+      .app{
+        grid-template-columns:1fr;
+      }
+      .sidebar{
+        display:none;
+      }
+      .summary-grid,.report-grid,.form-grid,.quick-grid{
+        grid-template-columns:1fr;
+      }
+      .main{
+        padding:16px;
+      }
+      .hero h2{
+        font-size:2.1rem;
+      }
+    }
+  </style>
 </head>
 <body>
- 
-<div id="loading">
-  <div class="lname">Velora <span>Bank</span></div>
-  <div class="ltrack"><div class="lfill"></div></div>
-  <div class="ltxt">loading wasm module...</div>
-</div>
-<div id="toast" class="toast"></div>
- 
-<div class="app">
-  <!-- SIDEBAR -->
-  <aside class="sidebar">
-    <div class="brand">
-      <div class="brand-row">
-        <div class="brand-icon">&#9670;</div>
-        <div><div class="brand-name">Velora Bank</div><div class="brand-sub">Private banking, reimagined.</div></div>
+  <div class="toast-wrap" id="toastWrap"></div>
+
+  <div class="app">
+    <aside class="sidebar">
+      <div class="glass brand">
+        <div class="brand-row">
+          <div class="brand-icon">V</div>
+          <div>
+            <h1>Velora Bank</h1>
+            <p>Private banking, reimagined.</p>
+          </div>
+        </div>
+        <span class="brand-chip">Vintage Client Portal</span>
       </div>
-      <span class="brand-chip">Premium Client Portal</span>
-    </div>
-    <nav class="nav">
-      <div class="nav-sep">Main</div>
-      <button class="nav-btn active" onclick="go('dashboard',this)">
-        <svg width="13" height="13" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/></svg>
-        Dashboard
-      </button>
-      <button class="nav-btn" onclick="go('accounts',this)">
-        <svg width="13" height="13" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
-        Accounts
-      </button>
-      <div class="nav-sep">Transactions</div>
-      <button class="nav-btn" onclick="go('deposit',this)">
-        <svg width="13" height="13" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><line x1="12" y1="5" x2="12" y2="19"/><polyline points="19 12 12 19 5 12"/></svg>
-        Deposit
-      </button>
-      <button class="nav-btn" onclick="go('withdraw',this)">
-        <svg width="13" height="13" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><line x1="12" y1="19" x2="12" y2="5"/><polyline points="5 12 12 5 19 12"/></svg>
-        Withdraw
-      </button>
-      <button class="nav-btn" onclick="go('transactions',this)">
-        <svg width="13" height="13" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><polyline points="12 8 12 12 14 14"/><path d="M3.05 11a9 9 0 1 0 .5-4"/><polyline points="3 3 3 11 11 11"/></svg>
-        History
-      </button>
-      <div class="nav-sep">Services</div>
-      <button class="nav-btn" onclick="go('cheques',this)">
-        <svg width="13" height="13" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><rect x="2" y="5" width="20" height="14" rx="2"/><line x1="2" y1="10" x2="22" y2="10"/></svg>
-        Cheque Book
-      </button>
-      <button class="nav-btn" onclick="go('fd',this)">
-        <svg width="13" height="13" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><line x1="12" y1="2" x2="12" y2="6"/><line x1="12" y1="18" x2="12" y2="22"/><line x1="4.93" y1="4.93" x2="7.76" y2="7.76"/><line x1="16.24" y1="16.24" x2="19.07" y2="19.07"/><line x1="2" y1="12" x2="6" y2="12"/><line x1="18" y1="12" x2="22" y2="12"/></svg>
-        Fixed Deposits
-      </button>
-      <button class="nav-btn" onclick="go('statement',this)">
-        <svg width="13" height="13" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg>
-        Statement
-      </button>
-      <div class="nav-sep">Analytics</div>
-      <button class="nav-btn" onclick="go('reports',this)">
-        <svg width="13" height="13" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg>
-        Reports
-      </button>
-    </nav>
-    <div class="sb-foot">
-      <div class="sb-badge">
-        <div class="sb-dot"></div>
-        <div class="sb-txt"><strong>25BCE5297</strong> &middot; wasm/live</div>
+
+      <div class="glass nav-box">
+        <div class="nav-title">Navigation</div>
+        <button type="button" class="nav-btn active" data-page="dashboard"><span class="nav-dot"></span>Dashboard</button>
+        <button type="button" class="nav-btn" data-page="accounts"><span class="nav-dot"></span>Accounts</button>
+        <button type="button" class="nav-btn" data-page="deposit"><span class="nav-dot"></span>Deposit</button>
+        <button type="button" class="nav-btn" data-page="withdraw"><span class="nav-dot"></span>Withdraw</button>
+        <button type="button" class="nav-btn" data-page="transactions"><span class="nav-dot"></span>Transactions</button>
+        <button type="button" class="nav-btn" data-page="cheques"><span class="nav-dot"></span>Cheque Book</button>
+        <button type="button" class="nav-btn" data-page="fd"><span class="nav-dot"></span>Fixed Deposits</button>
+        <button type="button" class="nav-btn" data-page="statement"><span class="nav-dot"></span>Statement</button>
+        <button type="button" class="nav-btn" data-page="reports"><span class="nav-dot"></span>Reports</button>
       </div>
-    </div>
-  </aside>
- 
-  <!-- MAIN -->
-  <div class="main">
-    <div class="topbar">
-      <span class="tb-title" id="tb-title">Dashboard</span>
-      <div class="tb-right">
-        <span class="tb-reg">Sasmitha S</span>
-        <span class="tb-live">System Live</span>
+
+      <div class="glass notice">
+        <h4>Client Notice</h4>
+        <p>Vintage private banking interface with working account management, transaction controls, cheque issue, fixed deposits, reporting, and statement view.</p>
       </div>
-    </div>
- 
-    <div class="pages">
- 
-      <!-- DASHBOARD -->
-      <div class="page active" id="page-dashboard">
-        <div class="gw" style="margin-bottom:14px">
-          <div class="hero">
-            <div class="hero-tag">&#9670; Velora Signature Banking</div>
-            <h2>Luxury finance, intelligent control.</h2>
-            <div class="hero-sub">Manage accounts, process transactions, issue cheques, and create fixed deposits.</div>
-            <div class="hero-actions">
-              <button class="btn bp" onclick="go('accounts',null)">Open Accounts</button>
-              <button class="btn bs" onclick="go('deposit',null)">Make Deposit</button>
-              <button class="btn bg" onclick="go('cheques',null)">Cheque Book</button>
+    </aside>
+
+    <main class="main">
+      <!-- dashboard -->
+      <section class="page active" id="dashboard-page">
+        <div class="hero-grid">
+          <div class="glass hero">
+            <div class="hero-tag">Velora Signature Banking</div>
+            <h2>Elegant finance with disciplined control.</h2>
+            <p>Create accounts, deposit and withdraw funds, issue cheques, create fixed deposits, and generate reports through a refined vintage-style banking dashboard.</p>
+            <div class="actions">
+              <button type="button" class="btn-primary" id="heroOpenAccounts">Open Accounts</button>
+              <button type="button" class="btn-secondary" id="heroOpenDeposit">Make Deposit</button>
+              <button type="button" class="btn-ghost" id="heroOpenReports">View Reports</button>
             </div>
           </div>
-          <div class="portfolio">
-            <div class="phead"><h3>Portfolio Snapshot</h3><span class="live-pill">Live</span></div>
-            <div class="ptotal">
-              <div class="ptotal-lbl">Total Holdings</div>
-              <div class="ptotal-val" id="d-total">&#8377;0.00</div>
+
+          <div class="glass snapshot">
+            <div class="snapshot-head">
+              <h3>Portfolio Snapshot</h3>
+              <span class="live-pill">Live</span>
             </div>
-            <div class="pmini-row">
-              <div class="pmini"><div class="pmini-lbl">Accounts</div><div class="pmini-val" id="d-accs">0</div></div>
-              <div class="pmini"><div class="pmini-lbl">Txns</div><div class="pmini-val" id="d-txns">0</div></div>
-              <div class="pmini"><div class="pmini-lbl">Alerts</div><div class="pmini-val" id="d-alerts">0</div></div>
+
+            <div class="mini-box">
+              <div class="mini-label">Total Holdings</div>
+              <div class="mini-value" id="dashboardTotal">₹0.00</div>
+              <div class="mini-sub" id="dashboardFoot">No portfolio activity yet.</div>
+            </div>
+
+            <div class="quick-grid">
+              <div class="metric">
+                <div class="metric-k">Accounts</div>
+                <div class="metric-v" id="quickAccounts">0</div>
+              </div>
+              <div class="metric">
+                <div class="metric-k">Transactions</div>
+                <div class="metric-v" id="quickTransactions">0</div>
+              </div>
+              <div class="metric">
+                <div class="metric-k">Alerts</div>
+                <div class="metric-v" id="quickAlerts">0</div>
+              </div>
             </div>
           </div>
         </div>
-        <div class="g3" style="margin-bottom:14px">
-          <div class="stat"><div class="slabel">Total Balance</div><div class="sval r" id="s-total">&#8377;0.00</div><div class="smeta">all accounts</div></div>
-          <div class="stat"><div class="slabel">Client Accounts</div><div class="sval" id="s-accs">0</div><div class="smeta">active profiles</div></div>
-          <div class="stat"><div class="slabel">Low Balance Alerts</div><div class="sval" id="s-alerts">0</div><div class="smeta">below threshold</div></div>
+
+        <div class="summary-grid">
+          <div class="glass summary">
+            <div class="row">
+              <div class="k">Total Balance</div>
+              <div class="summary-icon">₹</div>
+            </div>
+            <div class="v" id="sumBalance">₹0.00</div>
+            <div class="muted">Consolidated balance across all client accounts.</div>
+          </div>
+
+          <div class="glass summary">
+            <div class="row">
+              <div class="k">Client Accounts</div>
+              <div class="summary-icon">◎</div>
+            </div>
+            <div class="v" id="sumAccounts">0</div>
+            <div class="muted">Active banking profiles currently managed in the system.</div>
+          </div>
+
+          <div class="glass summary">
+            <div class="row">
+              <div class="k">Low Balance Alerts</div>
+              <div class="summary-icon">!</div>
+            </div>
+            <div class="v" id="sumAlerts">0</div>
+            <div class="muted">Accounts below the reserve threshold.</div>
+          </div>
         </div>
-        <div class="gw" style="margin-bottom:14px">
-          <div class="card">
-            <div class="ctitle">Quick Create Account</div>
-            <div class="fg c2">
-              <div class="field"><label>Account No</label><input id="dc-no" type="number" placeholder="e.g. 1001"></div>
-              <div class="field"><label>Client Name</label><input id="dc-name" placeholder="e.g. Sasmitha"></div>
-              <div class="field" style="grid-column:1/-1"><label>Opening Balance (Rs.)</label><input id="dc-bal" type="number" step="0.01" placeholder="min 500"></div>
+
+        <div class="content-grid">
+          <div class="glass panel">
+            <div class="head">
+              <div>
+                <h3>Quick Create Account</h3>
+                <p>Create a new account directly from the dashboard.</p>
+              </div>
             </div>
-            <div class="brow">
-              <button class="btn bp" onclick="dashCreate()">Create Account</button>
-              <button class="btn bs" onclick="clr('dc-no','dc-name','dc-bal')">Clear</button>
+
+            <div class="form-grid">
+              <div class="field">
+                <label>Account Number</label>
+                <input id="dashAccNo" type="number" placeholder="e.g. 1001" />
+              </div>
+              <div class="field">
+                <label>Client Name</label>
+                <input id="dashName" type="text" placeholder="e.g. Sasha" />
+              </div>
+              <div class="field full">
+                <label>Opening Balance</label>
+                <input id="dashBal" type="number" step="0.01" placeholder="e.g. 25000" />
+              </div>
             </div>
-            <div class="result" id="r-dc"></div>
+
+            <div class="form-actions">
+              <button type="button" class="btn-primary" id="btnCreateDashboard">Create Premium Account</button>
+              <button type="button" class="btn-secondary" id="btnClearDashboard">Clear</button>
+            </div>
+
+            <div class="info">New accounts appear instantly in the registry, dashboard, statement, and reports.</div>
           </div>
-          <div class="card">
-            <div class="ctitle">Recent Activity</div>
-            <div class="activity" id="dash-act"><div class="infobox" style="text-align:center;padding:18px">No activity yet</div></div>
+
+          <div class="glass panel">
+            <div class="head">
+              <div>
+                <h3>Recent Activity</h3>
+                <p>Latest movements across the platform.</p>
+              </div>
+            </div>
+            <div class="activity-list" id="recentActivity"></div>
           </div>
         </div>
-        <div class="sysout">
-          <div class="sysout-bar">
-            <div class="sysout-bl">
-              <div class="sdots"><div class="sd r"></div><div class="sd y"></div><div class="sd g"></div></div>
-              <div class="spath"><span>velora</span> ~/wasm/bank</div>
-            </div>
-            <div style="display:flex;gap:7px">
-              <button class="btn bg" style="padding:4px 11px;font-size:10px" onclick="refreshAll()">Refresh</button>
-              <button class="btn bg" style="padding:4px 11px;font-size:10px" onclick="set('outbox','Output cleared.')">Clear</button>
+
+        <div class="glass output">
+          <div class="output-head">
+            <h3>System Response</h3>
+            <div class="output-actions">
+              <button type="button" class="btn-secondary" id="btnClearOutput">Clear</button>
+              <button type="button" class="btn-ghost" id="btnRefreshAll">Refresh Insights</button>
             </div>
           </div>
-          <div id="outbox">Velora Bank is ready.</div>
+          <div class="output-box" id="outputBox">Velora Bank is ready.</div>
         </div>
-      </div>
- 
-      <!-- ACCOUNTS -->
-      <div class="page" id="page-accounts">
-        <div class="ptitle">Accounts</div>
-        <div class="psub">Create and manage client profiles</div>
-        <div class="gw" style="margin-bottom:14px">
-          <div class="card">
-            <div class="ctitle">Create New Account</div>
-            <div class="fg c2">
-              <div class="field"><label>Account Number</label><input id="ac-no" type="number" placeholder="e.g. 1001"></div>
-              <div class="field"><label>Client Name</label><input id="ac-name" placeholder="e.g. Sasmitha S"></div>
-              <div class="field" style="grid-column:1/-1"><label>Opening Balance (Rs.)</label><input id="ac-bal" type="number" step="0.01" placeholder="minimum Rs. 500"></div>
+      </section>
+
+      <!-- accounts -->
+      <section class="page" id="accounts-page">
+        <h2 class="section-title">Accounts</h2>
+        <p class="section-sub">Create, review, and manage premium client accounts with a structured registry.</p>
+
+        <div class="content-grid">
+          <div class="glass panel">
+            <div class="head">
+              <div>
+                <h3>Create New Account</h3>
+                <p>Register a client account with a number, name, and opening balance.</p>
+              </div>
             </div>
-            <div class="brow">
-              <button class="btn bp" onclick="doCreate()">Create Account</button>
-              <button class="btn bs" onclick="clr('ac-no','ac-name','ac-bal')">Reset</button>
+
+            <div class="form-grid">
+              <div class="field">
+                <label>Account Number</label>
+                <input id="createAccNo" type="number" placeholder="Enter account number" />
+              </div>
+              <div class="field">
+                <label>Client Name</label>
+                <input id="createName" type="text" placeholder="Enter client name" />
+              </div>
+              <div class="field full">
+                <label>Opening Balance</label>
+                <input id="createBalance" type="number" step="0.01" placeholder="Enter opening balance" />
+              </div>
             </div>
-            <div class="result" id="r-ac"></div>
+
+            <div class="form-actions">
+              <button type="button" class="btn-primary" id="btnCreateAccount">Create Account</button>
+              <button type="button" class="btn-secondary" id="btnResetAccount">Reset Form</button>
+            </div>
           </div>
-          <div class="card">
-            <div class="ctitle">Account Summary</div>
+
+          <div class="glass panel">
+            <div class="head">
+              <div>
+                <h3>Account Summary</h3>
+                <p>Switch between portfolio, status, and monitoring.</p>
+              </div>
+            </div>
+
             <div class="tabs">
-              <div class="tab active" id="tab-p" onclick="setTab('p')">Portfolio</div>
-              <div class="tab" id="tab-s" onclick="setTab('s')">Status</div>
-              <div class="tab" id="tab-m" onclick="setTab('m')">Monitoring</div>
+              <button type="button" class="tab-btn active" id="tabPortfolio">Portfolio</button>
+              <button type="button" class="tab-btn" id="tabStatus">Status</button>
+              <button type="button" class="tab-btn" id="tabMonitoring">Monitoring</button>
             </div>
-            <div class="tc active" id="tc-p"><div class="infobox" id="info-p">—</div></div>
-            <div class="tc" id="tc-s"><div class="infobox" id="info-s">—</div></div>
-            <div class="tc" id="tc-m"><div class="infobox" id="info-m">—</div></div>
+
+            <div class="info" id="summaryBox"></div>
           </div>
         </div>
-        <div class="card">
-          <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:0">
-            <div class="ctitle" style="margin-bottom:0">Account Registry</div>
-            <button class="btn bs" style="padding:6px 12px;font-size:11px" onclick="renderAccounts()">Refresh</button>
-          </div>
-          <div class="twrap"><table>
-            <thead><tr><th>Account No</th><th>Client Name</th><th>Balance</th><th>Status</th></tr></thead>
-            <tbody id="acc-tbl"></tbody>
-          </table></div>
-        </div>
-      </div>
- 
-      <!-- DEPOSIT -->
-      <div class="page" id="page-deposit">
-        <div class="ptitle">Deposit Funds</div>
-        <div class="psub">Add funds to a client account instantly</div>
-        <div class="g2">
-          <div class="card">
-            <div class="ctitle">New Deposit</div>
-            <div class="fg">
-              <div class="field"><label>Account Number</label><input id="dep-no" type="number" placeholder="e.g. 1001"></div>
-              <div class="field"><label>Amount (Rs.)</label><input id="dep-amt" type="number" step="0.01" placeholder="e.g. 5000"></div>
+
+        <div class="glass panel">
+          <div class="head">
+            <div>
+              <h3>Account Registry</h3>
+              <p>All client accounts currently stored in the system.</p>
             </div>
-            <div class="brow">
-              <button class="btn bp" onclick="doDeposit()">Process Deposit</button>
-              <button class="btn bs" onclick="clr('dep-no','dep-amt')">Clear</button>
-            </div>
-            <div class="result" id="r-dep"></div>
+            <button type="button" class="btn-secondary" id="btnRefreshAccounts">Refresh Table</button>
           </div>
-          <div class="card">
-            <div class="ctitle">Deposit Guidelines</div>
-            <div class="infobox"><strong>Single limit:</strong> Rs.1,00,00,000<br><br><strong>Minimum:</strong> Rs.1<br><br><strong>Validation:</strong> Account must exist and be active.</div>
+
+          <div class="table-wrap">
+            <table>
+              <thead>
+                <tr>
+                  <th>Account No</th>
+                  <th>Client Name</th>
+                  <th>Balance</th>
+                  <th>Status</th>
+                </tr>
+              </thead>
+              <tbody id="accountsBody"></tbody>
+            </table>
           </div>
         </div>
-      </div>
- 
-      <!-- WITHDRAW -->
-      <div class="page" id="page-withdraw">
-        <div class="ptitle">Withdraw Funds</div>
-        <div class="psub">Overdraft protection and daily limit enforced by C++ backend</div>
-        <div class="g2">
-          <div class="card">
-            <div class="ctitle">New Withdrawal</div>
-            <div class="fg">
-              <div class="field"><label>Account Number</label><input id="wdr-no" type="number" placeholder="e.g. 1001"></div>
-              <div class="field"><label>Amount (Rs.)</label><input id="wdr-amt" type="number" step="0.01" placeholder="e.g. 1000"></div>
+      </section>
+
+      <!-- deposit -->
+      <section class="page" id="deposit-page">
+        <h2 class="section-title">Deposit Funds</h2>
+        <p class="section-sub">Process incoming funds securely and reflect changes instantly across balances and reports.</p>
+
+        <div class="content-grid">
+          <div class="glass panel">
+            <div class="head">
+              <div>
+                <h3>New Deposit</h3>
+                <p>Add funds to a client account.</p>
+              </div>
             </div>
-            <div class="brow">
-              <button class="btn bp" onclick="doWithdraw()">Process Withdrawal</button>
-              <button class="btn bs" onclick="clr('wdr-no','wdr-amt')">Clear</button>
+
+            <div class="form-grid">
+              <div class="field">
+                <label>Account Number</label>
+                <input id="depositAccNo" type="number" placeholder="Enter account number" />
+              </div>
+              <div class="field">
+                <label>Amount</label>
+                <input id="depositAmount" type="number" step="0.01" placeholder="Enter deposit amount" />
+              </div>
             </div>
-            <div class="result" id="r-wdr"></div>
+
+            <div class="form-actions">
+              <button type="button" class="btn-primary" id="btnProcessDeposit">Process Deposit</button>
+              <button type="button" class="btn-secondary" id="btnClearDeposit">Clear</button>
+            </div>
           </div>
-          <div class="card">
-            <div class="ctitle">Risk Controls</div>
-            <div class="infobox"><strong>Min balance:</strong> Rs.500 always maintained<br><br><strong>Daily limit:</strong> Rs.50,000 per account<br><br><strong>Overdraft:</strong> Blocked by C++ logic</div>
-          </div>
-        </div>
-      </div>
- 
-      <!-- TRANSACTIONS -->
-      <div class="page" id="page-transactions">
-        <div class="ptitle">Transaction History</div>
-        <div class="psub">All deposits, withdrawals, cheques and FD movements</div>
-        <div class="card">
-          <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:0">
-            <div class="ctitle" style="margin-bottom:0">All Transactions</div>
-            <button class="btn bs" style="padding:6px 12px;font-size:11px" onclick="renderTransactions()">Refresh</button>
-          </div>
-          <div class="twrap"><table>
-            <thead><tr><th>#</th><th>Type</th><th>Account</th><th>Amount</th><th>Balance After</th></tr></thead>
-            <tbody id="txn-tbl"></tbody>
-          </table></div>
-        </div>
-      </div>
- 
-      <!-- CHEQUES -->
-      <div class="page" id="page-cheques">
-        <div class="ptitle">Cheque Book</div>
-        <div class="psub">Issue, clear and cancel cheques &mdash; each generates a printable cheque</div>
-        <div class="gw" style="margin-bottom:14px">
-          <div class="card">
-            <div class="ctitle">Issue New Cheque</div>
-            <div class="fg">
-              <div class="field"><label>Account Number</label><input id="ch-acc" type="number" placeholder="e.g. 1001"></div>
-              <div class="field"><label>Pay To (Payee Name)</label><input id="ch-payee" placeholder="e.g. Raj Kumar"></div>
-              <div class="field"><label>Amount (Rs.)</label><input id="ch-amt" type="number" step="0.01" placeholder="e.g. 2000"></div>
+
+          <div class="glass panel">
+            <div class="head">
+              <div>
+                <h3>Deposit Notes</h3>
+                <p>Operational guidance for premium account funding.</p>
+              </div>
             </div>
-            <div class="brow">
-              <button class="btn bp" onclick="doIssueCheque()">Issue Cheque</button>
-              <button class="btn bs" onclick="clr('ch-acc','ch-payee','ch-amt')">Clear</button>
-            </div>
-            <div class="result" id="r-ch"></div>
-          </div>
-          <div class="card">
-            <div class="ctitle">Cheque Actions</div>
-            <div class="fg" style="margin-bottom:12px">
-              <div class="field"><label>Cheque Number</label><input id="ch-no" type="number" placeholder="e.g. 1001"></div>
-            </div>
-            <div class="brow" style="margin-top:0">
-              <button class="btn bp" onclick="doClearCheque()">Clear Cheque</button>
-              <button class="btn bs" onclick="doCancelCheque()">Cancel Cheque</button>
-            </div>
-            <div class="result" id="r-ch2"></div>
-            <div style="margin-top:14px">
-              <div class="infobox"><strong>Clear:</strong> Deducts amount from account &amp; marks CLEARED<br><br><strong>Cancel:</strong> Marks CANCELLED, no deduction</div>
-            </div>
+            <div class="info">Deposits update the account registry, statement, transaction history, and dashboard metrics in real time.</div>
           </div>
         </div>
- 
-        <!-- Cheque preview area -->
-        <div class="card" style="margin-bottom:14px">
-          <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:13px">
-            <div class="ctitle" style="margin-bottom:0">Last Issued Cheque</div>
-            <button class="btn bg" style="padding:5px 12px;font-size:10px" onclick="window.print()">&#128438; Print</button>
+      </section>
+
+      <!-- withdraw -->
+      <section class="page" id="withdraw-page">
+        <h2 class="section-title">Withdraw Funds</h2>
+        <p class="section-sub">Execute withdrawals with overdraft protection and visible error handling.</p>
+
+        <div class="content-grid">
+          <div class="glass panel">
+            <div class="head">
+              <div>
+                <h3>New Withdrawal</h3>
+                <p>Remove funds from a selected client account.</p>
+              </div>
+            </div>
+
+            <div class="form-grid">
+              <div class="field">
+                <label>Account Number</label>
+                <input id="withdrawAccNo" type="number" placeholder="Enter account number" />
+              </div>
+              <div class="field">
+                <label>Amount</label>
+                <input id="withdrawAmount" type="number" step="0.01" placeholder="Enter withdrawal amount" />
+              </div>
+            </div>
+
+            <div class="form-actions">
+              <button type="button" class="btn-primary" id="btnProcessWithdraw">Process Withdrawal</button>
+              <button type="button" class="btn-secondary" id="btnClearWithdraw">Clear</button>
+            </div>
           </div>
-          <div id="cheque-preview"><div class="infobox" style="text-align:center;padding:20px">Issue a cheque to see preview here.</div></div>
-        </div>
- 
-        <div class="card">
-          <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:0">
-            <div class="ctitle" style="margin-bottom:0">All Cheques</div>
-            <button class="btn bs" style="padding:6px 12px;font-size:11px" onclick="renderCheques()">Refresh</button>
+
+          <div class="glass panel">
+            <div class="head">
+              <div>
+                <h3>Risk Control</h3>
+                <p>Velora prevents overdraft on protected accounts.</p>
+              </div>
+            </div>
+            <div class="info">If a withdrawal exceeds available balance, the system blocks the operation and shows a protected error response in both toast and output panel.</div>
           </div>
-          <div class="twrap"><table>
-            <thead><tr><th>Cheque #</th><th>Account</th><th>Pay To</th><th>Amount</th><th>Status</th><th>Date</th></tr></thead>
-            <tbody id="ch-tbl"></tbody>
-          </table></div>
         </div>
-      </div>
- 
-      <!-- FIXED DEPOSITS -->
-      <div class="page" id="page-fd">
-        <div class="ptitle">Fixed Deposits</div>
-        <div class="psub">Create FDs &mdash; funds locked, interest earned at maturity</div>
-        <div class="gw" style="margin-bottom:14px">
-          <div class="card">
-            <div class="ctitle">Create Fixed Deposit</div>
-            <div class="fg c2">
-              <div class="field"><label>Account Number</label><input id="fd-acc" type="number" placeholder="e.g. 1001"></div>
-              <div class="field"><label>Principal (Rs.)</label><input id="fd-amt" type="number" step="0.01" placeholder="min Rs. 1000"></div>
-              <div class="field" style="grid-column:1/-1">
-                <label>Tenure</label>
-                <select id="fd-tenure">
-                  <option value="3">3 months — 6.5% p.a.</option>
-                  <option value="6">6 months — 6.5% p.a.</option>
-                  <option value="12">12 months — 6.5% p.a.</option>
-                  <option value="24">24 months — 7.0% p.a.</option>
-                  <option value="36">36 months — 7.0% p.a.</option>
-                  <option value="60">60 months — 7.5% p.a.</option>
+      </section>
+
+      <!-- transactions -->
+      <section class="page" id="transactions-page">
+        <h2 class="section-title">Transactions</h2>
+        <p class="section-sub">Review all recorded deposits, withdrawals, cheque clearing, and FD creation.</p>
+
+        <div class="glass panel">
+          <div class="head">
+            <div>
+              <h3>Transaction History</h3>
+              <p>Chronological record of movements.</p>
+            </div>
+            <button type="button" class="btn-secondary" id="btnRefreshTransactions">Refresh Transactions</button>
+          </div>
+
+          <div class="table-wrap">
+            <table>
+              <thead>
+                <tr>
+                  <th>Type</th>
+                  <th>Account No</th>
+                  <th>Amount</th>
+                  <th>Direction</th>
+                </tr>
+              </thead>
+              <tbody id="transactionsBody"></tbody>
+            </table>
+          </div>
+        </div>
+      </section>
+
+      <!-- cheques -->
+      <section class="page" id="cheques-page">
+        <h2 class="section-title">Cheque Book</h2>
+        <p class="section-sub">Issue, cancel, and clear premium cheque leaves with a vintage cream design.</p>
+
+        <div class="content-grid">
+          <div class="glass panel">
+            <div class="head">
+              <div>
+                <h3>Issue New Cheque</h3>
+                <p>Create a cheque for an existing account.</p>
+              </div>
+            </div>
+
+            <div class="form-grid">
+              <div class="field">
+                <label>Account Number</label>
+                <input id="chequeAccNo" type="number" placeholder="Enter account number" />
+              </div>
+              <div class="field">
+                <label>Payee Name</label>
+                <input id="chequePayee" type="text" placeholder="Enter payee name" />
+              </div>
+              <div class="field full">
+                <label>Amount</label>
+                <input id="chequeAmount" type="number" step="0.01" placeholder="Enter cheque amount" />
+              </div>
+            </div>
+
+            <div class="form-actions">
+              <button type="button" class="btn-primary" id="btnIssueCheque">Issue Cheque</button>
+              <button type="button" class="btn-secondary" id="btnClearChequeForm">Clear</button>
+            </div>
+
+            <div class="info">Issued cheques do not reduce balance immediately. Balance is reduced only when you click clear cheque.</div>
+          </div>
+
+          <div class="cheque-paper" id="chequePreview">
+            <div class="cheque-top-strip"></div>
+            <div class="watermark" id="chequeWatermark">CANCELLED</div>
+            <div class="cheque-status-badge badge-issued" id="chequeStatusBadge">ISSUED</div>
+
+            <div class="cheque-header">
+              <div>
+                <div class="cheque-bank">Velora Bank</div>
+                <div class="cheque-sub">Private Banking Division · Heritage Series</div>
+              </div>
+              <div class="cheque-no" id="chequeNoText">Cheque No: 1001</div>
+            </div>
+
+            <div class="cheque-line">
+              <div class="cheque-label">Pay To</div>
+              <div class="cheque-value" id="chequePayeeText">—</div>
+            </div>
+
+            <div class="cheque-line">
+              <div class="cheque-label">Account</div>
+              <div class="cheque-value" id="chequeAccText">—</div>
+            </div>
+
+            <div class="cheque-line">
+              <div class="cheque-label">Date</div>
+              <div class="cheque-value" id="chequeDateText">—</div>
+            </div>
+
+            <div class="cheque-amount-box">
+              <div class="cheque-amount-words" id="chequeAmtWords">Amount in words</div>
+              <div class="cheque-amount-num" id="chequeAmtNum">₹0.00</div>
+            </div>
+
+            <div class="cheque-footer">
+              <div class="cheque-date" id="chequeFooterDate">Issued on —</div>
+              <div class="sig-block">
+                <div class="sig-line"></div>
+                <div class="sig-text">Velora Bank</div>
+                <div class="sig-label">Authorised Signature</div>
+              </div>
+            </div>
+
+            <div class="micr" id="chequeMicr">|: 0001001 :| 1001 || 25001 ||</div>
+          </div>
+        </div>
+
+        <div class="glass panel">
+          <div class="head">
+            <div>
+              <h3>Issued Cheques</h3>
+              <p>Manage issued cheque leaves.</p>
+            </div>
+          </div>
+
+          <div class="table-wrap">
+            <table>
+              <thead>
+                <tr>
+                  <th>Cheque No</th>
+                  <th>Account No</th>
+                  <th>Payee</th>
+                  <th>Amount</th>
+                  <th>Status</th>
+                  <th>Action</th>
+                </tr>
+              </thead>
+              <tbody id="chequesBody"></tbody>
+            </table>
+          </div>
+        </div>
+      </section>
+
+      <!-- fd -->
+      <section class="page" id="fd-page">
+        <h2 class="section-title">Fixed Deposits</h2>
+        <p class="section-sub">Create fixed deposits with maturity calculation and portfolio inclusion.</p>
+
+        <div class="content-grid">
+          <div class="glass panel">
+            <div class="head">
+              <div>
+                <h3>Create Fixed Deposit</h3>
+                <p>Principal is debited from the chosen account immediately.</p>
+              </div>
+            </div>
+
+            <div class="form-grid">
+              <div class="field">
+                <label>Account Number</label>
+                <input id="fdAccNo" type="number" placeholder="Enter account number" />
+              </div>
+              <div class="field">
+                <label>Principal Amount</label>
+                <input id="fdAmount" type="number" step="0.01" placeholder="Minimum 1000" />
+              </div>
+              <div class="field full">
+                <label>Tenure (Months)</label>
+                <select id="fdMonths">
+                  <option value="6">6 Months</option>
+                  <option value="12">12 Months</option>
+                  <option value="24">24 Months</option>
+                  <option value="36">36 Months</option>
+                  <option value="60">60 Months</option>
                 </select>
               </div>
             </div>
-            <div class="brow">
-              <button class="btn bp" onclick="doCreateFD()">Create FD</button>
-              <button class="btn bs" onclick="clr('fd-acc','fd-amt')">Clear</button>
-            </div>
-            <div class="result" id="r-fd"></div>
-          </div>
-          <div class="card">
-            <div class="ctitle">Close / Redeem FD</div>
-            <div class="fg" style="margin-bottom:12px">
-              <div class="field"><label>FD Number</label><input id="fd-no" type="number" placeholder="e.g. 5001"></div>
-            </div>
-            <button class="btn bp" onclick="doCloseFD()">Close FD &amp; Credit Maturity</button>
-            <div class="result" id="r-fd2"></div>
-            <div style="margin-top:14px">
-              <div class="infobox"><strong>Rates:</strong><br>1-12 months: 6.5% p.a.<br>13-36 months: 7.0% p.a.<br>37+ months: 7.5% p.a.<br><br>Maturity = Principal &times; (1 + Rate &times; Tenure/12)</div>
+
+            <div class="form-actions">
+              <button type="button" class="btn-primary" id="btnCreateFD">Create FD</button>
+              <button type="button" class="btn-secondary" id="btnClearFD">Clear</button>
             </div>
           </div>
-        </div>
-        <div class="card">
-          <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:0">
-            <div class="ctitle" style="margin-bottom:0">All Fixed Deposits</div>
-            <button class="btn bs" style="padding:6px 12px;font-size:11px" onclick="renderFDs()">Refresh</button>
-          </div>
-          <div class="twrap"><table>
-            <thead><tr><th>FD #</th><th>Account</th><th>Principal</th><th>Tenure</th><th>Rate</th><th>Maturity</th><th>Status</th></tr></thead>
-            <tbody id="fd-tbl"></tbody>
-          </table></div>
-        </div>
-      </div>
- 
-      <!-- STATEMENT -->
-      <div class="page" id="page-statement">
-        <div class="ptitle">Account Statement</div>
-        <div class="psub">Full transaction history for any account</div>
-        <div class="g2">
-          <div class="card">
-            <div class="ctitle">Generate Statement</div>
-            <div class="fg">
-              <div class="field"><label>Account Number</label><input id="stmt-no" type="number" placeholder="e.g. 1001"></div>
+
+          <div class="glass panel">
+            <div class="head">
+              <div>
+                <h3>FD Overview</h3>
+                <p>Rates scale gently with tenure.</p>
+              </div>
             </div>
-            <div class="brow">
-              <button class="btn bp" onclick="doStatement()">Generate</button>
-              <button class="btn bg" style="margin-top:0" onclick="printStatement()">&#128438; Print</button>
+            <div class="info">
+              6–12 months: 6.5% p.a.<br>
+              24–36 months: 7.0% p.a.<br>
+              60 months: 7.5% p.a.
             </div>
-            <div class="result" id="r-stmt"></div>
-          </div>
-          <div class="card">
-            <div class="ctitle">About Statements</div>
-            <div class="infobox">Statement includes all deposits, withdrawals, cheque payments and FD movements on the account.<br><br>Use the Print button to save as PDF.</div>
           </div>
         </div>
-        <div class="card" style="margin-top:14px" id="stmt-output" style="display:none">
-          <div class="ctitle">Statement Output</div>
-          <pre id="stmt-pre" style="font-family:var(--mono);font-size:11px;color:var(--t2);line-height:1.8;white-space:pre-wrap"></pre>
-        </div>
-      </div>
- 
-      <!-- REPORTS -->
-      <div class="page" id="page-reports">
-        <div class="ptitle">Reports</div>
-        <div class="psub">Financial analytics via C++ WASM backend</div>
-        <div class="g3" style="margin-bottom:16px">
-          <div class="stat"><div class="slabel">Total Funds</div><div class="sval r" id="rep-total">&#8377;0.00</div><div class="smeta">aggregate</div></div>
-          <div class="stat"><div class="slabel">Low Balance</div><div class="sval" id="rep-low">0</div><div class="smeta">below threshold</div></div>
-          <div class="stat"><div class="slabel">Transactions</div><div class="sval g" id="rep-txns">0</div><div class="smeta">logged</div></div>
-        </div>
-        <div class="g2">
-          <div class="card">
-            <div class="ctitle">Run Reports</div>
-            <div class="fg" style="margin-bottom:14px">
-              <div class="field"><label>Low Balance Threshold (Rs.)</label><input id="rep-thresh" type="number" step="0.01" placeholder="e.g. 1000"></div>
+
+        <div class="glass panel">
+          <div class="head">
+            <div>
+              <h3>FD Portfolio</h3>
+              <p>All active fixed deposits.</p>
             </div>
-            <div class="brow" style="margin-top:0">
-              <button class="btn bp" onclick="runTotal()">Run Total Money Report</button>
-              <button class="btn bs" onclick="runLowBal()">Run Low Balance Report</button>
-            </div>
-            <div class="result" id="r-rep"></div>
           </div>
-          <div class="card">
-            <div class="ctitle">Insight Summary</div>
-            <div class="infobox" id="rep-insight">No data yet.</div>
+          <div id="fdList"></div>
+        </div>
+      </section>
+
+      <!-- statement -->
+      <section class="page" id="statement-page">
+        <h2 class="section-title">Statement</h2>
+        <p class="section-sub">Generate a concise account statement view from existing transactions.</p>
+
+        <div class="content-grid">
+          <div class="glass panel">
+            <div class="head">
+              <div>
+                <h3>Generate Statement</h3>
+                <p>Show a statement for one account.</p>
+              </div>
+            </div>
+
+            <div class="form-grid">
+              <div class="field full">
+                <label>Account Number</label>
+                <input id="statementAccNo" type="number" placeholder="Enter account number" />
+              </div>
+            </div>
+
+            <div class="form-actions">
+              <button type="button" class="btn-primary" id="btnGenerateStatement">Generate Statement</button>
+              <button type="button" class="btn-secondary" id="btnClearStatement">Clear</button>
+            </div>
+          </div>
+
+          <div class="glass panel">
+            <div class="head">
+              <div>
+                <h3>Statement Output</h3>
+                <p>Summary and ledger view.</p>
+              </div>
+            </div>
+            <div id="statementOutput" class="info">No statement generated yet.</div>
           </div>
         </div>
-      </div>
- 
-    </div><!-- /pages -->
-  </div><!-- /main -->
-</div><!-- /app -->
- 
-<script>
-// ── WASM ──────────────────────────────────────────────────────────
-var WR=false,LT=1000;
-var Module={
-  onRuntimeInitialized:function(){WR=true;hideLoader();refreshAll()},
-  print:function(t){set('outbox',t)},
-  printErr:function(t){console.warn(t)}
-};
-setTimeout(hideLoader,6000);
-function hideLoader(){var l=document.getElementById('loading');if(!l)return;l.classList.add('fade');setTimeout(function(){if(l.parentNode)l.remove()},600)}
- 
-function w(fn,types,args){
-  if(!WR){showToast('WASM loading...',false);return'ERROR: WASM not ready.'}
-  try{return Module.ccall(fn,'string',types,args)}
-  catch(e){return'ERROR: '+e.message}
-}
- 
-// ── Helpers ───────────────────────────────────────────────────────
-function set(id,val){var el=document.getElementById(id);if(el)el.textContent=val}
-function setH(id,val){var el=document.getElementById(id);if(el)el.innerHTML=val}
-function clr(){for(var i=0;i<arguments.length;i++){var el=document.getElementById(arguments[i]);if(el)el.value=''}}
-function showToast(msg,ok){var el=document.getElementById('toast');el.textContent=msg;el.className='toast show '+(ok?'ok':'err');setTimeout(function(){el.className='toast'},3000)}
-function res(id,raw){
-  var el=document.getElementById(id);if(!el)return;
-  var isE=raw.startsWith('ERROR');
-  var display=raw.replace(/^SUCCESS\n/,'').replace(/^ERROR: /,'');
-  el.textContent=display;el.className='result show '+(isE?'err':'ok');
-  set('outbox',raw.replace(/^SUCCESS\n/,''));
-  showToast(isE?'Error':'Done',!isE);
-}
- 
-// ── Navigation ────────────────────────────────────────────────────
-var TT={dashboard:'Dashboard',accounts:'Accounts',deposit:'Deposit Funds',withdraw:'Withdraw Funds',transactions:'Transaction History',cheques:'Cheque Book',fd:'Fixed Deposits',statement:'Account Statement',reports:'Reports'};
-function go(id,el){
-  document.querySelectorAll('.page').forEach(function(p){p.classList.remove('active')});
-  document.querySelectorAll('.nav-btn').forEach(function(b){b.classList.remove('active')});
-  var pg=document.getElementById('page-'+id);if(pg)pg.classList.add('active');
-  if(el)el.classList.add('active');
-  set('tb-title',TT[id]||id);
-  if(id==='accounts'){renderAccounts();renderTabs()}
-  if(id==='transactions')renderTransactions();
-  if(id==='reports')updateReports();
-  if(id==='cheques')renderCheques();
-  if(id==='fd')renderFDs();
-}
- 
-// ── Metrics ───────────────────────────────────────────────────────
-function refreshAll(){updateMetrics();renderAccounts();renderTransactions();renderTabs();updateReports();renderActivity();renderCheques();renderFDs()}
-function updateMetrics(){
-  var raw=w('get_stats',['number'],[LT]);
-  if(!raw||raw.startsWith('ERROR'))return;
-  var p=raw.trim().split('|');
-  var t='&#8377;'+parseFloat(p[2]||0).toFixed(2);
-  setH('d-total',t);setH('s-total',t);setH('rep-total',t);
-  set('d-accs',p[0]||'0');set('d-txns',p[1]||'0');set('d-alerts',p[3]||'0');
-  set('s-accs',p[0]||'0');set('s-alerts',p[3]||'0');
-  set('rep-low',p[3]||'0');set('rep-txns',p[1]||'0');
-  var ins=document.getElementById('rep-insight');
-  if(ins){var accs=parseInt(p[0]||0),total=parseFloat(p[2]||0),low=parseInt(p[3]||0);ins.textContent=accs===0?'No data yet.':'Velora manages '+accs+' account(s) with \u20B9'+total.toFixed(2)+' in holdings and '+low+' alert(s).'}
-}
- 
-// ── Accounts ──────────────────────────────────────────────────────
-function renderAccounts(){
-  var raw=w('view_all_accounts',[],[]);
-  var body=document.getElementById('acc-tbl');if(!body)return;
-  if(!raw||raw==='EMPTY'||raw.startsWith('ERROR')){body.innerHTML='<tr><td colspan="4" style="text-align:center;color:var(--t3);padding:20px">No accounts yet.</td></tr>';return}
-  body.innerHTML=raw.trim().split('\n').filter(Boolean).map(function(line){
-    var p=line.split('|');var bal=parseFloat(p[2]||0);var low=bal<LT;
-    return'<tr><td style="font-family:var(--mono)">'+p[0]+'</td><td>'+p[1]+'</td><td style="font-family:var(--mono)">&#8377;'+bal.toFixed(2)+'</td><td><span class="pill '+(low?'p-err':'p-ok')+'">'+(low?'Low':'Healthy')+'</span></td></tr>';
-  }).join('');
-}
- 
-function renderTransactions(){
-  var raw=w('view_transactions',[],[]);
-  var body=document.getElementById('txn-tbl');if(!body)return;
-  if(!raw||raw==='EMPTY'||raw.startsWith('ERROR')){body.innerHTML='<tr><td colspan="5" style="text-align:center;color:var(--t3);padding:20px">No transactions.</td></tr>';return}
-  var rows=raw.trim().split('\n').filter(Boolean).reverse();
-  body.innerHTML=rows.map(function(line){
-    var p=line.split('|');var isDep=p[2]==='Deposit'||p[2]==='FD Matured';
-    var cls=isDep?'p-dep':(p[2]==='Cheque'||p[2]==='FD Created')?'p-amber':'p-wdr';
-    return'<tr><td style="color:var(--t3);font-family:var(--mono)">#'+p[0]+'</td><td><span class="pill '+cls+'">'+p[2]+'</span></td><td style="font-family:var(--mono)">'+p[1]+'</td><td style="font-family:var(--mono)">'+(isDep?'+':'-')+'&#8377;'+parseFloat(p[3]||0).toFixed(2)+'</td><td style="font-family:var(--mono);color:var(--t3)">&#8377;'+parseFloat(p[4]||0).toFixed(2)+'</td></tr>';
-  }).join('');
-}
- 
-function renderActivity(){
-  var raw=w('view_transactions',[],[]);
-  var el=document.getElementById('dash-act');if(!el)return;
-  if(!raw||raw==='EMPTY'||raw.startsWith('ERROR')){el.innerHTML='<div class="infobox" style="text-align:center;padding:18px;color:var(--t3)">No activity yet</div>';return}
-  var rows=raw.trim().split('\n').filter(Boolean).slice(-4).reverse();
-  el.innerHTML=rows.map(function(line){
-    var p=line.split('|');var isDep=p[2]==='Deposit'||p[2]==='FD Matured';
-    return'<div class="act"><div class="act-icon">'+(isDep?'&#8600;':'&#8599;')+'</div><div><div class="act-t">'+p[2]+'</div><div class="act-s">Account '+p[1]+'</div></div><div class="act-a '+(isDep?'plus':'minus')+'">'+(isDep?'+':'-')+'&#8377;'+parseFloat(p[3]||0).toFixed(2)+'</div></div>';
-  }).join('');
-}
- 
-// ── Tabs ──────────────────────────────────────────────────────────
-function setTab(name){
-  ['p','s','m'].forEach(function(t){
-    document.getElementById('tab-'+t).classList.toggle('active',t===name);
-    document.getElementById('tc-'+t).classList.toggle('active',t===name);
-  });
-  renderTabs();
-}
-function renderTabs(){
-  var raw=w('get_stats',['number'],[LT]);if(!raw||raw.startsWith('ERROR'))return;
-  var p=raw.split('|');
-  var accs=parseInt(p[0]||0),txns=parseInt(p[1]||0),total=parseFloat(p[2]||0),low=parseInt(p[3]||0);
-  var avg=accs>0?total/accs:0,healthy=accs-low,maxBal=0;
-  var ar=w('view_all_accounts',[],[]);
-  if(ar&&ar!=='EMPTY')ar.trim().split('\n').filter(Boolean).forEach(function(l){var b=parseFloat(l.split('|')[2]||0);if(b>maxBal)maxBal=b});
-  setH('info-p','<strong>Total Accounts:</strong> '+accs+'<br><strong>Low Balance:</strong> '+low+'<br><strong>Highest Balance:</strong> &#8377;'+maxBal.toFixed(2)+'<br><strong>Average Balance:</strong> &#8377;'+avg.toFixed(2));
-  setH('info-s','<strong>Healthy:</strong> '+healthy+'<br><strong>Low Balance:</strong> '+low+'<br><strong>Total Txns:</strong> '+txns+'<br><strong>Portfolio:</strong> &#8377;'+total.toFixed(2));
-  setH('info-m','<strong>Threshold:</strong> &#8377;'+LT.toFixed(2)+'<br><strong>Txn Count:</strong> '+txns+'<br><strong>Registry:</strong> '+(accs===0?'Empty':'Active')+'<br><strong>Runtime:</strong> WASM Live');
-}
- 
-// ── Create ────────────────────────────────────────────────────────
-function createAcc(noId,nameId,balId,rId){
-  var no=parseInt(document.getElementById(noId).value);
-  var name=document.getElementById(nameId).value.trim();
-  var bal=parseFloat(document.getElementById(balId).value);
-  if(!no||!name||isNaN(bal)){res(rId,'ERROR: Fill all fields.');return}
-  if(bal<500){res(rId,'ERROR: Minimum opening balance is Rs.500.');return}
-  var raw=w('create_account',['number','string','number'],[no,name,bal]);
-  res(rId,raw||'ERROR: No response.');clr(noId,nameId,balId);refreshAll();
-}
-function doCreate(){createAcc('ac-no','ac-name','ac-bal','r-ac')}
-function dashCreate(){createAcc('dc-no','dc-name','dc-bal','r-dc')}
- 
-// ── Deposit / Withdraw ────────────────────────────────────────────
-function doDeposit(){
-  var no=parseInt(document.getElementById('dep-no').value);
-  var amt=parseFloat(document.getElementById('dep-amt').value);
-  if(!no||isNaN(amt)||amt<=0){res('r-dep','ERROR: Enter valid account and amount.');return}
-  var raw=w('deposit_money',['number','number'],[no,amt]);
-  res('r-dep',raw||'ERROR: No response.');clr('dep-no','dep-amt');refreshAll();
-}
-function doWithdraw(){
-  var no=parseInt(document.getElementById('wdr-no').value);
-  var amt=parseFloat(document.getElementById('wdr-amt').value);
-  if(!no||isNaN(amt)||amt<=0){res('r-wdr','ERROR: Enter valid account and amount.');return}
-  var raw=w('withdraw_money',['number','number'],[no,amt]);
-  res('r-wdr',raw||'ERROR: No response.');clr('wdr-no','wdr-amt');refreshAll();
-}
- 
-// ── Reports ───────────────────────────────────────────────────────
-function updateReports(){updateMetrics()}
-function runTotal(){var raw=w('total_money_report',[],[]);res('r-rep',raw||'ERROR: No response.');updateMetrics()}
-function runLowBal(){
-  var t=parseFloat(document.getElementById('rep-thresh').value);
-  if(isNaN(t)||t<0){res('r-rep','ERROR: Enter a valid threshold.');return}
-  LT=t;var raw=w('low_balance_report',['number'],[t]);
-  res('r-rep',raw||'ERROR: No response.');updateMetrics();renderAccounts();renderTabs();
-}
- 
-// ── Cheques ───────────────────────────────────────────────────────
-function amountToWords(n){
-  var a=['','One','Two','Three','Four','Five','Six','Seven','Eight','Nine','Ten','Eleven','Twelve','Thirteen','Fourteen','Fifteen','Sixteen','Seventeen','Eighteen','Nineteen'];
-  var b=['','','Twenty','Thirty','Forty','Fifty','Sixty','Seventy','Eighty','Ninety'];
-  if(n===0)return'Zero';
-  if(n<20)return a[n];
-  if(n<100)return b[Math.floor(n/10)]+(n%10?' '+a[n%10]:'');
-  if(n<1000)return a[Math.floor(n/100)]+' Hundred'+(n%100?' '+amountToWords(n%100):'');
-  if(n<100000)return amountToWords(Math.floor(n/1000))+' Thousand'+(n%1000?' '+amountToWords(n%1000):'');
-  if(n<10000000)return amountToWords(Math.floor(n/100000))+' Lakh'+(n%100000?' '+amountToWords(n%100000):'');
-  return amountToWords(Math.floor(n/10000000))+' Crore'+(n%10000000?' '+amountToWords(n%10000000):'');
-}
- 
-function renderChequeCard(cno,acc,payee,amt,status,date){
-  var words=amountToWords(Math.floor(amt))+' Rupees Only';
-  var sClass=status.toLowerCase();
-  return'<div class="cheque-card">'+
-    '<span class="cheque-status-badge '+sClass+'">'+status+'</span>'+
-    '<div class="cheque-header">'+
-      '<div><div class="cheque-bank-name">&#9670; Velora Bank</div><div class="cheque-bank-sub">Private banking, reimagined &mdash; VIT Campus Branch</div></div>'+
-      '<div class="cheque-no">Cheque No. '+cno+'</div>'+
-    '</div>'+
-    '<div class="cheque-row"><span class="cheque-label">Pay To</span><span class="cheque-value">'+payee+'</span></div>'+
-    '<div class="cheque-row"><span class="cheque-label">Account</span><span class="cheque-value">'+acc+'</span></div>'+
-    '<div class="cheque-amount-box">'+
-      '<span class="cheque-amt-words">'+words+'</span>'+
-      '<span class="cheque-amt-num">&#8377; '+parseFloat(amt).toFixed(2)+'</span>'+
-    '</div>'+
-    '<div class="cheque-footer">'+
-      '<div class="cheque-date">Date: '+date+'</div>'+
-      '<div class="cheque-sig"><div class="cheque-sig-line"></div><div class="cheque-sig-label">Authorised Signatory</div></div>'+
-    '</div>'+
-    '<div class="cheque-micr">&#9679;&#9679;&#9679; '+cno+' &#9679;&#9679;&#9679; '+acc+' &#9679;&#9679;&#9679; 0100500 &#9679;&#9679;&#9679;</div>'+
-  '</div>';
-}
- 
-function doIssueCheque(){
-  var acc=parseInt(document.getElementById('ch-acc').value);
-  var payee=document.getElementById('ch-payee').value.trim();
-  var amt=parseFloat(document.getElementById('ch-amt').value);
-  if(!acc||!payee||isNaN(amt)||amt<=0){res('r-ch','ERROR: Fill all fields.');return}
-  var raw=w('issue_cheque',['number','string','number'],[acc,payee,amt]);
-  res('r-ch',raw||'ERROR: No response.');
-  if(!raw.startsWith('ERROR')){
-    var lines=raw.split('\n');
-    var cno=0;
-    lines.forEach(function(l){if(l.startsWith('Cheque No'))cno=parseInt(l.split(':')[1].trim())});
-    setH('cheque-preview',renderChequeCard(cno,acc,payee,amt,'ISSUED',new Date().toLocaleDateString('en-IN',{day:'2-digit',month:'short',year:'numeric'})));
-    renderCheques();refreshAll();
-  }
-  clr('ch-acc','ch-payee','ch-amt');
-}
- 
-function doCancelCheque(){
-  var no=parseInt(document.getElementById('ch-no').value);
-  if(!no){res('r-ch2','ERROR: Enter a cheque number.');return}
-  var raw=w('cancel_cheque',['number'],[no]);
-  res('r-ch2',raw||'ERROR: No response.');renderCheques();refreshAll();
-}
- 
-function doClearCheque(){
-  var no=parseInt(document.getElementById('ch-no').value);
-  if(!no){res('r-ch2','ERROR: Enter a cheque number.');return}
-  var raw=w('clear_cheque',['number'],[no]);
-  res('r-ch2',raw||'ERROR: No response.');renderCheques();refreshAll();
-}
- 
-function renderCheques(){
-  var raw=w('view_cheques',[],[]);
-  var body=document.getElementById('ch-tbl');if(!body)return;
-  if(!raw||raw==='EMPTY'||raw.startsWith('ERROR')){body.innerHTML='<tr><td colspan="6" style="text-align:center;color:var(--t3);padding:20px">No cheques issued.</td></tr>';return}
-  body.innerHTML=raw.trim().split('\n').filter(Boolean).map(function(line){
-    var p=line.split('|');
-    var sc=p[4]==='ISSUED'?'p-amber':p[4]==='CLEARED'?'p-ok':'p-err';
-    return'<tr><td style="font-family:var(--mono)">'+p[0]+'</td><td style="font-family:var(--mono)">'+p[1]+'</td><td>'+p[2]+'</td><td style="font-family:var(--mono)">&#8377;'+parseFloat(p[3]||0).toFixed(2)+'</td><td><span class="pill '+sc+'">'+p[4]+'</span></td><td style="color:var(--t3)">'+p[5]+'</td></tr>';
-  }).join('');
-}
- 
-// ── Fixed Deposits ────────────────────────────────────────────────
-function doCreateFD(){
-  var acc=parseInt(document.getElementById('fd-acc').value);
-  var amt=parseFloat(document.getElementById('fd-amt').value);
-  var tenure=parseInt(document.getElementById('fd-tenure').value);
-  if(!acc||isNaN(amt)||amt<1000){res('r-fd','ERROR: Enter valid account and min Rs.1000.');return}
-  var raw=w('create_fd',['number','number','number'],[acc,amt,tenure]);
-  res('r-fd',raw||'ERROR: No response.');clr('fd-acc','fd-amt');renderFDs();refreshAll();
-}
- 
-function doCloseFD(){
-  var no=parseInt(document.getElementById('fd-no').value);
-  if(!no){res('r-fd2','ERROR: Enter an FD number.');return}
-  var raw=w('close_fd',['number'],[no]);
-  res('r-fd2',raw||'ERROR: No response.');renderFDs();refreshAll();
-}
- 
-function renderFDs(){
-  var raw=w('view_fds',[],[]);
-  var body=document.getElementById('fd-tbl');if(!body)return;
-  if(!raw||raw==='EMPTY'||raw.startsWith('ERROR')){body.innerHTML='<tr><td colspan="7" style="text-align:center;color:var(--t3);padding:20px">No fixed deposits.</td></tr>';return}
-  body.innerHTML=raw.trim().split('\n').filter(Boolean).map(function(line){
-    var p=line.split('|');
-    var sc=p[6]==='ACTIVE'?'p-blue':'p-ok';
-    return'<tr><td style="font-family:var(--mono)">'+p[0]+'</td><td style="font-family:var(--mono)">'+p[1]+'</td><td style="font-family:var(--mono)">&#8377;'+parseFloat(p[2]||0).toFixed(2)+'</td><td style="font-family:var(--mono)">'+p[3]+' mo</td><td style="font-family:var(--mono)">'+p[4]+'%</td><td style="font-family:var(--mono);color:var(--blue)">&#8377;'+parseFloat(p[5]||0).toFixed(2)+'</td><td><span class="pill '+sc+'">'+p[6]+'</span></td></tr>';
-  }).join('');
-}
- 
-// ── Statement ─────────────────────────────────────────────────────
-function doStatement(){
-  var no=parseInt(document.getElementById('stmt-no').value);
-  if(!no){res('r-stmt','ERROR: Enter an account number.');return}
-  var raw=w('get_statement',['number'],[no]);
-  if(raw.startsWith('ERROR')){res('r-stmt',raw);return}
-  var display=raw.replace(/^SUCCESS\n/,'');
-  document.getElementById('stmt-pre').textContent=display;
-  document.getElementById('stmt-output').style.display='block';
-  res('r-stmt','SUCCESS\nStatement generated.');
-  set('outbox',display);
-}
-function printStatement(){window.print()}
-</script>
- 
-<!-- COMPILE CMD (save in README, don't run in browser):
-em++ main.cpp -o temp.html \
-  -s EXPORTED_FUNCTIONS='["_create_account","_deposit_money","_withdraw_money","_balance_enquiry","_total_money_report","_low_balance_report","_view_all_accounts","_view_transactions","_get_stats","_issue_cheque","_cancel_cheque","_clear_cheque","_view_cheques","_create_fd","_view_fds","_close_fd","_get_statement"]' \
-  -s EXPORTED_RUNTIME_METHODS='["ccall"]' \
-  -s NO_EXIT_RUNTIME=1 && mv temp.js index.js && mv temp.wasm index.wasm
--->
-<script src="index.js"></script>
+      </section>
+
+      <!-- reports -->
+      <section class="page" id="reports-page">
+        <h2 class="section-title">Reports</h2>
+        <p class="section-sub">Track total funds, low balances, and transaction volume.</p>
+
+        <div class="report-grid">
+          <div class="glass report-card">
+            <div class="k">Total Money Held</div>
+            <div class="v" id="reportTotal">₹0.00</div>
+            <div class="muted">Aggregate balance across all stored client accounts.</div>
+          </div>
+
+          <div class="glass report-card">
+            <div class="k">Low Balance Count</div>
+            <div class="v" id="reportLowCount">0</div>
+            <div class="muted">Accounts below the monitoring threshold.</div>
+          </div>
+
+          <div class="glass report-card">
+            <div class="k">Transactions Logged</div>
+            <div class="v" id="reportTxnCount">0</div>
+            <div class="muted">Total recorded transactions.</div>
+          </div>
+        </div>
+
+        <div class="content-grid">
+          <div class="glass panel">
+            <div class="head">
+              <div>
+                <h3>Run Reports</h3>
+                <p>Generate quick financial outputs.</p>
+              </div>
+            </div>
+
+            <div class="form-grid">
+              <div class="field full">
+                <label>Low Balance Threshold</label>
+                <input id="thresholdValue" type="number" step="0.01" placeholder="Enter threshold value" />
+              </div>
+            </div>
+
+            <div class="form-actions">
+              <button type="button" class="btn-primary" id="btnRunTotalReport">Run Total Money Report</button>
+              <button type="button" class="btn-secondary" id="btnRunLowReport">Run Low Balance Report</button>
+            </div>
+          </div>
+
+          <div class="glass panel">
+            <div class="head">
+              <div>
+                <h3>Insight Summary</h3>
+                <p>Current position of the platform.</p>
+              </div>
+            </div>
+            <div class="info" id="reportInsight"></div>
+          </div>
+        </div>
+      </section>
+    </main>
+  </div>
+
+  <script>
+    const STORAGE_KEY = "velora_final_html_vintage_working";
+    const MIN_BALANCE = 500;
+
+    const state = {
+      accounts: [],
+      transactions: [],
+      cheques: [],
+      fds: [],
+      lowBalanceThreshold: 1000,
+      summaryTab: "Portfolio",
+      nextChequeNo: 1001,
+      nextFDNo: 5001
+    };
+
+    function saveState() {
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
+    }
+
+    function loadState() {
+      const raw = localStorage.getItem(STORAGE_KEY);
+      if (!raw) return;
+      try {
+        const data = JSON.parse(raw);
+        state.accounts = Array.isArray(data.accounts) ? data.accounts : [];
+        state.transactions = Array.isArray(data.transactions) ? data.transactions : [];
+        state.cheques = Array.isArray(data.cheques) ? data.cheques : [];
+        state.fds = Array.isArray(data.fds) ? data.fds : [];
+        state.lowBalanceThreshold = typeof data.lowBalanceThreshold === "number" ? data.lowBalanceThreshold : 1000;
+        state.summaryTab = data.summaryTab || "Portfolio";
+        state.nextChequeNo = typeof data.nextChequeNo === "number" ? data.nextChequeNo : 1001;
+        state.nextFDNo = typeof data.nextFDNo === "number" ? data.nextFDNo : 5001;
+      } catch (e) {}
+    }
+
+    function showToast(message, type = "info") {
+      const wrap = document.getElementById("toastWrap");
+      const toast = document.createElement("div");
+      toast.className = `toast ${type}`;
+      toast.textContent = message;
+      wrap.appendChild(toast);
+
+      setTimeout(() => {
+        toast.style.opacity = "0";
+        toast.style.transform = "translateY(-8px)";
+      }, 2200);
+
+      setTimeout(() => {
+        toast.remove();
+      }, 2600);
+    }
+
+    function formatMoney(v) {
+      const n = Number(v) || 0;
+      return "₹" + n.toFixed(2);
+    }
+
+    function output(text) {
+      document.getElementById("outputBox").textContent = text;
+    }
+
+    function todayString() {
+      return new Date().toLocaleDateString("en-IN", {
+        day: "2-digit",
+        month: "short",
+        year: "numeric"
+      });
+    }
+
+    function showPage(name) {
+      document.querySelectorAll(".page").forEach(p => p.classList.remove("active"));
+      const page = document.getElementById(`${name}-page`);
+      if (page) page.classList.add("active");
+
+      document.querySelectorAll(".nav-btn").forEach(btn => {
+        btn.classList.toggle("active", btn.dataset.page === name);
+      });
+    }
+
+    function findAccount(accNo) {
+      return state.accounts.find(a => Number(a.accNo) === Number(accNo));
+    }
+
+    function accountStatus(balance) {
+      return Number(balance) < Number(state.lowBalanceThreshold) ? "Low Balance" : "Healthy";
+    }
+
+    function moneyToWords(amount) {
+      const units = ["","One","Two","Three","Four","Five","Six","Seven","Eight","Nine","Ten","Eleven","Twelve","Thirteen","Fourteen","Fifteen","Sixteen","Seventeen","Eighteen","Nineteen"];
+      const tens = ["","","Twenty","Thirty","Forty","Fifty","Sixty","Seventy","Eighty","Ninety"];
+
+      function words(n) {
+        if (n < 20) return units[n];
+        if (n < 100) return tens[Math.floor(n / 10)] + (n % 10 ? " " + units[n % 10] : "");
+        if (n < 1000) return units[Math.floor(n / 100)] + " Hundred" + (n % 100 ? " " + words(n % 100) : "");
+        if (n < 100000) return words(Math.floor(n / 1000)) + " Thousand" + (n % 1000 ? " " + words(n % 1000) : "");
+        if (n < 10000000) return words(Math.floor(n / 100000)) + " Lakh" + (n % 100000 ? " " + words(n % 100000) : "");
+        return String(n);
+      }
+
+      const rupees = Math.floor(amount || 0);
+      if (rupees === 0) return "Zero Rupees Only";
+      return `${words(rupees)} Rupees Only`;
+    }
+
+    function setSummaryTab(name) {
+      state.summaryTab = name;
+      document.getElementById("tabPortfolio").classList.toggle("active", name === "Portfolio");
+      document.getElementById("tabStatus").classList.toggle("active", name === "Status");
+      document.getElementById("tabMonitoring").classList.toggle("active", name === "Monitoring");
+      renderSummaryBox();
+      saveState();
+    }
+
+    function renderSummaryBox() {
+      const total = state.accounts.reduce((s, a) => s + Number(a.balance), 0);
+      const count = state.accounts.length;
+      const low = state.accounts.filter(a => Number(a.balance) < Number(state.lowBalanceThreshold)).length;
+      const highest = count ? Math.max(...state.accounts.map(a => Number(a.balance))) : 0;
+      const avg = count ? total / count : 0;
+      const box = document.getElementById("summaryBox");
+
+      if (state.summaryTab === "Portfolio") {
+        box.innerHTML = `
+          <strong>Total Accounts:</strong> ${count}<br>
+          <strong>Low Balance Profiles:</strong> ${low}<br>
+          <strong>Highest Balance:</strong> ${formatMoney(highest)}<br>
+          <strong>Average Balance:</strong> ${formatMoney(avg)}
+        `;
+      } else if (state.summaryTab === "Status") {
+        box.innerHTML = `
+          <strong>Healthy Accounts:</strong> ${count - low}<br>
+          <strong>Low Balance Accounts:</strong> ${low}<br>
+          <strong>Total Transactions:</strong> ${state.transactions.length}<br>
+          <strong>Issued Cheques:</strong> ${state.cheques.length}
+        `;
+      } else {
+        box.innerHTML = `
+          <strong>Monitoring Threshold:</strong> ${formatMoney(state.lowBalanceThreshold)}<br>
+          <strong>Fixed Deposits:</strong> ${state.fds.length}<br>
+          <strong>Registry Status:</strong> ${count === 0 ? "No Accounts Yet" : "Active"}<br>
+          <strong>System State:</strong> Live and Synced
+        `;
+      }
+    }
+
+    function updateMetrics() {
+      const total = state.accounts.reduce((s, a) => s + Number(a.balance), 0);
+      const count = state.accounts.length;
+      const low = state.accounts.filter(a => Number(a.balance) < Number(state.lowBalanceThreshold)).length;
+      const tx = state.transactions.length;
+
+      document.getElementById("dashboardTotal").textContent = formatMoney(total);
+      document.getElementById("sumBalance").textContent = formatMoney(total);
+      document.getElementById("sumAccounts").textContent = count;
+      document.getElementById("sumAlerts").textContent = low;
+      document.getElementById("quickAccounts").textContent = count;
+      document.getElementById("quickTransactions").textContent = tx;
+      document.getElementById("quickAlerts").textContent = low;
+      document.getElementById("reportTotal").textContent = formatMoney(total);
+      document.getElementById("reportLowCount").textContent = low;
+      document.getElementById("reportTxnCount").textContent = tx;
+
+      document.getElementById("dashboardFoot").textContent =
+        count === 0 ? "No portfolio activity yet." : `${count} active account${count === 1 ? "" : "s"} under management.`;
+
+      document.getElementById("reportInsight").textContent =
+        count === 0
+          ? "No report insights available yet. Create accounts and process transactions to unlock summary intelligence."
+          : `Velora currently manages ${count} account(s) with ${formatMoney(total)} in total holdings, ${low} low-balance alert(s), ${state.cheques.length} cheque(s), and ${state.fds.length} fixed deposit(s).`;
+
+      renderSummaryBox();
+      saveState();
+    }
+
+    function renderRecentActivity() {
+      const list = document.getElementById("recentActivity");
+      if (state.transactions.length === 0) {
+        list.innerHTML = `
+          <div class="activity-item">
+            <div class="activity-icon">↗</div>
+            <div>
+              <div class="activity-title">No activity yet</div>
+              <div class="activity-sub">Create an account or process a transaction to begin.</div>
+            </div>
+            <div class="activity-amount plus">—</div>
+          </div>
+        `;
+        return;
+      }
+
+      const recent = state.transactions.slice(-5).reverse();
+      list.innerHTML = recent.map(t => `
+        <div class="activity-item">
+          <div class="activity-icon">${t.type === "Deposit" ? "↗" : t.type === "Withdraw" ? "↘" : "◆"}</div>
+          <div>
+            <div class="activity-title">${t.type}</div>
+            <div class="activity-sub">Account ${t.accNo}</div>
+          </div>
+          <div class="activity-amount ${t.type === "Deposit" ? "plus" : "minus"}">${t.type === "Deposit" ? "+" : "-"}${formatMoney(t.amount)}</div>
+        </div>
+      `).join("");
+    }
+
+    function renderAccounts() {
+      const body = document.getElementById("accountsBody");
+      if (state.accounts.length === 0) {
+        body.innerHTML = `<tr><td colspan="4">No accounts available.</td></tr>`;
+        return;
+      }
+
+      body.innerHTML = state.accounts.map(a => `
+        <tr>
+          <td>${a.accNo}</td>
+          <td>${a.name}</td>
+          <td>${formatMoney(a.balance)}</td>
+          <td><span class="pill ${Number(a.balance) < Number(state.lowBalanceThreshold) ? "pill-err" : "pill-ok"}">${accountStatus(a.balance)}</span></td>
+        </tr>
+      `).join("");
+    }
+
+    function renderTransactions() {
+      const body = document.getElementById("transactionsBody");
+      if (state.transactions.length === 0) {
+        body.innerHTML = `<tr><td colspan="4">No transactions available.</td></tr>`;
+        return;
+      }
+
+      body.innerHTML = state.transactions.slice().reverse().map(t => `
+        <tr>
+          <td>${t.type}</td>
+          <td>${t.accNo}</td>
+          <td>${formatMoney(t.amount)}</td>
+          <td><span class="pill ${t.type === "Deposit" ? "pill-ok" : "pill-err"}">${t.type === "Deposit" ? "Credit" : "Debit"}</span></td>
+        </tr>
+      `).join("");
+    }
+
+    function renderCheques() {
+      const body = document.getElementById("chequesBody");
+      if (state.cheques.length === 0) {
+        body.innerHTML = `<tr><td colspan="6">No cheques issued yet.</td></tr>`;
+        return;
+      }
+
+      body.innerHTML = state.cheques.slice().reverse().map(c => `
+        <tr>
+          <td>${c.chequeNo}</td>
+          <td>${c.accNo}</td>
+          <td>${c.payee}</td>
+          <td>${formatMoney(c.amount)}</td>
+          <td><span class="pill ${c.status === "ISSUED" ? "pill-info" : c.status === "CLEARED" ? "pill-ok" : "pill-err"}">${c.status}</span></td>
+          <td>
+            ${c.status === "ISSUED" ? `
+              <button type="button" class="btn-secondary" style="padding:8px 10px;font-size:.78rem;margin-right:6px" onclick="clearCheque(${c.chequeNo})">Clear</button>
+              <button type="button" class="btn-ghost" style="padding:8px 10px;font-size:.78rem" onclick="cancelCheque(${c.chequeNo})">Cancel</button>
+            ` : "—"}
+          </td>
+        </tr>
+      `).join("");
+    }
+
+    function renderFDs() {
+      const container = document.getElementById("fdList");
+      if (state.fds.length === 0) {
+        container.innerHTML = `<div class="info">No fixed deposits created yet.</div>`;
+        return;
+      }
+
+      container.innerHTML = state.fds.slice().reverse().map(fd => `
+        <div class="fd-card" style="margin-bottom:12px">
+          <div class="fd-row"><span class="fd-label">FD Number</span><span class="fd-value">${fd.fdNo}</span></div>
+          <div class="fd-row"><span class="fd-label">Account Number</span><span class="fd-value">${fd.accNo}</span></div>
+          <div class="fd-row"><span class="fd-label">Principal</span><span class="fd-value">${formatMoney(fd.amount)}</span></div>
+          <div class="fd-row"><span class="fd-label">Tenure</span><span class="fd-value">${fd.months} months</span></div>
+          <div class="fd-row"><span class="fd-label">Rate</span><span class="fd-value">${fd.rate}% p.a.</span></div>
+          <div class="fd-maturity">Maturity Amount: ${formatMoney(fd.maturity)}</div>
+        </div>
+      `).join("");
+    }
+
+    function updateChequePreview(data = {}) {
+      const chequeNo = data.chequeNo || state.nextChequeNo;
+      const payee = data.payee || "—";
+      const accNo = data.accNo || "—";
+      const date = data.date || todayString();
+      const amount = Number(data.amount || 0);
+      const status = data.status || "ISSUED";
+
+      document.getElementById("chequeNoText").textContent = `Cheque No: ${chequeNo}`;
+      document.getElementById("chequePayeeText").textContent = payee;
+      document.getElementById("chequeAccText").textContent = accNo;
+      document.getElementById("chequeDateText").textContent = date;
+      document.getElementById("chequeAmtNum").textContent = formatMoney(amount);
+      document.getElementById("chequeAmtWords").textContent = amount > 0 ? moneyToWords(amount) : "Amount in words";
+      document.getElementById("chequeFooterDate").textContent = `Issued on ${date}`;
+      document.getElementById("chequeMicr").textContent = `|: ${String(chequeNo).padStart(7, "0")} :| ${accNo} || 25001 ||`;
+
+      const watermark = document.getElementById("chequeWatermark");
+      const badge = document.getElementById("chequeStatusBadge");
+      watermark.classList.remove("show");
+      badge.className = "cheque-status-badge";
+
+      if (status === "ISSUED") {
+        badge.classList.add("badge-issued");
+        badge.textContent = "ISSUED";
+      } else if (status === "CLEARED") {
+        badge.classList.add("badge-cleared");
+        badge.textContent = "CLEARED";
+      } else {
+        badge.classList.add("badge-cancelled");
+        badge.textContent = "CANCELLED";
+        watermark.classList.add("show");
+      }
+    }
+
+    function renderStatement(accountNo = null) {
+      const outputEl = document.getElementById("statementOutput");
+      if (!accountNo) {
+        outputEl.innerHTML = "No statement generated yet.";
+        return;
+      }
+
+      const acc = findAccount(accountNo);
+      if (!acc) {
+        outputEl.innerHTML = "Account not found.";
+        return;
+      }
+
+      const txns = state.transactions.filter(t => Number(t.accNo) === Number(accountNo));
+
+      let html = `
+        <div class="statement-card">
+          <strong>Account Number:</strong> ${acc.accNo}<br>
+          <strong>Client Name:</strong> ${acc.name}<br>
+          <strong>Current Balance:</strong> ${formatMoney(acc.balance)}<br>
+          <strong>Total Entries:</strong> ${txns.length}
+        </div>
+      `;
+
+      if (txns.length === 0) {
+        html += `<div class="statement-card" style="margin-top:12px">No transactions found for this account.</div>`;
+      } else {
+        html += `<div class="statement-card" style="margin-top:12px"><strong>Ledger</strong><br><br>`;
+        txns.slice().reverse().forEach(t => {
+          html += `${t.type} · ${formatMoney(t.amount)}<br>`;
+        });
+        html += `</div>`;
+      }
+
+      outputEl.innerHTML = html;
+    }
+
+    function refreshAll() {
+      updateMetrics();
+      renderAccounts();
+      renderTransactions();
+      renderCheques();
+      renderFDs();
+      renderRecentActivity();
+      output("Insights refreshed.");
+      showToast("Insights refreshed.", "info");
+    }
+
+    function clearInputs(ids) {
+      ids.forEach(id => {
+        const el = document.getElementById(id);
+        if (el) el.value = "";
+      });
+    }
+
+    function createFromDashboard() {
+      document.getElementById("createAccNo").value = document.getElementById("dashAccNo").value;
+      document.getElementById("createName").value = document.getElementById("dashName").value;
+      document.getElementById("createBalance").value = document.getElementById("dashBal").value;
+      showPage("accounts");
+      createAccount();
+    }
+
+    function createAccount() {
+      const accNo = parseInt(document.getElementById("createAccNo").value, 10);
+      const name = document.getElementById("createName").value.trim();
+      const balance = parseFloat(document.getElementById("createBalance").value);
+
+      if (!accNo || !name || Number.isNaN(balance)) {
+        output("Please fill all account fields correctly.");
+        showToast("Fill all account fields correctly.", "error");
+        return;
+      }
+
+      if (balance < MIN_BALANCE) {
+        output(`Minimum opening balance is ${formatMoney(MIN_BALANCE)}.`);
+        showToast(`Minimum opening balance is ${formatMoney(MIN_BALANCE)}.`, "error");
+        return;
+      }
+
+      if (findAccount(accNo)) {
+        output("Account number already exists.");
+        showToast("Account number already exists.", "error");
+        return;
+      }
+
+      state.accounts.push({
+        accNo,
+        name,
+        balance
+      });
+
+      updateMetrics();
+      renderAccounts();
+      renderRecentActivity();
+      clearInputs(["createAccNo","createName","createBalance","dashAccNo","dashName","dashBal"]);
+
+      output(`Account created successfully.
+Account No: ${accNo}
+Client Name: ${name}
+Opening Balance: ${formatMoney(balance)}`);
+      showToast("Account created successfully.", "success");
+    }
+
+    function depositMoney() {
+      const accNo = parseInt(document.getElementById("depositAccNo").value, 10);
+      const amount = parseFloat(document.getElementById("depositAmount").value);
+
+      if (!accNo || Number.isNaN(amount) || amount <= 0) {
+        output("Please enter a valid account number and deposit amount.");
+        showToast("Enter a valid deposit amount.", "error");
+        return;
+      }
+
+      const acc = findAccount(accNo);
+      if (!acc) {
+        output("Account not found.");
+        showToast("Account not found.", "error");
+        return;
+      }
+
+      acc.balance += amount;
+      state.transactions.push({
+        type: "Deposit",
+        accNo,
+        amount,
+        date: todayString()
+      });
+
+      updateMetrics();
+      renderAccounts();
+      renderTransactions();
+      renderRecentActivity();
+      clearInputs(["depositAccNo","depositAmount"]);
+
+      output(`Deposit successful.
+Account No: ${accNo}
+Deposited Amount: ${formatMoney(amount)}
+Updated Balance: ${formatMoney(acc.balance)}`);
+      showToast("Deposit successful.", "success");
+    }
+
+    function withdrawMoney() {
+      const accNo = parseInt(document.getElementById("withdrawAccNo").value, 10);
+      const amount = parseFloat(document.getElementById("withdrawAmount").value);
+
+      if (!accNo || Number.isNaN(amount) || amount <= 0) {
+        output("Please enter a valid account number and withdrawal amount.");
+        showToast("Enter a valid withdrawal amount.", "error");
+        return;
+      }
+
+      const acc = findAccount(accNo);
+      if (!acc) {
+        output("Account not found.");
+        showToast("Account not found.", "error");
+        return;
+      }
+
+      if (Number(acc.balance) < Number(amount)) {
+        output("Insufficient balance. Overdraft not allowed.");
+        showToast("Insufficient balance. Overdraft not allowed.", "error");
+        return;
+      }
+
+      if (Number(acc.balance) - Number(amount) < MIN_BALANCE) {
+        output(`Withdrawal blocked. Minimum balance of ${formatMoney(MIN_BALANCE)} must remain.`);
+        showToast(`Minimum balance of ${formatMoney(MIN_BALANCE)} must remain.`, "error");
+        return;
+      }
+
+      acc.balance -= amount;
+      state.transactions.push({
+        type: "Withdraw",
+        accNo,
+        amount,
+        date: todayString()
+      });
+
+      updateMetrics();
+      renderAccounts();
+      renderTransactions();
+      renderRecentActivity();
+      clearInputs(["withdrawAccNo","withdrawAmount"]);
+
+      output(`Withdrawal successful.
+Account No: ${accNo}
+Withdrawal Amount: ${formatMoney(amount)}
+Updated Balance: ${formatMoney(acc.balance)}`);
+      showToast("Withdrawal successful.", "success");
+    }
+
+    function issueCheque() {
+      const accNo = parseInt(document.getElementById("chequeAccNo").value, 10);
+      const payee = document.getElementById("chequePayee").value.trim();
+      const amount = parseFloat(document.getElementById("chequeAmount").value);
+
+      if (!accNo || !payee || Number.isNaN(amount) || amount <= 0) {
+        output("Please fill cheque details correctly.");
+        showToast("Fill cheque details correctly.", "error");
+        return;
+      }
+
+      const acc = findAccount(accNo);
+      if (!acc) {
+        output("Account not found.");
+        showToast("Account not found.", "error");
+        return;
+      }
+
+      if (Number(acc.balance) < Number(amount)) {
+        output("Cannot issue cheque. Balance is lower than cheque amount.");
+        showToast("Balance is lower than cheque amount.", "error");
+        return;
+      }
+
+      const cheque = {
+        chequeNo: state.nextChequeNo++,
+        accNo,
+        payee,
+        amount,
+        date: todayString(),
+        status: "ISSUED"
+      };
+
+      state.cheques.push(cheque);
+      updateChequePreview(cheque);
+      renderCheques();
+      updateMetrics();
+      clearInputs(["chequeAccNo","chequePayee","chequeAmount"]);
+
+      output(`Cheque issued successfully.
+Cheque No: ${cheque.chequeNo}
+Account No: ${accNo}
+Payee: ${payee}
+Amount: ${formatMoney(amount)}
+Status: ISSUED`);
+      showToast("Cheque issued successfully.", "success");
+    }
+
+    function cancelCheque(chequeNo) {
+      const cheque = state.cheques.find(c => Number(c.chequeNo) === Number(chequeNo));
+      if (!cheque) {
+        output("Cheque not found.");
+        showToast("Cheque not found.", "error");
+        return;
+      }
+
+      if (cheque.status !== "ISSUED") {
+        output(`Only issued cheques can be cancelled. Current status: ${cheque.status}`);
+        showToast(`Cheque is already ${cheque.status.toLowerCase()}.`, "error");
+        return;
+      }
+
+      cheque.status = "CANCELLED";
+      updateChequePreview(cheque);
+      renderCheques();
+      updateMetrics();
+
+      output(`Cheque #${chequeNo} cancelled successfully.`);
+      showToast("Cheque cancelled.", "success");
+    }
+
+    function clearCheque(chequeNo) {
+      const cheque = state.cheques.find(c => Number(c.chequeNo) === Number(chequeNo));
+      if (!cheque) {
+        output("Cheque not found.");
+        showToast("Cheque not found.", "error");
+        return;
+      }
+
+      if (cheque.status !== "ISSUED") {
+        output(`Only issued cheques can be cleared. Current status: ${cheque.status}`);
+        showToast(`Cheque is already ${cheque.status.toLowerCase()}.`, "error");
+        return;
+      }
+
+      const acc = findAccount(cheque.accNo);
+      if (!acc) {
+        output("Account not found.");
+        showToast("Account not found.", "error");
+        return;
+      }
+
+      if (Number(acc.balance) < Number(cheque.amount) || Number(acc.balance) - Number(cheque.amount) < MIN_BALANCE) {
+        output("Cheque cannot be cleared. Insufficient balance or minimum balance rule breached.");
+        showToast("Cheque cannot be cleared.", "error");
+        return;
+      }
+
+      acc.balance -= cheque.amount;
+      cheque.status = "CLEARED";
+      state.transactions.push({
+        type: "Cheque",
+        accNo: cheque.accNo,
+        amount: cheque.amount,
+        date: todayString()
+      });
+
+      updateChequePreview(cheque);
+      renderCheques();
+      renderAccounts();
+      renderTransactions();
+      renderRecentActivity();
+      updateMetrics();
+
+      output(`Cheque #${chequeNo} cleared.
+Deducted Amount: ${formatMoney(cheque.amount)}
+Updated Balance: ${formatMoney(acc.balance)}`);
+      showToast("Cheque cleared.", "success");
+    }
+
+    function createFD() {
+      const accNo = parseInt(document.getElementById("fdAccNo").value, 10);
+      const amount = parseFloat(document.getElementById("fdAmount").value);
+      const months = parseInt(document.getElementById("fdMonths").value, 10);
+
+      if (!accNo || Number.isNaN(amount) || amount < 1000) {
+        output("FD amount must be at least ₹1000.");
+        showToast("FD amount must be at least ₹1000.", "error");
+        return;
+      }
+
+      const acc = findAccount(accNo);
+      if (!acc) {
+        output("Account not found.");
+        showToast("Account not found.", "error");
+        return;
+      }
+
+      if (Number(acc.balance) < Number(amount) || Number(acc.balance) - Number(amount) < MIN_BALANCE) {
+        output("FD cannot be created. Insufficient balance or minimum balance rule breached.");
+        showToast("FD cannot be created.", "error");
+        return;
+      }
+
+      let rate = 6.5;
+      if (months >= 24 && months < 60) rate = 7.0;
+      if (months >= 60) rate = 7.5;
+
+      acc.balance -= amount;
+      const maturity = amount * (1 + (rate / 100) * (months / 12));
+
+      state.fds.push({
+        fdNo: state.nextFDNo++,
+        accNo,
+        amount,
+        months,
+        rate,
+        maturity,
+        date: todayString()
+      });
+
+      state.transactions.push({
+        type: "FD Created",
+        accNo,
+        amount,
+        date: todayString()
+      });
+
+      updateMetrics();
+      renderAccounts();
+      renderTransactions();
+      renderRecentActivity();
+      renderFDs();
+      clearInputs(["fdAccNo","fdAmount"]);
+
+      output(`Fixed Deposit created.
+Account No: ${accNo}
+Principal: ${formatMoney(amount)}
+Tenure: ${months} months
+Rate: ${rate}% p.a.
+Maturity Amount: ${formatMoney(maturity)}`);
+      showToast("Fixed Deposit created.", "success");
+    }
+
+    function generateStatement() {
+      const accNo = parseInt(document.getElementById("statementAccNo").value, 10);
+
+      if (!accNo) {
+        output("Enter a valid account number for statement.");
+        showToast("Enter a valid account number.", "error");
+        return;
+      }
+
+      const acc = findAccount(accNo);
+      if (!acc) {
+        renderStatement();
+        output("Account not found.");
+        showToast("Account not found.", "error");
+        return;
+      }
+
+      renderStatement(accNo);
+      output(`Statement generated for account ${accNo}.`);
+      showToast("Statement generated.", "success");
+    }
+
+    function runTotalMoneyReport() {
+      const total = state.accounts.reduce((s, a) => s + Number(a.balance), 0);
+      updateMetrics();
+      output(`Total Money Report
+-------------------------
+Total Accounts: ${state.accounts.length}
+Total Money Held Across All Accounts: ${formatMoney(total)}
+Issued Cheques: ${state.cheques.length}
+Fixed Deposits: ${state.fds.length}`);
+      showToast("Total money report generated.", "success");
+    }
+
+    function runLowBalanceReport() {
+      const raw = document.getElementById("thresholdValue").value.trim();
+
+      if (raw !== "") {
+        const parsed = parseFloat(raw);
+        if (Number.isNaN(parsed) || parsed < 0) {
+          output("Invalid threshold amount.");
+          showToast("Invalid threshold amount.", "error");
+          return;
+        }
+        state.lowBalanceThreshold = parsed;
+      }
+
+      const low = state.accounts.filter(a => Number(a.balance) < Number(state.lowBalanceThreshold));
+      updateMetrics();
+      renderAccounts();
+
+      if (low.length === 0) {
+        output(`No accounts found below ${formatMoney(state.lowBalanceThreshold)}.`);
+        showToast("No low balance accounts found.", "info");
+        return;
+      }
+
+      let txt = `Low Balance Report
+Threshold: ${formatMoney(state.lowBalanceThreshold)}
+-------------------------
+`;
+
+      low.forEach(a => {
+        txt += `Acc No: ${a.accNo} | Name: ${a.name} | Balance: ${formatMoney(a.balance)}
+`;
+      });
+
+      output(txt.trim());
+      showToast("Low balance report generated.", "success");
+    }
+
+    function bindEvents() {
+      document.querySelectorAll(".nav-btn").forEach(btn => {
+        btn.addEventListener("click", () => showPage(btn.dataset.page));
+      });
+
+      document.getElementById("heroOpenAccounts").addEventListener("click", () => showPage("accounts"));
+      document.getElementById("heroOpenDeposit").addEventListener("click", () => showPage("deposit"));
+      document.getElementById("heroOpenReports").addEventListener("click", () => showPage("reports"));
+
+      document.getElementById("btnCreateDashboard").addEventListener("click", createFromDashboard);
+      document.getElementById("btnClearDashboard").addEventListener("click", () => clearInputs(["dashAccNo","dashName","dashBal"]));
+
+      document.getElementById("btnCreateAccount").addEventListener("click", createAccount);
+      document.getElementById("btnResetAccount").addEventListener("click", () => clearInputs(["createAccNo","createName","createBalance"]));
+      document.getElementById("btnRefreshAccounts").addEventListener("click", renderAccounts);
+
+      document.getElementById("btnProcessDeposit").addEventListener("click", depositMoney);
+      document.getElementById("btnClearDeposit").addEventListener("click", () => clearInputs(["depositAccNo","depositAmount"]));
+
+      document.getElementById("btnProcessWithdraw").addEventListener("click", withdrawMoney);
+      document.getElementById("btnClearWithdraw").addEventListener("click", () => clearInputs(["withdrawAccNo","withdrawAmount"]));
+
+      document.getElementById("btnRefreshTransactions").addEventListener("click", renderTransactions);
+
+      document.getElementById("btnIssueCheque").addEventListener("click", issueCheque);
+      document.getElementById("btnClearChequeForm").addEventListener("click", () => {
+        clearInputs(["chequeAccNo","chequePayee","chequeAmount"]);
+        updateChequePreview();
+      });
+
+      document.getElementById("btnCreateFD").addEventListener("click", createFD);
+      document.getElementById("btnClearFD").addEventListener("click", () => clearInputs(["fdAccNo","fdAmount"]));
+
+      document.getElementById("btnGenerateStatement").addEventListener("click", generateStatement);
+      document.getElementById("btnClearStatement").addEventListener("click", () => {
+        clearInputs(["statementAccNo"]);
+        renderStatement();
+      });
+
+      document.getElementById("btnRunTotalReport").addEventListener("click", runTotalMoneyReport);
+      document.getElementById("btnRunLowReport").addEventListener("click", runLowBalanceReport);
+
+      document.getElementById("btnClearOutput").addEventListener("click", () => output("Output cleared."));
+      document.getElementById("btnRefreshAll").addEventListener("click", refreshAll);
+
+      document.getElementById("tabPortfolio").addEventListener("click", () => setSummaryTab("Portfolio"));
+      document.getElementById("tabStatus").addEventListener("click", () => setSummaryTab("Status"));
+      document.getElementById("tabMonitoring").addEventListener("click", () => setSummaryTab("Monitoring"));
+    }
+
+    loadState();
+    bindEvents();
+    updateMetrics();
+    renderAccounts();
+    renderTransactions();
+    renderCheques();
+    renderFDs();
+    renderRecentActivity();
+    renderStatement();
+    setSummaryTab(state.summaryTab || "Portfolio");
+    updateChequePreview();
+    output("Velora Bank is ready.");
+  </script>
 </body>
 </html>
