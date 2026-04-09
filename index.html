@@ -11,220 +11,316 @@
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
 :root{
   --bg:#08070b;--s1:#0f0d14;--s2:#161320;--s3:#1e1a29;--s4:#272234;
-  --line:rgba(255,255,255,0.06);--line2:rgba(255,255,255,0.1);
+  --line:rgba(255,255,255,0.06);--line2:rgba(255,255,255,0.11);
   --t1:#f0ecf6;--t2:#a89dba;--t3:#5c5370;
   --burg:#9f1837;--burg2:#c12a4f;--burg3:#e0527a;--rose:#f4c2d0;
-  --ok:#2ecc8e;--ok-dim:#2ecc8e14;--ok-mid:#2ecc8e28;
-  --err:#e05060;--err-dim:#e0506014;
+  --ok:#2ecc8e;--ok-dim:#2ecc8e12;--ok-mid:#2ecc8e28;
+  --err:#e05060;--err-dim:#e0506012;
+  --amber:#f0a922;--amber-dim:#f0a92212;
+  --blue:#4a9eff;--blue-dim:#4a9eff12;
   --font:'Inter',sans-serif;--mono:'JetBrains Mono',monospace;
 }
 html,body{height:100%;background:var(--bg);color:var(--t1);font-family:var(--font);font-size:14px;overflow:hidden}
-body{background-image:radial-gradient(ellipse at 0% 0%,rgba(159,24,55,.18) 0%,transparent 40%),radial-gradient(ellipse at 100% 0%,rgba(193,42,79,.1) 0%,transparent 35%)}
-.app{display:grid;grid-template-columns:260px 1fr;height:100vh;overflow:hidden}
-.sidebar{background:linear-gradient(180deg,rgba(15,13,20,.98),rgba(10,8,14,.99));border-right:1px solid var(--line);display:flex;flex-direction:column;overflow:hidden}
-.brand{padding:24px 20px 20px;border-bottom:1px solid var(--line);background:linear-gradient(135deg,rgba(159,24,55,.14),transparent)}
-.brand-row{display:flex;align-items:center;gap:13px;margin-bottom:14px}
-.brand-icon{width:46px;height:46px;border-radius:15px;background:linear-gradient(145deg,rgba(193,42,79,.4),rgba(100,12,32,.4));border:1px solid rgba(193,42,79,.3);display:grid;place-items:center;font-size:20px;box-shadow:0 8px 24px rgba(159,24,55,.25)}
+body{background-image:radial-gradient(ellipse at 0% 0%,rgba(159,24,55,.2) 0%,transparent 40%),radial-gradient(ellipse at 100% 0%,rgba(193,42,79,.1) 0%,transparent 35%)}
+.app{display:grid;grid-template-columns:252px 1fr;height:100vh;overflow:hidden}
+ 
+/* SIDEBAR */
+.sidebar{background:linear-gradient(180deg,rgba(14,12,19,.99),rgba(9,7,13,.99));border-right:1px solid var(--line);display:flex;flex-direction:column;overflow:hidden}
+.brand{padding:22px 18px 18px;border-bottom:1px solid var(--line);background:linear-gradient(135deg,rgba(159,24,55,.15),transparent)}
+.brand-row{display:flex;align-items:center;gap:12px;margin-bottom:13px}
+.brand-icon{width:44px;height:44px;border-radius:14px;background:linear-gradient(145deg,rgba(193,42,79,.45),rgba(100,12,32,.45));border:1px solid rgba(193,42,79,.35);display:grid;place-items:center;font-size:18px;box-shadow:0 6px 20px rgba(159,24,55,.3)}
 .brand-name{font-size:15px;font-weight:800;letter-spacing:-.3px}
-.brand-sub{font-size:11px;color:var(--t3);margin-top:2px}
-.brand-chip{display:inline-flex;align-items:center;gap:6px;padding:6px 12px;border-radius:999px;background:rgba(255,255,255,.04);border:1px solid var(--line2);font-size:10px;color:var(--t2);letter-spacing:.04em}
-.brand-chip::before{content:'';width:5px;height:5px;border-radius:50%;background:var(--burg3);animation:blink 2.5s ease-in-out infinite}
+.brand-sub{font-size:10px;color:var(--t3);margin-top:2px}
+.brand-chip{display:inline-flex;align-items:center;gap:6px;padding:5px 11px;border-radius:999px;background:rgba(255,255,255,.04);border:1px solid var(--line2);font-size:10px;color:var(--t2)}
+.brand-chip::before{content:'';width:5px;height:5px;border-radius:50%;background:var(--ok);animation:blink 2.5s ease-in-out infinite}
 @keyframes blink{0%,100%{opacity:1}50%{opacity:.2}}
-.nav{flex:1;padding:12px 10px;overflow-y:auto;display:flex;flex-direction:column;gap:2px;scrollbar-width:none}
+.nav{flex:1;padding:10px 8px;overflow-y:auto;display:flex;flex-direction:column;gap:1px;scrollbar-width:none}
 .nav::-webkit-scrollbar{display:none}
-.nav-sep{font-size:9px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:var(--t3);padding:12px 12px 5px}
-.nav-btn{width:100%;display:flex;align-items:center;gap:10px;padding:9px 12px;border-radius:9px;background:transparent;border:1px solid transparent;font-family:var(--font);font-size:12.5px;font-weight:500;color:var(--t2);cursor:pointer;transition:all .15s ease;text-align:left}
-.nav-btn svg{flex-shrink:0;opacity:.5;transition:opacity .15s}
+.nav-sep{font-size:9px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:var(--t3);padding:12px 12px 4px}
+.nav-btn{width:100%;display:flex;align-items:center;gap:9px;padding:8px 11px;border-radius:8px;background:transparent;border:1px solid transparent;font-family:var(--font);font-size:12px;font-weight:500;color:var(--t2);cursor:pointer;transition:all .13s ease;text-align:left}
+.nav-btn svg{flex-shrink:0;opacity:.45;transition:opacity .13s}
 .nav-btn:hover{background:var(--s3);color:var(--t1)}
-.nav-btn:hover svg{opacity:.8}
-.nav-btn.active{background:linear-gradient(135deg,rgba(159,24,55,.28),rgba(100,12,32,.15));border-color:rgba(193,42,79,.25);color:white}
+.nav-btn:hover svg{opacity:.75}
+.nav-btn.active{background:linear-gradient(135deg,rgba(159,24,55,.3),rgba(100,12,32,.18));border-color:rgba(193,42,79,.28);color:white}
 .nav-btn.active svg{opacity:1}
-.sb-foot{padding:14px 10px;border-top:1px solid var(--line)}
-.sb-badge{display:flex;align-items:center;gap:8px;padding:10px 13px;border-radius:9px;background:var(--s2);border:1px solid var(--line)}
-.sb-badge-dot{width:5px;height:5px;border-radius:50%;background:var(--ok);flex-shrink:0;animation:blink 3s ease-in-out infinite}
-.sb-badge-txt{font-family:var(--mono);font-size:10px;color:var(--t3)}
-.sb-badge-txt strong{color:var(--t2);font-weight:400}
+.sb-foot{padding:12px 8px;border-top:1px solid var(--line)}
+.sb-badge{display:flex;align-items:center;gap:8px;padding:9px 12px;border-radius:8px;background:var(--s2);border:1px solid var(--line)}
+.sb-dot{width:5px;height:5px;border-radius:50%;background:var(--ok);flex-shrink:0;animation:blink 3s ease-in-out infinite}
+.sb-txt{font-family:var(--mono);font-size:10px;color:var(--t3)}
+.sb-txt strong{color:var(--t2);font-weight:400}
+ 
+/* MAIN */
 .main{display:flex;flex-direction:column;overflow:hidden}
-.topbar{display:flex;align-items:center;justify-content:space-between;padding:0 28px;height:52px;background:rgba(8,7,11,.95);border-bottom:1px solid var(--line);flex-shrink:0}
+.topbar{display:flex;align-items:center;justify-content:space-between;padding:0 26px;height:50px;background:rgba(8,7,11,.96);border-bottom:1px solid var(--line);flex-shrink:0}
 .tb-title{font-size:12px;font-weight:500;color:var(--t2)}
-.tb-right{display:flex;align-items:center;gap:18px}
+.tb-right{display:flex;align-items:center;gap:16px}
 .tb-reg{font-family:var(--mono);font-size:10px;color:var(--t3)}
-.tb-status{display:flex;align-items:center;gap:5px;font-size:10px;color:var(--ok);font-family:var(--mono)}
-.tb-status::before{content:'';width:4px;height:4px;border-radius:50%;background:var(--ok);display:inline-block}
+.tb-live{display:flex;align-items:center;gap:5px;font-size:10px;color:var(--ok);font-family:var(--mono)}
+.tb-live::before{content:'';width:4px;height:4px;border-radius:50%;background:var(--ok);display:inline-block}
+ 
+/* PAGES */
 .pages{flex:1;overflow-y:auto;scrollbar-width:thin;scrollbar-color:var(--s4) transparent}
 .pages::-webkit-scrollbar{width:4px}
 .pages::-webkit-scrollbar-thumb{background:var(--s4);border-radius:2px}
-.page{display:none;padding:28px 32px 40px}
-.page.active{display:block;animation:fadeup .2s ease}
-@keyframes fadeup{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}
-.page-title{font-size:22px;font-weight:300;letter-spacing:-.8px;margin-bottom:4px}
-.page-sub{font-size:12px;color:var(--t3);margin-bottom:26px}
-.card{background:var(--s1);border:1px solid var(--line);border-radius:16px;padding:22px}
-.card-title{font-size:12px;font-weight:600;color:var(--t2);text-transform:uppercase;letter-spacing:.06em;margin-bottom:14px}
-.g2{display:grid;grid-template-columns:1fr 1fr;gap:16px}
-.g3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:14px}
-.g2-wide{display:grid;grid-template-columns:1.3fr .9fr;gap:16px}
-.stat{background:var(--s1);border:1px solid var(--line);border-radius:14px;padding:18px 20px;display:flex;flex-direction:column;gap:5px;transition:border-color .2s}
-.stat:hover{border-color:rgba(193,42,79,.25)}
-.stat-label{font-size:10px;color:var(--t3);text-transform:uppercase;letter-spacing:.07em}
-.stat-val{font-size:26px;font-weight:300;letter-spacing:-1.2px;font-family:var(--mono);color:var(--t1)}
-.stat-val.burg{color:var(--burg3)}
-.stat-val.ok{color:var(--ok)}
-.stat-meta{font-size:10px;color:var(--t3)}
-.hero{background:linear-gradient(135deg,rgba(22,19,28,.97),rgba(15,12,20,.97));border:1px solid var(--line);border-radius:16px;padding:28px 30px;position:relative;overflow:hidden}
-.hero::after{content:'';position:absolute;top:-80px;right:-80px;width:300px;height:300px;border-radius:50%;background:radial-gradient(circle,rgba(193,42,79,.2),transparent 65%);pointer-events:none}
-.hero-tag{display:inline-flex;align-items:center;gap:6px;padding:5px 12px;border-radius:999px;background:rgba(193,42,79,.1);border:1px solid rgba(193,42,79,.2);font-size:10px;color:var(--rose);margin-bottom:16px;letter-spacing:.04em}
-.hero h2{font-size:28px;font-weight:300;letter-spacing:-1.2px;line-height:1.1;max-width:14ch;margin-bottom:12px}
-.hero-sub{font-size:12px;color:var(--t3);line-height:1.7;max-width:50ch}
-.hero-actions{display:flex;gap:10px;flex-wrap:wrap;margin-top:20px}
-.portfolio{background:var(--s1);border:1px solid var(--line);border-radius:16px;padding:20px;display:flex;flex-direction:column;gap:14px}
-.portfolio-head{display:flex;align-items:center;justify-content:space-between}
-.portfolio-head h3{font-size:13px;font-weight:600}
-.live-pill{display:flex;align-items:center;gap:5px;padding:4px 10px;border-radius:999px;background:rgba(46,204,142,.08);border:1px solid rgba(46,204,142,.2);font-size:10px;color:var(--ok);font-family:var(--mono)}
+.page{display:none;padding:24px 28px 40px}
+.page.active{display:block;animation:up .18s ease}
+@keyframes up{from{opacity:0;transform:translateY(7px)}to{opacity:1;transform:translateY(0)}}
+.ptitle{font-size:20px;font-weight:300;letter-spacing:-.7px;margin-bottom:3px}
+.psub{font-size:11px;color:var(--t3);margin-bottom:22px}
+ 
+/* LAYOUT */
+.g2{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.g3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:12px}
+.gw{display:grid;grid-template-columns:1.3fr .9fr;gap:14px}
+ 
+/* CARD */
+.card{background:var(--s1);border:1px solid var(--line);border-radius:14px;padding:20px}
+.ctitle{font-size:11px;font-weight:600;color:var(--t2);text-transform:uppercase;letter-spacing:.06em;margin-bottom:13px}
+ 
+/* STAT */
+.stat{background:var(--s1);border:1px solid var(--line);border-radius:12px;padding:16px 18px;display:flex;flex-direction:column;gap:4px;transition:border-color .2s}
+.stat:hover{border-color:rgba(193,42,79,.2)}
+.slabel{font-size:10px;color:var(--t3);text-transform:uppercase;letter-spacing:.07em}
+.sval{font-size:24px;font-weight:300;letter-spacing:-1px;font-family:var(--mono)}
+.sval.r{color:var(--burg3)}.sval.g{color:var(--ok)}.sval.b{color:var(--blue)}
+.smeta{font-size:10px;color:var(--t3)}
+ 
+/* HERO */
+.hero{background:linear-gradient(135deg,rgba(20,17,27,.97),rgba(13,10,18,.97));border:1px solid var(--line);border-radius:14px;padding:26px 28px;position:relative;overflow:hidden}
+.hero::after{content:'';position:absolute;top:-70px;right:-70px;width:260px;height:260px;border-radius:50%;background:radial-gradient(circle,rgba(193,42,79,.22),transparent 65%);pointer-events:none}
+.hero-tag{display:inline-flex;align-items:center;gap:5px;padding:4px 11px;border-radius:999px;background:rgba(193,42,79,.1);border:1px solid rgba(193,42,79,.22);font-size:10px;color:var(--rose);margin-bottom:14px}
+.hero h2{font-size:26px;font-weight:300;letter-spacing:-1px;line-height:1.1;max-width:14ch;margin-bottom:10px}
+.hero-sub{font-size:11px;color:var(--t3);line-height:1.7;max-width:48ch}
+.hero-actions{display:flex;gap:8px;flex-wrap:wrap;margin-top:18px}
+ 
+/* PORTFOLIO */
+.portfolio{background:var(--s1);border:1px solid var(--line);border-radius:14px;padding:18px;display:flex;flex-direction:column;gap:12px}
+.phead{display:flex;align-items:center;justify-content:space-between}
+.phead h3{font-size:12px;font-weight:600}
+.live-pill{display:flex;align-items:center;gap:5px;padding:3px 9px;border-radius:999px;background:rgba(46,204,142,.08);border:1px solid rgba(46,204,142,.2);font-size:10px;color:var(--ok);font-family:var(--mono)}
 .live-pill::before{content:'';width:4px;height:4px;border-radius:50%;background:var(--ok)}
-.portfolio-total{background:linear-gradient(135deg,rgba(159,24,55,.25),rgba(100,12,32,.2));border:1px solid rgba(193,42,79,.2);border-radius:12px;padding:18px}
-.portfolio-total-label{font-size:10px;color:#e4a1b4;text-transform:uppercase;letter-spacing:.07em;margin-bottom:6px}
-.portfolio-total-val{font-size:28px;font-weight:300;letter-spacing:-1.5px;font-family:var(--mono)}
-.portfolio-mini-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}
-.pmini{background:rgba(255,255,255,.03);border:1px solid var(--line);border-radius:10px;padding:12px;text-align:center}
-.pmini-label{font-size:9px;color:var(--t3);text-transform:uppercase;letter-spacing:.06em;margin-bottom:4px}
-.pmini-val{font-size:16px;font-weight:600;font-family:var(--mono)}
-.fgrid{display:grid;gap:13px}
-.fgrid.c2{grid-template-columns:1fr 1fr}
+.ptotal{background:linear-gradient(135deg,rgba(159,24,55,.28),rgba(100,12,32,.22));border:1px solid rgba(193,42,79,.22);border-radius:10px;padding:16px}
+.ptotal-lbl{font-size:10px;color:#e4a1b4;text-transform:uppercase;letter-spacing:.07em;margin-bottom:5px}
+.ptotal-val{font-size:26px;font-weight:300;letter-spacing:-1.2px;font-family:var(--mono)}
+.pmini-row{display:grid;grid-template-columns:repeat(3,1fr);gap:7px}
+.pmini{background:rgba(255,255,255,.03);border:1px solid var(--line);border-radius:9px;padding:10px;text-align:center}
+.pmini-lbl{font-size:9px;color:var(--t3);text-transform:uppercase;letter-spacing:.06em;margin-bottom:3px}
+.pmini-val{font-size:15px;font-weight:600;font-family:var(--mono)}
+ 
+/* FORMS */
+.fg{display:grid;gap:12px}
+.fg.c2{grid-template-columns:1fr 1fr}
 .field{display:flex;flex-direction:column;gap:5px}
 .field label{font-size:10px;font-weight:600;color:var(--t3);text-transform:uppercase;letter-spacing:.06em}
-.field input{background:var(--s2);border:1px solid var(--line2);border-radius:8px;padding:10px 13px;font-family:var(--mono);font-size:12px;color:var(--t1);outline:none;transition:border-color .15s,box-shadow .15s}
-.field input:focus{border-color:rgba(193,42,79,.4);box-shadow:0 0 0 3px rgba(159,24,55,.1)}
+.field input,.field select{background:var(--s2);border:1px solid var(--line2);border-radius:7px;padding:9px 12px;font-family:var(--mono);font-size:12px;color:var(--t1);outline:none;transition:border-color .13s,box-shadow .13s}
+.field input:focus,.field select:focus{border-color:rgba(193,42,79,.4);box-shadow:0 0 0 3px rgba(159,24,55,.1)}
 .field input::placeholder{color:var(--t3)}
-.btn{display:inline-flex;align-items:center;justify-content:center;gap:7px;padding:9px 18px;border-radius:8px;border:none;outline:none;font-family:var(--font);font-size:12px;font-weight:600;cursor:pointer;transition:all .15s ease;user-select:none}
-.btn-p{background:linear-gradient(135deg,var(--burg),var(--burg2));color:white;box-shadow:0 4px 14px rgba(159,24,55,.3)}
-.btn-p:hover{background:linear-gradient(135deg,var(--burg2),var(--burg3));box-shadow:0 6px 20px rgba(193,42,79,.4);transform:translateY(-1px)}
-.btn-p:active{transform:scale(.98)}
-.btn-s{background:rgba(255,255,255,.05);border:1px solid var(--line2);color:var(--t2)}
-.btn-s:hover{background:var(--s3);color:var(--t1)}
-.btn-g{background:transparent;border:1px solid var(--line);color:var(--t3)}
-.btn-g:hover{background:var(--s2);color:var(--t2)}
-.brow{display:flex;gap:9px;margin-top:16px;flex-wrap:wrap}
-.result{margin-top:13px;padding:12px 14px;border-radius:8px;font-family:var(--mono);font-size:11px;line-height:1.75;display:none;border:1px solid transparent;white-space:pre-wrap}
-.result.show{display:block;animation:fadeup .2s ease}
+.field select option{background:var(--s2)}
+ 
+/* BUTTONS */
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:6px;padding:8px 16px;border-radius:7px;border:none;outline:none;font-family:var(--font);font-size:12px;font-weight:600;cursor:pointer;transition:all .13s ease;user-select:none}
+.bp{background:linear-gradient(135deg,var(--burg),var(--burg2));color:white;box-shadow:0 3px 12px rgba(159,24,55,.3)}
+.bp:hover{background:linear-gradient(135deg,var(--burg2),var(--burg3));box-shadow:0 5px 18px rgba(193,42,79,.4);transform:translateY(-1px)}
+.bp:active{transform:scale(.98)}
+.bs{background:rgba(255,255,255,.05);border:1px solid var(--line2);color:var(--t2)}
+.bs:hover{background:var(--s3);color:var(--t1)}
+.bg{background:transparent;border:1px solid var(--line);color:var(--t3)}
+.bg:hover{background:var(--s2);color:var(--t2)}
+.brow{display:flex;gap:8px;margin-top:14px;flex-wrap:wrap}
+ 
+/* RESULT */
+.result{margin-top:12px;padding:11px 13px;border-radius:7px;font-family:var(--mono);font-size:11px;line-height:1.75;display:none;border:1px solid transparent;white-space:pre-wrap}
+.result.show{display:block;animation:up .18s ease}
 .result.ok{background:var(--ok-dim);border-color:var(--ok-mid);color:var(--ok)}
-.result.err{background:var(--err-dim);border-color:#e0506022;color:var(--err)}
-.table-wrap{overflow:auto;border-radius:10px;border:1px solid var(--line);background:rgba(255,255,255,.015);margin-top:14px}
-table{width:100%;border-collapse:collapse;min-width:560px}
-thead th{text-align:left;padding:12px 16px;font-size:9px;font-weight:600;text-transform:uppercase;letter-spacing:.1em;color:var(--t3);background:rgba(255,255,255,.02);border-bottom:1px solid var(--line)}
-tbody td{padding:12px 16px;font-size:12px;color:#ded6ea;border-bottom:1px solid rgba(255,255,255,.03)}
+.result.err{background:var(--err-dim);border-color:#e0506020;color:var(--err)}
+.result.info{background:var(--blue-dim);border-color:#4a9eff20;color:var(--blue)}
+ 
+/* TABLE */
+.twrap{overflow:auto;border-radius:9px;border:1px solid var(--line);background:rgba(255,255,255,.01);margin-top:12px}
+table{width:100%;border-collapse:collapse;min-width:500px}
+thead th{text-align:left;padding:10px 14px;font-size:9px;font-weight:600;text-transform:uppercase;letter-spacing:.1em;color:var(--t3);background:rgba(255,255,255,.02);border-bottom:1px solid var(--line)}
+tbody td{padding:10px 14px;font-size:11.5px;color:#ddd6ea;border-bottom:1px solid rgba(255,255,255,.03)}
 tbody tr:last-child td{border-bottom:none}
 tbody tr:hover{background:rgba(255,255,255,.02)}
-.pill{display:inline-flex;align-items:center;gap:6px;padding:4px 10px;border-radius:999px;font-size:10px;font-weight:600}
-.pill-ok{background:var(--ok-dim);color:var(--ok);border:1px solid var(--ok-mid)}
-.pill-err{background:var(--err-dim);color:var(--err);border:1px solid #e0506022}
-.pill-dep{background:rgba(46,204,142,.1);color:#7be8be;border:1px solid rgba(46,204,142,.2)}
-.pill-wdr{background:rgba(224,80,96,.1);color:#f4a0aa;border:1px solid rgba(224,80,96,.2)}
-.activity{display:flex;flex-direction:column;gap:9px;margin-top:6px}
-.act-item{display:grid;grid-template-columns:36px 1fr auto;align-items:center;gap:11px;padding:11px 14px;border-radius:10px;background:rgba(255,255,255,.025);border:1px solid var(--line)}
-.act-icon{width:36px;height:36px;border-radius:10px;display:grid;place-items:center;font-size:14px;background:rgba(159,24,55,.15);border:1px solid rgba(193,42,79,.2)}
-.act-title{font-size:12px;font-weight:600;margin-bottom:2px}
-.act-sub{font-size:10px;color:var(--t3)}
-.act-amt{font-family:var(--mono);font-size:12px;font-weight:600}
-.act-amt.plus{color:var(--ok)}
-.act-amt.minus{color:var(--err)}
-.tabs{display:flex;gap:6px;margin-bottom:14px}
-.tab{padding:6px 14px;border-radius:7px;font-size:11px;font-weight:600;background:rgba(255,255,255,.03);border:1px solid var(--line);color:var(--t3);cursor:pointer;transition:all .15s}
+.pill{display:inline-flex;align-items:center;padding:3px 9px;border-radius:999px;font-size:10px;font-weight:600}
+.p-ok{background:var(--ok-dim);color:var(--ok);border:1px solid var(--ok-mid)}
+.p-err{background:var(--err-dim);color:var(--err);border:1px solid #e0506020}
+.p-dep{background:rgba(46,204,142,.1);color:#7be8be;border:1px solid rgba(46,204,142,.2)}
+.p-wdr{background:rgba(224,80,96,.1);color:#f4a0aa;border:1px solid rgba(224,80,96,.2)}
+.p-amber{background:var(--amber-dim);color:var(--amber);border:1px solid #f0a92220}
+.p-blue{background:var(--blue-dim);color:var(--blue);border:1px solid #4a9eff20}
+ 
+/* TABS */
+.tabs{display:flex;gap:5px;margin-bottom:13px}
+.tab{padding:5px 12px;border-radius:6px;font-size:11px;font-weight:600;background:rgba(255,255,255,.03);border:1px solid var(--line);color:var(--t3);cursor:pointer;transition:all .13s}
 .tab.active{background:rgba(159,24,55,.2);border-color:rgba(193,42,79,.25);color:white}
-.tab-content{display:none}
-.tab-content.active{display:block;animation:fadeup .15s ease}
-.infobox{padding:13px 15px;border-radius:9px;background:rgba(255,255,255,.02);border:1px solid var(--line);font-size:12px;color:var(--t2);line-height:1.7}
+.tc{display:none}
+.tc.active{display:block;animation:up .14s ease}
+ 
+/* INFOBOX */
+.infobox{padding:12px 14px;border-radius:8px;background:rgba(255,255,255,.02);border:1px solid var(--line);font-size:11.5px;color:var(--t2);line-height:1.7}
 .infobox strong{color:var(--t1);font-weight:500}
-.sys-output{background:var(--s1);border:1px solid var(--line);border-radius:16px;overflow:hidden}
-.sys-output-bar{display:flex;align-items:center;justify-content:space-between;padding:10px 18px;border-bottom:1px solid var(--line);background:rgba(255,255,255,.02)}
-.sys-output-bar-left{display:flex;align-items:center;gap:10px}
-.sys-dots{display:flex;gap:5px}
-.sys-dot{width:8px;height:8px;border-radius:50%}
-.sys-dot.r{background:#ff5f57;opacity:.6}.sys-dot.y{background:#ffbd2e;opacity:.6}.sys-dot.g{background:#28ca41;opacity:.6}
-.sys-path{font-family:var(--mono);font-size:10px;color:var(--t3);margin-left:4px}
-.sys-path span{color:var(--burg3)}
-#outputBox{padding:16px 20px;font-family:var(--mono);font-size:11.5px;line-height:1.85;color:#c8a8d8;min-height:100px;max-height:180px;overflow-y:auto;white-space:pre-wrap;word-break:break-word;scrollbar-width:thin;scrollbar-color:var(--s4) transparent}
-#outputBox::-webkit-scrollbar{width:3px}
-#outputBox::-webkit-scrollbar-thumb{background:var(--s4)}
-#loading{position:fixed;inset:0;background:var(--bg);z-index:999;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:20px;transition:opacity .5s ease}
+ 
+/* ACTIVITY */
+.activity{display:flex;flex-direction:column;gap:8px;margin-top:4px}
+.act{display:grid;grid-template-columns:34px 1fr auto;align-items:center;gap:10px;padding:10px 13px;border-radius:9px;background:rgba(255,255,255,.02);border:1px solid var(--line)}
+.act-icon{width:34px;height:34px;border-radius:9px;display:grid;place-items:center;font-size:13px;background:rgba(159,24,55,.15);border:1px solid rgba(193,42,79,.2)}
+.act-t{font-size:11.5px;font-weight:600;margin-bottom:2px}
+.act-s{font-size:10px;color:var(--t3)}
+.act-a{font-family:var(--mono);font-size:11.5px;font-weight:600}
+.act-a.plus{color:var(--ok)}.act-a.minus{color:var(--err)}
+ 
+/* SYSOUT */
+.sysout{background:var(--s1);border:1px solid var(--line);border-radius:14px;overflow:hidden}
+.sysout-bar{display:flex;align-items:center;justify-content:space-between;padding:9px 16px;border-bottom:1px solid var(--line);background:rgba(255,255,255,.02)}
+.sysout-bl{display:flex;align-items:center;gap:9px}
+.sdots{display:flex;gap:4px}
+.sd{width:8px;height:8px;border-radius:50%}
+.sd.r{background:#ff5f57;opacity:.6}.sd.y{background:#ffbd2e;opacity:.6}.sd.g{background:#28ca41;opacity:.6}
+.spath{font-family:var(--mono);font-size:10px;color:var(--t3);margin-left:3px}
+.spath span{color:var(--burg3)}
+#outbox{padding:14px 18px;font-family:var(--mono);font-size:11px;line-height:1.85;color:#c8a8d8;min-height:80px;max-height:160px;overflow-y:auto;white-space:pre-wrap;word-break:break-word;scrollbar-width:thin;scrollbar-color:var(--s4) transparent}
+#outbox::-webkit-scrollbar{width:3px}
+#outbox::-webkit-scrollbar-thumb{background:var(--s4)}
+ 
+/* ── CHEQUE ── */
+.cheque-card{
+  background:linear-gradient(135deg,#fdfaf4,#f5f0e8);
+  border:2px solid #c9a84c;border-radius:12px;padding:24px 28px;
+  font-family:'Georgia',serif;color:#1a1008;
+  box-shadow:0 8px 32px rgba(0,0,0,.4);max-width:600px;margin:0 auto;
+  position:relative;overflow:hidden;
+}
+.cheque-card::before{
+  content:'VELORA BANK';position:absolute;top:50%;left:50%;
+  transform:translate(-50%,-50%) rotate(-30deg);
+  font-size:80px;font-weight:900;color:rgba(159,24,55,.04);
+  white-space:nowrap;pointer-events:none;letter-spacing:.1em;
+}
+.cheque-header{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:20px;border-bottom:2px solid #c9a84c;padding-bottom:14px}
+.cheque-bank-name{font-size:20px;font-weight:700;color:#7b1029;letter-spacing:-.3px}
+.cheque-bank-sub{font-size:10px;color:#8b6914;margin-top:2px;font-style:italic}
+.cheque-no{font-family:var(--mono);font-size:12px;color:#5a3e1b;background:#f0e8d0;padding:4px 10px;border-radius:4px;border:1px solid #c9a84c}
+.cheque-row{display:flex;align-items:baseline;gap:8px;margin:10px 0;border-bottom:1px solid #d4b878}
+.cheque-label{font-size:10px;color:#8b6914;text-transform:uppercase;letter-spacing:.08em;white-space:nowrap;min-width:80px}
+.cheque-value{font-size:15px;font-weight:600;color:#1a1008;flex:1;padding-bottom:4px}
+.cheque-amount-box{display:flex;justify-content:space-between;align-items:center;margin-top:16px;padding:10px 16px;border:2px solid #c9a84c;border-radius:6px;background:#faf4e8}
+.cheque-amt-words{font-size:11px;color:#5a3e1b;font-style:italic;flex:1}
+.cheque-amt-num{font-size:18px;font-weight:700;color:#7b1029;font-family:var(--mono)}
+.cheque-footer{display:flex;justify-content:space-between;align-items:flex-end;margin-top:16px;padding-top:12px;border-top:1px solid #d4b878}
+.cheque-date{font-size:11px;color:#8b6914}
+.cheque-sig{text-align:right}
+.cheque-sig-line{width:120px;border-bottom:1px solid #1a1008;margin-bottom:4px}
+.cheque-sig-label{font-size:10px;color:#8b6914;text-align:center}
+.cheque-micr{font-family:var(--mono);font-size:10px;color:#5a3e1b;letter-spacing:.2em;margin-top:12px;padding-top:8px;border-top:1px dashed #c9a84c;text-align:center}
+.cheque-status-badge{position:absolute;top:16px;right:16px;padding:4px 12px;border-radius:4px;font-size:11px;font-weight:700;letter-spacing:.08em;transform:rotate(3deg)}
+.cheque-status-badge.issued{background:#fff3cd;color:#856404;border:1px solid #ffc107}
+.cheque-status-badge.cancelled{background:#f8d7da;color:#842029;border:1px solid #f5c2c7;transform:rotate(-5deg)}
+.cheque-status-badge.cleared{background:#d1e7dd;color:#0f5132;border:1px solid #badbcc}
+ 
+/* FD CARD */
+.fd-card{background:linear-gradient(135deg,rgba(74,158,255,.08),rgba(74,158,255,.03));border:1px solid rgba(74,158,255,.2);border-radius:12px;padding:18px 20px;display:flex;flex-direction:column;gap:8px}
+.fd-row{display:flex;justify-content:space-between;font-size:12px}
+.fd-label{color:var(--t3)}
+.fd-value{font-family:var(--mono);color:var(--t1);font-weight:500}
+.fd-maturity{font-family:var(--mono);font-size:18px;font-weight:300;color:var(--blue);letter-spacing:-.5px}
+ 
+/* LOADING */
+#loading{position:fixed;inset:0;background:var(--bg);z-index:999;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:18px;transition:opacity .5s ease}
 #loading.fade{opacity:0;pointer-events:none}
-.load-name{font-size:22px;font-weight:300;letter-spacing:-1px;color:var(--t1)}
-.load-name span{color:var(--burg3)}
-.load-track{width:160px;height:1px;background:var(--s4);border-radius:1px;overflow:hidden}
-.load-fill{height:100%;background:linear-gradient(90deg,var(--burg),var(--burg3));animation:lf 2.5s ease forwards}
+.lname{font-size:22px;font-weight:300;letter-spacing:-1px}
+.lname span{color:var(--burg3)}
+.ltrack{width:150px;height:1px;background:var(--s4);border-radius:1px;overflow:hidden}
+.lfill{height:100%;background:linear-gradient(90deg,var(--burg),var(--burg3));animation:lf 2.5s ease forwards}
 @keyframes lf{from{width:0}to{width:100%}}
-.load-txt{font-family:var(--mono);font-size:10px;color:var(--t3)}
-.toast{position:fixed;bottom:24px;right:24px;z-index:99;display:flex;align-items:center;gap:10px;padding:12px 18px;border-radius:10px;font-size:12px;font-weight:500;font-family:var(--font);transform:translateY(10px);opacity:0;transition:all .3s ease;pointer-events:none}
+.ltxt{font-family:var(--mono);font-size:10px;color:var(--t3)}
+ 
+/* TOAST */
+.toast{position:fixed;bottom:22px;right:22px;z-index:99;display:flex;align-items:center;gap:9px;padding:11px 16px;border-radius:9px;font-size:12px;font-weight:500;transform:translateY(8px);opacity:0;transition:all .25s ease;pointer-events:none}
 .toast.show{transform:translateY(0);opacity:1}
 .toast.ok{background:rgba(46,204,142,.12);border:1px solid rgba(46,204,142,.25);color:var(--ok)}
 .toast.err{background:rgba(224,80,96,.12);border:1px solid rgba(224,80,96,.25);color:var(--err)}
+ 
+/* CHEQUES LIST */
+.cheques-grid{display:flex;flex-direction:column;gap:12px;margin-top:4px}
 </style>
 </head>
 <body>
  
 <div id="loading">
-  <div class="load-name">Velora <span>Bank</span></div>
-  <div class="load-track"><div class="load-fill"></div></div>
-  <div class="load-txt">loading wasm module...</div>
+  <div class="lname">Velora <span>Bank</span></div>
+  <div class="ltrack"><div class="lfill"></div></div>
+  <div class="ltxt">loading wasm module...</div>
 </div>
- 
 <div id="toast" class="toast"></div>
  
 <div class="app">
+  <!-- SIDEBAR -->
   <aside class="sidebar">
     <div class="brand">
       <div class="brand-row">
         <div class="brand-icon">&#9670;</div>
-        <div>
-          <div class="brand-name">Velora Bank</div>
-          <div class="brand-sub">Private banking, reimagined.</div>
-        </div>
+        <div><div class="brand-name">Velora Bank</div><div class="brand-sub">Private banking, reimagined.</div></div>
       </div>
       <span class="brand-chip">Premium Client Portal</span>
     </div>
     <nav class="nav">
       <div class="nav-sep">Main</div>
-      <button class="nav-btn active" onclick="gotoPage('dashboard',this)">
+      <button class="nav-btn active" onclick="go('dashboard',this)">
         <svg width="13" height="13" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/></svg>
         Dashboard
       </button>
-      <button class="nav-btn" onclick="gotoPage('accounts',this)">
+      <button class="nav-btn" onclick="go('accounts',this)">
         <svg width="13" height="13" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
         Accounts
       </button>
       <div class="nav-sep">Transactions</div>
-      <button class="nav-btn" onclick="gotoPage('deposit',this)">
+      <button class="nav-btn" onclick="go('deposit',this)">
         <svg width="13" height="13" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><line x1="12" y1="5" x2="12" y2="19"/><polyline points="19 12 12 19 5 12"/></svg>
         Deposit
       </button>
-      <button class="nav-btn" onclick="gotoPage('withdraw',this)">
+      <button class="nav-btn" onclick="go('withdraw',this)">
         <svg width="13" height="13" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><line x1="12" y1="19" x2="12" y2="5"/><polyline points="5 12 12 5 19 12"/></svg>
         Withdraw
       </button>
-      <button class="nav-btn" onclick="gotoPage('transactions',this)">
+      <button class="nav-btn" onclick="go('transactions',this)">
         <svg width="13" height="13" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><polyline points="12 8 12 12 14 14"/><path d="M3.05 11a9 9 0 1 0 .5-4"/><polyline points="3 3 3 11 11 11"/></svg>
-        Transactions
+        History
+      </button>
+      <div class="nav-sep">Services</div>
+      <button class="nav-btn" onclick="go('cheques',this)">
+        <svg width="13" height="13" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><rect x="2" y="5" width="20" height="14" rx="2"/><line x1="2" y1="10" x2="22" y2="10"/></svg>
+        Cheque Book
+      </button>
+      <button class="nav-btn" onclick="go('fd',this)">
+        <svg width="13" height="13" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><line x1="12" y1="2" x2="12" y2="6"/><line x1="12" y1="18" x2="12" y2="22"/><line x1="4.93" y1="4.93" x2="7.76" y2="7.76"/><line x1="16.24" y1="16.24" x2="19.07" y2="19.07"/><line x1="2" y1="12" x2="6" y2="12"/><line x1="18" y1="12" x2="22" y2="12"/></svg>
+        Fixed Deposits
+      </button>
+      <button class="nav-btn" onclick="go('statement',this)">
+        <svg width="13" height="13" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg>
+        Statement
       </button>
       <div class="nav-sep">Analytics</div>
-      <button class="nav-btn" onclick="gotoPage('reports',this)">
+      <button class="nav-btn" onclick="go('reports',this)">
         <svg width="13" height="13" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg>
         Reports
       </button>
     </nav>
     <div class="sb-foot">
       <div class="sb-badge">
-        <div class="sb-badge-dot"></div>
-        <div class="sb-badge-txt"><strong>25BCE5297</strong> &middot; wasm/live</div>
+        <div class="sb-dot"></div>
+        <div class="sb-txt"><strong>25BCE5297</strong> &middot; wasm/live</div>
       </div>
     </div>
   </aside>
  
+  <!-- MAIN -->
   <div class="main">
     <div class="topbar">
       <span class="tb-title" id="tb-title">Dashboard</span>
       <div class="tb-right">
         <span class="tb-reg">Sasmitha S</span>
-        <span class="tb-status">System Live</span>
+        <span class="tb-live">System Live</span>
       </div>
     </div>
  
@@ -232,258 +328,622 @@ tbody tr:hover{background:rgba(255,255,255,.02)}
  
       <!-- DASHBOARD -->
       <div class="page active" id="page-dashboard">
-        <div class="g2-wide" style="margin-bottom:16px">
+        <div class="gw" style="margin-bottom:14px">
           <div class="hero">
             <div class="hero-tag">&#9670; Velora Signature Banking</div>
             <h2>Luxury finance, intelligent control.</h2>
-            <div class="hero-sub">Manage accounts, process transactions, and review financial analytics through a refined private banking dashboard.</div>
+            <div class="hero-sub">Manage accounts, process transactions, issue cheques, and create fixed deposits.</div>
             <div class="hero-actions">
-              <button class="btn btn-p" onclick="gotoPage('accounts',null)">Open Accounts</button>
-              <button class="btn btn-s" onclick="gotoPage('deposit',null)">Make Deposit</button>
-              <button class="btn btn-g" onclick="gotoPage('reports',null)">View Reports</button>
+              <button class="btn bp" onclick="go('accounts',null)">Open Accounts</button>
+              <button class="btn bs" onclick="go('deposit',null)">Make Deposit</button>
+              <button class="btn bg" onclick="go('cheques',null)">Cheque Book</button>
             </div>
           </div>
           <div class="portfolio">
-            <div class="portfolio-head">
-              <h3>Portfolio Snapshot</h3>
-              <span class="live-pill">Live</span>
+            <div class="phead"><h3>Portfolio Snapshot</h3><span class="live-pill">Live</span></div>
+            <div class="ptotal">
+              <div class="ptotal-lbl">Total Holdings</div>
+              <div class="ptotal-val" id="d-total">&#8377;0.00</div>
             </div>
-            <div class="portfolio-total">
-              <div class="portfolio-total-label">Total Holdings</div>
-              <div class="portfolio-total-val" id="d-total">&#8377;0.00</div>
-            </div>
-            <div class="portfolio-mini-grid">
-              <div class="pmini"><div class="pmini-label">Accounts</div><div class="pmini-val" id="d-accs">0</div></div>
-              <div class="pmini"><div class="pmini-label">Transactions</div><div class="pmini-val" id="d-txns">0</div></div>
-              <div class="pmini"><div class="pmini-label">Alerts</div><div class="pmini-val" id="d-alerts">0</div></div>
+            <div class="pmini-row">
+              <div class="pmini"><div class="pmini-lbl">Accounts</div><div class="pmini-val" id="d-accs">0</div></div>
+              <div class="pmini"><div class="pmini-lbl">Txns</div><div class="pmini-val" id="d-txns">0</div></div>
+              <div class="pmini"><div class="pmini-lbl">Alerts</div><div class="pmini-val" id="d-alerts">0</div></div>
             </div>
           </div>
         </div>
-        <div class="g3" style="margin-bottom:16px">
-          <div class="stat"><div class="stat-label">Total Balance</div><div class="stat-val burg" id="s-total">&#8377;0.00</div><div class="stat-meta">across all accounts</div></div>
-          <div class="stat"><div class="stat-label">Client Accounts</div><div class="stat-val" id="s-accs">0</div><div class="stat-meta">active profiles</div></div>
-          <div class="stat"><div class="stat-label">Low Balance Alerts</div><div class="stat-val" id="s-alerts">0</div><div class="stat-meta">below threshold</div></div>
+        <div class="g3" style="margin-bottom:14px">
+          <div class="stat"><div class="slabel">Total Balance</div><div class="sval r" id="s-total">&#8377;0.00</div><div class="smeta">all accounts</div></div>
+          <div class="stat"><div class="slabel">Client Accounts</div><div class="sval" id="s-accs">0</div><div class="smeta">active profiles</div></div>
+          <div class="stat"><div class="slabel">Low Balance Alerts</div><div class="sval" id="s-alerts">0</div><div class="smeta">below threshold</div></div>
         </div>
-        <div class="g2-wide" style="margin-bottom:16px">
+        <div class="gw" style="margin-bottom:14px">
           <div class="card">
-            <div class="card-title">Quick Create Account</div>
-            <div class="fgrid c2">
-              <div class="field"><label>Account Number</label><input id="dc-no" type="number" placeholder="e.g. 1001"></div>
+            <div class="ctitle">Quick Create Account</div>
+            <div class="fg c2">
+              <div class="field"><label>Account No</label><input id="dc-no" type="number" placeholder="e.g. 1001"></div>
               <div class="field"><label>Client Name</label><input id="dc-name" placeholder="e.g. Sasmitha"></div>
               <div class="field" style="grid-column:1/-1"><label>Opening Balance (Rs.)</label><input id="dc-bal" type="number" step="0.01" placeholder="min 500"></div>
             </div>
             <div class="brow">
-              <button class="btn btn-p" onclick="dashCreate()">Create Account</button>
-              <button class="btn btn-s" onclick="clr('dc-no','dc-name','dc-bal')">Clear</button>
+              <button class="btn bp" onclick="dashCreate()">Create Account</button>
+              <button class="btn bs" onclick="clr('dc-no','dc-name','dc-bal')">Clear</button>
             </div>
             <div class="result" id="r-dc"></div>
           </div>
           <div class="card">
-            <div class="card-title">Recent Activity</div>
-            <div class="activity" id="dash-activity">
-              <div class="infobox" style="text-align:center;padding:20px">No activity yet</div>
-            </div>
+            <div class="ctitle">Recent Activity</div>
+            <div class="activity" id="dash-act"><div class="infobox" style="text-align:center;padding:18px">No activity yet</div></div>
           </div>
         </div>
-        <div class="sys-output">
-          <div class="sys-output-bar">
-            <div class="sys-output-bar-left">
-              <div class="sys-dots"><div class="sys-dot r"></div><div class="sys-dot y"></div><div class="sys-dot g"></div></div>
-              <div class="sys-path"><span>velora</span> ~/wasm/bank</div>
+        <div class="sysout">
+          <div class="sysout-bar">
+            <div class="sysout-bl">
+              <div class="sdots"><div class="sd r"></div><div class="sd y"></div><div class="sd g"></div></div>
+              <div class="spath"><span>velora</span> ~/wasm/bank</div>
             </div>
-            <div style="display:flex;gap:8px">
-              <button class="btn btn-g" style="padding:5px 12px;font-size:10px" onclick="refreshAll()">Refresh</button>
-              <button class="btn btn-g" style="padding:5px 12px;font-size:10px" onclick="document.getElementById('outputBox').textContent='Output cleared.'">Clear</button>
+            <div style="display:flex;gap:7px">
+              <button class="btn bg" style="padding:4px 11px;font-size:10px" onclick="refreshAll()">Refresh</button>
+              <button class="btn bg" style="padding:4px 11px;font-size:10px" onclick="set('outbox','Output cleared.')">Clear</button>
             </div>
           </div>
-          <div id="outputBox">Velora Bank is ready.</div>
+          <div id="outbox">Velora Bank is ready.</div>
         </div>
       </div>
  
       <!-- ACCOUNTS -->
       <div class="page" id="page-accounts">
-        <div class="page-title">Accounts</div>
-        <div class="page-sub">Create and manage client profiles &middot; All operations via WASM backend</div>
-        <div class="g2-wide" style="margin-bottom:16px">
+        <div class="ptitle">Accounts</div>
+        <div class="psub">Create and manage client profiles</div>
+        <div class="gw" style="margin-bottom:14px">
           <div class="card">
-            <div class="card-title">Create New Account</div>
-            <div class="fgrid c2">
+            <div class="ctitle">Create New Account</div>
+            <div class="fg c2">
               <div class="field"><label>Account Number</label><input id="ac-no" type="number" placeholder="e.g. 1001"></div>
               <div class="field"><label>Client Name</label><input id="ac-name" placeholder="e.g. Sasmitha S"></div>
               <div class="field" style="grid-column:1/-1"><label>Opening Balance (Rs.)</label><input id="ac-bal" type="number" step="0.01" placeholder="minimum Rs. 500"></div>
             </div>
             <div class="brow">
-              <button class="btn btn-p" onclick="doCreate()">Create Account</button>
-              <button class="btn btn-s" onclick="clr('ac-no','ac-name','ac-bal')">Reset</button>
+              <button class="btn bp" onclick="doCreate()">Create Account</button>
+              <button class="btn bs" onclick="clr('ac-no','ac-name','ac-bal')">Reset</button>
             </div>
             <div class="result" id="r-ac"></div>
           </div>
           <div class="card">
-            <div class="card-title">Account Summary</div>
+            <div class="ctitle">Account Summary</div>
             <div class="tabs">
-              <div class="tab active" id="tab-portfolio" onclick="setTab('portfolio')">Portfolio</div>
-              <div class="tab" id="tab-status" onclick="setTab('status')">Status</div>
-              <div class="tab" id="tab-monitoring" onclick="setTab('monitoring')">Monitoring</div>
+              <div class="tab active" id="tab-p" onclick="setTab('p')">Portfolio</div>
+              <div class="tab" id="tab-s" onclick="setTab('s')">Status</div>
+              <div class="tab" id="tab-m" onclick="setTab('m')">Monitoring</div>
             </div>
-            <div class="tab-content active" id="tc-portfolio"><div class="infobox" id="info-portfolio">Loading...</div></div>
-            <div class="tab-content" id="tc-status"><div class="infobox" id="info-status">Loading...</div></div>
-            <div class="tab-content" id="tc-monitoring"><div class="infobox" id="info-monitoring">Loading...</div></div>
+            <div class="tc active" id="tc-p"><div class="infobox" id="info-p">—</div></div>
+            <div class="tc" id="tc-s"><div class="infobox" id="info-s">—</div></div>
+            <div class="tc" id="tc-m"><div class="infobox" id="info-m">—</div></div>
           </div>
         </div>
         <div class="card">
           <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:0">
-            <div class="card-title" style="margin-bottom:0">Account Registry</div>
-            <button class="btn btn-s" style="padding:7px 14px;font-size:11px" onclick="renderAccounts()">Refresh Table</button>
+            <div class="ctitle" style="margin-bottom:0">Account Registry</div>
+            <button class="btn bs" style="padding:6px 12px;font-size:11px" onclick="renderAccounts()">Refresh</button>
           </div>
-          <div class="table-wrap">
-            <table>
-              <thead><tr><th>Account No</th><th>Client Name</th><th>Balance</th><th>Status</th></tr></thead>
-              <tbody id="acc-table"></tbody>
-            </table>
-          </div>
+          <div class="twrap"><table>
+            <thead><tr><th>Account No</th><th>Client Name</th><th>Balance</th><th>Status</th></tr></thead>
+            <tbody id="acc-tbl"></tbody>
+          </table></div>
         </div>
       </div>
  
       <!-- DEPOSIT -->
       <div class="page" id="page-deposit">
-        <div class="page-title">Deposit Funds</div>
-        <div class="page-sub">Process incoming funds &middot; Updates balance and transaction log instantly</div>
+        <div class="ptitle">Deposit Funds</div>
+        <div class="psub">Add funds to a client account instantly</div>
         <div class="g2">
           <div class="card">
-            <div class="card-title">New Deposit</div>
-            <div class="fgrid">
+            <div class="ctitle">New Deposit</div>
+            <div class="fg">
               <div class="field"><label>Account Number</label><input id="dep-no" type="number" placeholder="e.g. 1001"></div>
               <div class="field"><label>Amount (Rs.)</label><input id="dep-amt" type="number" step="0.01" placeholder="e.g. 5000"></div>
             </div>
             <div class="brow">
-              <button class="btn btn-p" onclick="doDeposit()">Process Deposit</button>
-              <button class="btn btn-s" onclick="clr('dep-no','dep-amt')">Clear</button>
+              <button class="btn bp" onclick="doDeposit()">Process Deposit</button>
+              <button class="btn bs" onclick="clr('dep-no','dep-amt')">Clear</button>
             </div>
             <div class="result" id="r-dep"></div>
           </div>
           <div class="card">
-            <div class="card-title">Deposit Notes</div>
-            <div class="infobox">
-              <strong>How it works:</strong> Funds are added instantly via the C++ WASM backend.<br><br>
-              <strong>Limits:</strong> Single deposit maximum Rs.1,00,00,000.<br><br>
-              <strong>Validation:</strong> Account must exist. Amount must be positive.
-            </div>
+            <div class="ctitle">Deposit Guidelines</div>
+            <div class="infobox"><strong>Single limit:</strong> Rs.1,00,00,000<br><br><strong>Minimum:</strong> Rs.1<br><br><strong>Validation:</strong> Account must exist and be active.</div>
           </div>
         </div>
       </div>
  
       <!-- WITHDRAW -->
       <div class="page" id="page-withdraw">
-        <div class="page-title">Withdraw Funds</div>
-        <div class="page-sub">Execute withdrawals &middot; Overdraft protection and daily limit enforced by C++ backend</div>
+        <div class="ptitle">Withdraw Funds</div>
+        <div class="psub">Overdraft protection and daily limit enforced by C++ backend</div>
         <div class="g2">
           <div class="card">
-            <div class="card-title">New Withdrawal</div>
-            <div class="fgrid">
+            <div class="ctitle">New Withdrawal</div>
+            <div class="fg">
               <div class="field"><label>Account Number</label><input id="wdr-no" type="number" placeholder="e.g. 1001"></div>
               <div class="field"><label>Amount (Rs.)</label><input id="wdr-amt" type="number" step="0.01" placeholder="e.g. 1000"></div>
             </div>
             <div class="brow">
-              <button class="btn btn-p" onclick="doWithdraw()">Process Withdrawal</button>
-              <button class="btn btn-s" onclick="clr('wdr-no','wdr-amt')">Clear</button>
+              <button class="btn bp" onclick="doWithdraw()">Process Withdrawal</button>
+              <button class="btn bs" onclick="clr('wdr-no','wdr-amt')">Clear</button>
             </div>
             <div class="result" id="r-wdr"></div>
           </div>
           <div class="card">
-            <div class="card-title">Risk Controls</div>
-            <div class="infobox">
-              <strong>Overdraft protection:</strong> Withdrawals breaching Rs.500 minimum are blocked.<br><br>
-              <strong>Daily limit:</strong> Maximum Rs.50,000 per account per day.<br><br>
-              <strong>Error handling:</strong> All failures return descriptive errors from C++.
-            </div>
+            <div class="ctitle">Risk Controls</div>
+            <div class="infobox"><strong>Min balance:</strong> Rs.500 always maintained<br><br><strong>Daily limit:</strong> Rs.50,000 per account<br><br><strong>Overdraft:</strong> Blocked by C++ logic</div>
           </div>
         </div>
       </div>
  
       <!-- TRANSACTIONS -->
       <div class="page" id="page-transactions">
-        <div class="page-title">Transactions</div>
-        <div class="page-sub">Chronological record of all deposits and withdrawals</div>
+        <div class="ptitle">Transaction History</div>
+        <div class="psub">All deposits, withdrawals, cheques and FD movements</div>
         <div class="card">
           <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:0">
-            <div class="card-title" style="margin-bottom:0">Transaction History</div>
-            <button class="btn btn-s" style="padding:7px 14px;font-size:11px" onclick="renderTransactions()">Refresh</button>
+            <div class="ctitle" style="margin-bottom:0">All Transactions</div>
+            <button class="btn bs" style="padding:6px 12px;font-size:11px" onclick="renderTransactions()">Refresh</button>
           </div>
-          <div class="table-wrap">
-            <table>
-              <thead><tr><th>#</th><th>Type</th><th>Account No</th><th>Amount</th><th>Balance After</th></tr></thead>
-              <tbody id="txn-table"></tbody>
-            </table>
+          <div class="twrap"><table>
+            <thead><tr><th>#</th><th>Type</th><th>Account</th><th>Amount</th><th>Balance After</th></tr></thead>
+            <tbody id="txn-tbl"></tbody>
+          </table></div>
+        </div>
+      </div>
+ 
+      <!-- CHEQUES -->
+      <div class="page" id="page-cheques">
+        <div class="ptitle">Cheque Book</div>
+        <div class="psub">Issue, clear and cancel cheques &mdash; each generates a printable cheque</div>
+        <div class="gw" style="margin-bottom:14px">
+          <div class="card">
+            <div class="ctitle">Issue New Cheque</div>
+            <div class="fg">
+              <div class="field"><label>Account Number</label><input id="ch-acc" type="number" placeholder="e.g. 1001"></div>
+              <div class="field"><label>Pay To (Payee Name)</label><input id="ch-payee" placeholder="e.g. Raj Kumar"></div>
+              <div class="field"><label>Amount (Rs.)</label><input id="ch-amt" type="number" step="0.01" placeholder="e.g. 2000"></div>
+            </div>
+            <div class="brow">
+              <button class="btn bp" onclick="doIssueCheque()">Issue Cheque</button>
+              <button class="btn bs" onclick="clr('ch-acc','ch-payee','ch-amt')">Clear</button>
+            </div>
+            <div class="result" id="r-ch"></div>
           </div>
+          <div class="card">
+            <div class="ctitle">Cheque Actions</div>
+            <div class="fg" style="margin-bottom:12px">
+              <div class="field"><label>Cheque Number</label><input id="ch-no" type="number" placeholder="e.g. 1001"></div>
+            </div>
+            <div class="brow" style="margin-top:0">
+              <button class="btn bp" onclick="doClearCheque()">Clear Cheque</button>
+              <button class="btn bs" onclick="doCancelCheque()">Cancel Cheque</button>
+            </div>
+            <div class="result" id="r-ch2"></div>
+            <div style="margin-top:14px">
+              <div class="infobox"><strong>Clear:</strong> Deducts amount from account &amp; marks CLEARED<br><br><strong>Cancel:</strong> Marks CANCELLED, no deduction</div>
+            </div>
+          </div>
+        </div>
+ 
+        <!-- Cheque preview area -->
+        <div class="card" style="margin-bottom:14px">
+          <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:13px">
+            <div class="ctitle" style="margin-bottom:0">Last Issued Cheque</div>
+            <button class="btn bg" style="padding:5px 12px;font-size:10px" onclick="window.print()">&#128438; Print</button>
+          </div>
+          <div id="cheque-preview"><div class="infobox" style="text-align:center;padding:20px">Issue a cheque to see preview here.</div></div>
+        </div>
+ 
+        <div class="card">
+          <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:0">
+            <div class="ctitle" style="margin-bottom:0">All Cheques</div>
+            <button class="btn bs" style="padding:6px 12px;font-size:11px" onclick="renderCheques()">Refresh</button>
+          </div>
+          <div class="twrap"><table>
+            <thead><tr><th>Cheque #</th><th>Account</th><th>Pay To</th><th>Amount</th><th>Status</th><th>Date</th></tr></thead>
+            <tbody id="ch-tbl"></tbody>
+          </table></div>
+        </div>
+      </div>
+ 
+      <!-- FIXED DEPOSITS -->
+      <div class="page" id="page-fd">
+        <div class="ptitle">Fixed Deposits</div>
+        <div class="psub">Create FDs &mdash; funds locked, interest earned at maturity</div>
+        <div class="gw" style="margin-bottom:14px">
+          <div class="card">
+            <div class="ctitle">Create Fixed Deposit</div>
+            <div class="fg c2">
+              <div class="field"><label>Account Number</label><input id="fd-acc" type="number" placeholder="e.g. 1001"></div>
+              <div class="field"><label>Principal (Rs.)</label><input id="fd-amt" type="number" step="0.01" placeholder="min Rs. 1000"></div>
+              <div class="field" style="grid-column:1/-1">
+                <label>Tenure</label>
+                <select id="fd-tenure">
+                  <option value="3">3 months — 6.5% p.a.</option>
+                  <option value="6">6 months — 6.5% p.a.</option>
+                  <option value="12">12 months — 6.5% p.a.</option>
+                  <option value="24">24 months — 7.0% p.a.</option>
+                  <option value="36">36 months — 7.0% p.a.</option>
+                  <option value="60">60 months — 7.5% p.a.</option>
+                </select>
+              </div>
+            </div>
+            <div class="brow">
+              <button class="btn bp" onclick="doCreateFD()">Create FD</button>
+              <button class="btn bs" onclick="clr('fd-acc','fd-amt')">Clear</button>
+            </div>
+            <div class="result" id="r-fd"></div>
+          </div>
+          <div class="card">
+            <div class="ctitle">Close / Redeem FD</div>
+            <div class="fg" style="margin-bottom:12px">
+              <div class="field"><label>FD Number</label><input id="fd-no" type="number" placeholder="e.g. 5001"></div>
+            </div>
+            <button class="btn bp" onclick="doCloseFD()">Close FD &amp; Credit Maturity</button>
+            <div class="result" id="r-fd2"></div>
+            <div style="margin-top:14px">
+              <div class="infobox"><strong>Rates:</strong><br>1-12 months: 6.5% p.a.<br>13-36 months: 7.0% p.a.<br>37+ months: 7.5% p.a.<br><br>Maturity = Principal &times; (1 + Rate &times; Tenure/12)</div>
+            </div>
+          </div>
+        </div>
+        <div class="card">
+          <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:0">
+            <div class="ctitle" style="margin-bottom:0">All Fixed Deposits</div>
+            <button class="btn bs" style="padding:6px 12px;font-size:11px" onclick="renderFDs()">Refresh</button>
+          </div>
+          <div class="twrap"><table>
+            <thead><tr><th>FD #</th><th>Account</th><th>Principal</th><th>Tenure</th><th>Rate</th><th>Maturity</th><th>Status</th></tr></thead>
+            <tbody id="fd-tbl"></tbody>
+          </table></div>
+        </div>
+      </div>
+ 
+      <!-- STATEMENT -->
+      <div class="page" id="page-statement">
+        <div class="ptitle">Account Statement</div>
+        <div class="psub">Full transaction history for any account</div>
+        <div class="g2">
+          <div class="card">
+            <div class="ctitle">Generate Statement</div>
+            <div class="fg">
+              <div class="field"><label>Account Number</label><input id="stmt-no" type="number" placeholder="e.g. 1001"></div>
+            </div>
+            <div class="brow">
+              <button class="btn bp" onclick="doStatement()">Generate</button>
+              <button class="btn bg" style="margin-top:0" onclick="printStatement()">&#128438; Print</button>
+            </div>
+            <div class="result" id="r-stmt"></div>
+          </div>
+          <div class="card">
+            <div class="ctitle">About Statements</div>
+            <div class="infobox">Statement includes all deposits, withdrawals, cheque payments and FD movements on the account.<br><br>Use the Print button to save as PDF.</div>
+          </div>
+        </div>
+        <div class="card" style="margin-top:14px" id="stmt-output" style="display:none">
+          <div class="ctitle">Statement Output</div>
+          <pre id="stmt-pre" style="font-family:var(--mono);font-size:11px;color:var(--t2);line-height:1.8;white-space:pre-wrap"></pre>
         </div>
       </div>
  
       <!-- REPORTS -->
       <div class="page" id="page-reports">
-        <div class="page-title">Reports</div>
-        <div class="page-sub">Financial analytics powered by the C++ WASM backend</div>
-        <div class="g3" style="margin-bottom:18px">
-          <div class="stat"><div class="stat-label">Total Funds Held</div><div class="stat-val burg" id="rep-total">&#8377;0.00</div><div class="stat-meta">aggregate balance</div></div>
-          <div class="stat"><div class="stat-label">Low Balance Accounts</div><div class="stat-val" id="rep-low">0</div><div class="stat-meta">below threshold</div></div>
-          <div class="stat"><div class="stat-label">Transactions Logged</div><div class="stat-val ok" id="rep-txns">0</div><div class="stat-meta">total records</div></div>
+        <div class="ptitle">Reports</div>
+        <div class="psub">Financial analytics via C++ WASM backend</div>
+        <div class="g3" style="margin-bottom:16px">
+          <div class="stat"><div class="slabel">Total Funds</div><div class="sval r" id="rep-total">&#8377;0.00</div><div class="smeta">aggregate</div></div>
+          <div class="stat"><div class="slabel">Low Balance</div><div class="sval" id="rep-low">0</div><div class="smeta">below threshold</div></div>
+          <div class="stat"><div class="slabel">Transactions</div><div class="sval g" id="rep-txns">0</div><div class="smeta">logged</div></div>
         </div>
         <div class="g2">
           <div class="card">
-            <div class="card-title">Run Reports</div>
-            <div class="fgrid" style="margin-bottom:16px">
+            <div class="ctitle">Run Reports</div>
+            <div class="fg" style="margin-bottom:14px">
               <div class="field"><label>Low Balance Threshold (Rs.)</label><input id="rep-thresh" type="number" step="0.01" placeholder="e.g. 1000"></div>
             </div>
             <div class="brow" style="margin-top:0">
-              <button class="btn btn-p" onclick="runTotalReport()">Run Total Money Report</button>
-              <button class="btn btn-s" onclick="runLowBalReport()">Run Low Balance Report</button>
+              <button class="btn bp" onclick="runTotal()">Run Total Money Report</button>
+              <button class="btn bs" onclick="runLowBal()">Run Low Balance Report</button>
             </div>
             <div class="result" id="r-rep"></div>
           </div>
           <div class="card">
-            <div class="card-title">Insight Summary</div>
-            <div class="infobox" id="rep-insight">No data yet. Create accounts to unlock insights.</div>
+            <div class="ctitle">Insight Summary</div>
+            <div class="infobox" id="rep-insight">No data yet.</div>
           </div>
         </div>
       </div>
  
-    </div>
-  </div>
-</div>
+    </div><!-- /pages -->
+  </div><!-- /main -->
+</div><!-- /app -->
  
 <script>
-var wasmReady=false,LOW_THRESH=1000;
+// ── WASM ──────────────────────────────────────────────────────────
+var WR=false,LT=1000;
 var Module={
-  onRuntimeInitialized:function(){wasmReady=true;hideLoader();refreshAll()},
-  print:function(t){log(t)},
+  onRuntimeInitialized:function(){WR=true;hideLoader();refreshAll()},
+  print:function(t){set('outbox',t)},
   printErr:function(t){console.warn(t)}
 };
-setTimeout(function(){hideLoader()},5000);
+setTimeout(hideLoader,6000);
 function hideLoader(){var l=document.getElementById('loading');if(!l)return;l.classList.add('fade');setTimeout(function(){if(l.parentNode)l.remove()},600)}
-function wasm(fn,types,args){if(!wasmReady)return"WASM not ready.";try{return Module.ccall(fn,'string',types,args)}catch(e){return"ERROR: "+e.message}}
-function log(txt){var el=document.getElementById('outputBox');if(el)el.textContent=txt}
-function toast(msg,ok){var el=document.getElementById('toast');el.textContent=msg;el.className='toast show '+(ok?'ok':'err');setTimeout(function(){el.className='toast'},3000)}
-function showResult(id,raw){var el=document.getElementById(id);if(!el)return;var isErr=raw.startsWith('ERROR');var display=raw.replace(/^SUCCESS\n/,'').replace(/^ERROR: /,'');el.textContent=display;el.className='result show '+(isErr?'err':'ok');log(raw.replace(/^SUCCESS\n/,''));toast(isErr?'Error — see details':'Done',!isErr)}
-var pageTitles={dashboard:'Dashboard',accounts:'Accounts',deposit:'Deposit Funds',withdraw:'Withdraw Funds',transactions:'Transactions',reports:'Reports'};
-function gotoPage(id,el){document.querySelectorAll('.page').forEach(function(p){p.classList.remove('active')});document.querySelectorAll('.nav-btn').forEach(function(b){b.classList.remove('active')});var pg=document.getElementById('page-'+id);if(pg)pg.classList.add('active');if(el)el.classList.add('active');document.getElementById('tb-title').textContent=pageTitles[id]||id;if(id==='accounts'){renderAccounts();renderTabs()}if(id==='transactions')renderTransactions();if(id==='reports')updateReports()}
+ 
+function w(fn,types,args){
+  if(!WR){showToast('WASM loading...',false);return'ERROR: WASM not ready.'}
+  try{return Module.ccall(fn,'string',types,args)}
+  catch(e){return'ERROR: '+e.message}
+}
+ 
+// ── Helpers ───────────────────────────────────────────────────────
+function set(id,val){var el=document.getElementById(id);if(el)el.textContent=val}
+function setH(id,val){var el=document.getElementById(id);if(el)el.innerHTML=val}
 function clr(){for(var i=0;i<arguments.length;i++){var el=document.getElementById(arguments[i]);if(el)el.value=''}}
-function refreshAll(){updateMetrics();renderAccounts();renderTransactions();renderTabs();updateReports();renderActivity()}
-function updateMetrics(){var raw=wasm('get_stats',['number'],[LOW_THRESH]);if(!raw||raw.startsWith('ERROR'))return;var p=raw.trim().split('|');var fmtTotal='&#8377;'+parseFloat(p[2]||0).toFixed(2);set('d-total',fmtTotal);set('d-accs',p[0]||'0');set('d-txns',p[1]||'0');set('d-alerts',p[3]||'0');set('s-total',fmtTotal);set('s-accs',p[0]||'0');set('s-alerts',p[3]||'0')}
-function set(id,val){var el=document.getElementById(id);if(el)el.innerHTML=val}
-function renderAccounts(){var raw=wasm('view_all_accounts',[],[]);var body=document.getElementById('acc-table');if(!body)return;if(!raw||raw==='EMPTY'||raw.startsWith('ERROR')){body.innerHTML='<tr><td colspan="4" style="text-align:center;color:var(--t3);padding:24px">No accounts yet.</td></tr>';return}body.innerHTML=raw.trim().split('\n').filter(Boolean).map(function(line){var p=line.split('|');var bal=parseFloat(p[2]||0);var isLow=bal<LOW_THRESH;return'<tr><td>'+p[0]+'</td><td>'+p[1]+'</td><td style="font-family:var(--mono)">&#8377;'+bal.toFixed(2)+'</td><td><span class="pill '+(isLow?'pill-err':'pill-ok')+'">'+(isLow?'Low Balance':'Healthy')+'</span></td></tr>'}).join('')}
-function renderTransactions(){var raw=wasm('view_transactions',[],[]);var body=document.getElementById('txn-table');if(!body)return;if(!raw||raw==='EMPTY'||raw.startsWith('ERROR')){body.innerHTML='<tr><td colspan="5" style="text-align:center;color:var(--t3);padding:24px">No transactions yet.</td></tr>';return}var rows=raw.trim().split('\n').filter(Boolean).reverse();body.innerHTML=rows.map(function(line){var p=line.split('|');var isDep=p[2]==='Deposit'||p[2]==='Transfer_In';return'<tr><td style="color:var(--t3);font-family:var(--mono)">#'+p[0]+'</td><td><span class="pill '+(isDep?'pill-dep':'pill-wdr')+'">'+p[2]+'</span></td><td style="font-family:var(--mono)">'+p[1]+'</td><td style="font-family:var(--mono)">'+(isDep?'+':'-')+'&#8377;'+parseFloat(p[3]||0).toFixed(2)+'</td><td style="font-family:var(--mono);color:var(--t3)">&#8377;'+parseFloat(p[4]||0).toFixed(2)+'</td></tr>'}).join('')}
-function renderActivity(){var raw=wasm('view_transactions',[],[]);var el=document.getElementById('dash-activity');if(!el)return;if(!raw||raw==='EMPTY'||raw.startsWith('ERROR')){el.innerHTML='<div class="infobox" style="text-align:center;padding:20px;color:var(--t3)">No activity yet</div>';return}var rows=raw.trim().split('\n').filter(Boolean).slice(-4).reverse();el.innerHTML=rows.map(function(line){var p=line.split('|');var isDep=p[2]==='Deposit'||p[2]==='Transfer_In';return'<div class="act-item"><div class="act-icon">'+(isDep?'&#8600;':'&#8599;')+'</div><div><div class="act-title">'+p[2]+' processed</div><div class="act-sub">Account '+p[1]+'</div></div><div class="act-amt '+(isDep?'plus':'minus')+'">'+(isDep?'+':'-')+'&#8377;'+parseFloat(p[3]||0).toFixed(2)+'</div></div>'}).join('')}
-var activeTab='portfolio';
-function setTab(name){activeTab=name;['portfolio','status','monitoring'].forEach(function(t){document.getElementById('tab-'+t).classList.toggle('active',t===name);document.getElementById('tc-'+t).classList.toggle('active',t===name)});renderTabs()}
-function renderTabs(){var raw=wasm('get_stats',['number'],[LOW_THRESH]);if(!raw||raw.startsWith('ERROR'))return;var p=raw.split('|');var accs=parseInt(p[0]||0),txns=parseInt(p[1]||0),total=parseFloat(p[2]||0),low=parseInt(p[3]||0);var healthy=accs-low,avg=accs>0?total/accs:0;var accRaw=wasm('view_all_accounts',[],[]);var maxBal=0;if(accRaw&&accRaw!=='EMPTY')accRaw.trim().split('\n').filter(Boolean).forEach(function(line){var b=parseFloat(line.split('|')[2]||0);if(b>maxBal)maxBal=b});var pEl=document.getElementById('info-portfolio');var sEl=document.getElementById('info-status');var mEl=document.getElementById('info-monitoring');if(pEl)pEl.innerHTML='<strong>Total Accounts:</strong> '+accs+'<br><strong>Low Balance Profiles:</strong> '+low+'<br><strong>Highest Balance:</strong> &#8377;'+maxBal.toFixed(2)+'<br><strong>Average Balance:</strong> &#8377;'+avg.toFixed(2);if(sEl)sEl.innerHTML='<strong>Healthy Accounts:</strong> '+healthy+'<br><strong>Low Balance Accounts:</strong> '+low+'<br><strong>Total Transactions:</strong> '+txns+'<br><strong>Portfolio Value:</strong> &#8377;'+total.toFixed(2);if(mEl)mEl.innerHTML='<strong>Monitoring Threshold:</strong> &#8377;'+LOW_THRESH.toFixed(2)+'<br><strong>Transaction Count:</strong> '+txns+'<br><strong>Registry Status:</strong> '+(accs===0?'No Accounts Yet':'Active')+'<br><strong>System State:</strong> WASM Live'}
-function updateReports(){var raw=wasm('get_stats',['number'],[LOW_THRESH]);if(!raw||raw.startsWith('ERROR'))return;var p=raw.split('|');set('rep-total','&#8377;'+parseFloat(p[2]||0).toFixed(2));set('rep-low',p[3]||'0');set('rep-txns',p[1]||'0');var accs=parseInt(p[0]||0),total=parseFloat(p[2]||0),low=parseInt(p[3]||0);var ins=document.getElementById('rep-insight');if(ins)ins.textContent=accs===0?'No data yet. Create accounts to unlock report insights.':'Velora manages '+accs+' account(s) with \u20B9'+total.toFixed(2)+' in total holdings and '+low+' low-balance alert(s).'}
-function runTotalReport(){var raw=wasm('total_money_report',[],[]);showResult('r-rep',raw||'ERROR: No response from WASM.');updateReports()}
-function runLowBalReport(){var t=parseFloat(document.getElementById('rep-thresh').value);if(isNaN(t)||t<0){showResult('r-rep','ERROR: Enter a valid threshold.');return}LOW_THRESH=t;var raw=wasm('low_balance_report',['number'],[t]);showResult('r-rep',raw||'ERROR: No response from WASM.');updateReports();renderAccounts()}
-function createAccount(noId,nameId,balId,resultId){var no=parseInt(document.getElementById(noId).value);var name=document.getElementById(nameId).value.trim();var bal=parseFloat(document.getElementById(balId).value);if(!no||!name||isNaN(bal)){showResult(resultId,'ERROR: Fill all fields correctly.');return}if(bal<500){showResult(resultId,'ERROR: Minimum opening balance is Rs.500.');return}var raw=wasm('create_account',['number','string','number'],[no,name,bal]);showResult(resultId,raw||'ERROR: No response.');clr(noId,nameId,balId);refreshAll()}
-function doCreate(){createAccount('ac-no','ac-name','ac-bal','r-ac')}
-function dashCreate(){createAccount('dc-no','dc-name','dc-bal','r-dc')}
-function doDeposit(){var no=parseInt(document.getElementById('dep-no').value);var amt=parseFloat(document.getElementById('dep-amt').value);if(!no||isNaN(amt)||amt<=0){showResult('r-dep','ERROR: Enter valid account and amount.');return}var raw=wasm('deposit_money',['number','number'],[no,amt]);showResult('r-dep',raw||'ERROR: No response.');clr('dep-no','dep-amt');refreshAll()}
-function doWithdraw(){var no=parseInt(document.getElementById('wdr-no').value);var amt=parseFloat(document.getElementById('wdr-amt').value);if(!no||isNaN(amt)||amt<=0){showResult('r-wdr','ERROR: Enter valid account and amount.');return}var raw=wasm('withdraw_money',['number','number'],[no,amt]);showResult('r-wdr',raw||'ERROR: No response.');clr('wdr-no','wdr-amt');refreshAll()}
+function showToast(msg,ok){var el=document.getElementById('toast');el.textContent=msg;el.className='toast show '+(ok?'ok':'err');setTimeout(function(){el.className='toast'},3000)}
+function res(id,raw){
+  var el=document.getElementById(id);if(!el)return;
+  var isE=raw.startsWith('ERROR');
+  var display=raw.replace(/^SUCCESS\n/,'').replace(/^ERROR: /,'');
+  el.textContent=display;el.className='result show '+(isE?'err':'ok');
+  set('outbox',raw.replace(/^SUCCESS\n/,''));
+  showToast(isE?'Error':'Done',!isE);
+}
+ 
+// ── Navigation ────────────────────────────────────────────────────
+var TT={dashboard:'Dashboard',accounts:'Accounts',deposit:'Deposit Funds',withdraw:'Withdraw Funds',transactions:'Transaction History',cheques:'Cheque Book',fd:'Fixed Deposits',statement:'Account Statement',reports:'Reports'};
+function go(id,el){
+  document.querySelectorAll('.page').forEach(function(p){p.classList.remove('active')});
+  document.querySelectorAll('.nav-btn').forEach(function(b){b.classList.remove('active')});
+  var pg=document.getElementById('page-'+id);if(pg)pg.classList.add('active');
+  if(el)el.classList.add('active');
+  set('tb-title',TT[id]||id);
+  if(id==='accounts'){renderAccounts();renderTabs()}
+  if(id==='transactions')renderTransactions();
+  if(id==='reports')updateReports();
+  if(id==='cheques')renderCheques();
+  if(id==='fd')renderFDs();
+}
+ 
+// ── Metrics ───────────────────────────────────────────────────────
+function refreshAll(){updateMetrics();renderAccounts();renderTransactions();renderTabs();updateReports();renderActivity();renderCheques();renderFDs()}
+function updateMetrics(){
+  var raw=w('get_stats',['number'],[LT]);
+  if(!raw||raw.startsWith('ERROR'))return;
+  var p=raw.trim().split('|');
+  var t='&#8377;'+parseFloat(p[2]||0).toFixed(2);
+  setH('d-total',t);setH('s-total',t);setH('rep-total',t);
+  set('d-accs',p[0]||'0');set('d-txns',p[1]||'0');set('d-alerts',p[3]||'0');
+  set('s-accs',p[0]||'0');set('s-alerts',p[3]||'0');
+  set('rep-low',p[3]||'0');set('rep-txns',p[1]||'0');
+  var ins=document.getElementById('rep-insight');
+  if(ins){var accs=parseInt(p[0]||0),total=parseFloat(p[2]||0),low=parseInt(p[3]||0);ins.textContent=accs===0?'No data yet.':'Velora manages '+accs+' account(s) with \u20B9'+total.toFixed(2)+' in holdings and '+low+' alert(s).'}
+}
+ 
+// ── Accounts ──────────────────────────────────────────────────────
+function renderAccounts(){
+  var raw=w('view_all_accounts',[],[]);
+  var body=document.getElementById('acc-tbl');if(!body)return;
+  if(!raw||raw==='EMPTY'||raw.startsWith('ERROR')){body.innerHTML='<tr><td colspan="4" style="text-align:center;color:var(--t3);padding:20px">No accounts yet.</td></tr>';return}
+  body.innerHTML=raw.trim().split('\n').filter(Boolean).map(function(line){
+    var p=line.split('|');var bal=parseFloat(p[2]||0);var low=bal<LT;
+    return'<tr><td style="font-family:var(--mono)">'+p[0]+'</td><td>'+p[1]+'</td><td style="font-family:var(--mono)">&#8377;'+bal.toFixed(2)+'</td><td><span class="pill '+(low?'p-err':'p-ok')+'">'+(low?'Low':'Healthy')+'</span></td></tr>';
+  }).join('');
+}
+ 
+function renderTransactions(){
+  var raw=w('view_transactions',[],[]);
+  var body=document.getElementById('txn-tbl');if(!body)return;
+  if(!raw||raw==='EMPTY'||raw.startsWith('ERROR')){body.innerHTML='<tr><td colspan="5" style="text-align:center;color:var(--t3);padding:20px">No transactions.</td></tr>';return}
+  var rows=raw.trim().split('\n').filter(Boolean).reverse();
+  body.innerHTML=rows.map(function(line){
+    var p=line.split('|');var isDep=p[2]==='Deposit'||p[2]==='FD Matured';
+    var cls=isDep?'p-dep':(p[2]==='Cheque'||p[2]==='FD Created')?'p-amber':'p-wdr';
+    return'<tr><td style="color:var(--t3);font-family:var(--mono)">#'+p[0]+'</td><td><span class="pill '+cls+'">'+p[2]+'</span></td><td style="font-family:var(--mono)">'+p[1]+'</td><td style="font-family:var(--mono)">'+(isDep?'+':'-')+'&#8377;'+parseFloat(p[3]||0).toFixed(2)+'</td><td style="font-family:var(--mono);color:var(--t3)">&#8377;'+parseFloat(p[4]||0).toFixed(2)+'</td></tr>';
+  }).join('');
+}
+ 
+function renderActivity(){
+  var raw=w('view_transactions',[],[]);
+  var el=document.getElementById('dash-act');if(!el)return;
+  if(!raw||raw==='EMPTY'||raw.startsWith('ERROR')){el.innerHTML='<div class="infobox" style="text-align:center;padding:18px;color:var(--t3)">No activity yet</div>';return}
+  var rows=raw.trim().split('\n').filter(Boolean).slice(-4).reverse();
+  el.innerHTML=rows.map(function(line){
+    var p=line.split('|');var isDep=p[2]==='Deposit'||p[2]==='FD Matured';
+    return'<div class="act"><div class="act-icon">'+(isDep?'&#8600;':'&#8599;')+'</div><div><div class="act-t">'+p[2]+'</div><div class="act-s">Account '+p[1]+'</div></div><div class="act-a '+(isDep?'plus':'minus')+'">'+(isDep?'+':'-')+'&#8377;'+parseFloat(p[3]||0).toFixed(2)+'</div></div>';
+  }).join('');
+}
+ 
+// ── Tabs ──────────────────────────────────────────────────────────
+function setTab(name){
+  ['p','s','m'].forEach(function(t){
+    document.getElementById('tab-'+t).classList.toggle('active',t===name);
+    document.getElementById('tc-'+t).classList.toggle('active',t===name);
+  });
+  renderTabs();
+}
+function renderTabs(){
+  var raw=w('get_stats',['number'],[LT]);if(!raw||raw.startsWith('ERROR'))return;
+  var p=raw.split('|');
+  var accs=parseInt(p[0]||0),txns=parseInt(p[1]||0),total=parseFloat(p[2]||0),low=parseInt(p[3]||0);
+  var avg=accs>0?total/accs:0,healthy=accs-low,maxBal=0;
+  var ar=w('view_all_accounts',[],[]);
+  if(ar&&ar!=='EMPTY')ar.trim().split('\n').filter(Boolean).forEach(function(l){var b=parseFloat(l.split('|')[2]||0);if(b>maxBal)maxBal=b});
+  setH('info-p','<strong>Total Accounts:</strong> '+accs+'<br><strong>Low Balance:</strong> '+low+'<br><strong>Highest Balance:</strong> &#8377;'+maxBal.toFixed(2)+'<br><strong>Average Balance:</strong> &#8377;'+avg.toFixed(2));
+  setH('info-s','<strong>Healthy:</strong> '+healthy+'<br><strong>Low Balance:</strong> '+low+'<br><strong>Total Txns:</strong> '+txns+'<br><strong>Portfolio:</strong> &#8377;'+total.toFixed(2));
+  setH('info-m','<strong>Threshold:</strong> &#8377;'+LT.toFixed(2)+'<br><strong>Txn Count:</strong> '+txns+'<br><strong>Registry:</strong> '+(accs===0?'Empty':'Active')+'<br><strong>Runtime:</strong> WASM Live');
+}
+ 
+// ── Create ────────────────────────────────────────────────────────
+function createAcc(noId,nameId,balId,rId){
+  var no=parseInt(document.getElementById(noId).value);
+  var name=document.getElementById(nameId).value.trim();
+  var bal=parseFloat(document.getElementById(balId).value);
+  if(!no||!name||isNaN(bal)){res(rId,'ERROR: Fill all fields.');return}
+  if(bal<500){res(rId,'ERROR: Minimum opening balance is Rs.500.');return}
+  var raw=w('create_account',['number','string','number'],[no,name,bal]);
+  res(rId,raw||'ERROR: No response.');clr(noId,nameId,balId);refreshAll();
+}
+function doCreate(){createAcc('ac-no','ac-name','ac-bal','r-ac')}
+function dashCreate(){createAcc('dc-no','dc-name','dc-bal','r-dc')}
+ 
+// ── Deposit / Withdraw ────────────────────────────────────────────
+function doDeposit(){
+  var no=parseInt(document.getElementById('dep-no').value);
+  var amt=parseFloat(document.getElementById('dep-amt').value);
+  if(!no||isNaN(amt)||amt<=0){res('r-dep','ERROR: Enter valid account and amount.');return}
+  var raw=w('deposit_money',['number','number'],[no,amt]);
+  res('r-dep',raw||'ERROR: No response.');clr('dep-no','dep-amt');refreshAll();
+}
+function doWithdraw(){
+  var no=parseInt(document.getElementById('wdr-no').value);
+  var amt=parseFloat(document.getElementById('wdr-amt').value);
+  if(!no||isNaN(amt)||amt<=0){res('r-wdr','ERROR: Enter valid account and amount.');return}
+  var raw=w('withdraw_money',['number','number'],[no,amt]);
+  res('r-wdr',raw||'ERROR: No response.');clr('wdr-no','wdr-amt');refreshAll();
+}
+ 
+// ── Reports ───────────────────────────────────────────────────────
+function updateReports(){updateMetrics()}
+function runTotal(){var raw=w('total_money_report',[],[]);res('r-rep',raw||'ERROR: No response.');updateMetrics()}
+function runLowBal(){
+  var t=parseFloat(document.getElementById('rep-thresh').value);
+  if(isNaN(t)||t<0){res('r-rep','ERROR: Enter a valid threshold.');return}
+  LT=t;var raw=w('low_balance_report',['number'],[t]);
+  res('r-rep',raw||'ERROR: No response.');updateMetrics();renderAccounts();renderTabs();
+}
+ 
+// ── Cheques ───────────────────────────────────────────────────────
+function amountToWords(n){
+  var a=['','One','Two','Three','Four','Five','Six','Seven','Eight','Nine','Ten','Eleven','Twelve','Thirteen','Fourteen','Fifteen','Sixteen','Seventeen','Eighteen','Nineteen'];
+  var b=['','','Twenty','Thirty','Forty','Fifty','Sixty','Seventy','Eighty','Ninety'];
+  if(n===0)return'Zero';
+  if(n<20)return a[n];
+  if(n<100)return b[Math.floor(n/10)]+(n%10?' '+a[n%10]:'');
+  if(n<1000)return a[Math.floor(n/100)]+' Hundred'+(n%100?' '+amountToWords(n%100):'');
+  if(n<100000)return amountToWords(Math.floor(n/1000))+' Thousand'+(n%1000?' '+amountToWords(n%1000):'');
+  if(n<10000000)return amountToWords(Math.floor(n/100000))+' Lakh'+(n%100000?' '+amountToWords(n%100000):'');
+  return amountToWords(Math.floor(n/10000000))+' Crore'+(n%10000000?' '+amountToWords(n%10000000):'');
+}
+ 
+function renderChequeCard(cno,acc,payee,amt,status,date){
+  var words=amountToWords(Math.floor(amt))+' Rupees Only';
+  var sClass=status.toLowerCase();
+  return'<div class="cheque-card">'+
+    '<span class="cheque-status-badge '+sClass+'">'+status+'</span>'+
+    '<div class="cheque-header">'+
+      '<div><div class="cheque-bank-name">&#9670; Velora Bank</div><div class="cheque-bank-sub">Private banking, reimagined &mdash; VIT Campus Branch</div></div>'+
+      '<div class="cheque-no">Cheque No. '+cno+'</div>'+
+    '</div>'+
+    '<div class="cheque-row"><span class="cheque-label">Pay To</span><span class="cheque-value">'+payee+'</span></div>'+
+    '<div class="cheque-row"><span class="cheque-label">Account</span><span class="cheque-value">'+acc+'</span></div>'+
+    '<div class="cheque-amount-box">'+
+      '<span class="cheque-amt-words">'+words+'</span>'+
+      '<span class="cheque-amt-num">&#8377; '+parseFloat(amt).toFixed(2)+'</span>'+
+    '</div>'+
+    '<div class="cheque-footer">'+
+      '<div class="cheque-date">Date: '+date+'</div>'+
+      '<div class="cheque-sig"><div class="cheque-sig-line"></div><div class="cheque-sig-label">Authorised Signatory</div></div>'+
+    '</div>'+
+    '<div class="cheque-micr">&#9679;&#9679;&#9679; '+cno+' &#9679;&#9679;&#9679; '+acc+' &#9679;&#9679;&#9679; 0100500 &#9679;&#9679;&#9679;</div>'+
+  '</div>';
+}
+ 
+function doIssueCheque(){
+  var acc=parseInt(document.getElementById('ch-acc').value);
+  var payee=document.getElementById('ch-payee').value.trim();
+  var amt=parseFloat(document.getElementById('ch-amt').value);
+  if(!acc||!payee||isNaN(amt)||amt<=0){res('r-ch','ERROR: Fill all fields.');return}
+  var raw=w('issue_cheque',['number','string','number'],[acc,payee,amt]);
+  res('r-ch',raw||'ERROR: No response.');
+  if(!raw.startsWith('ERROR')){
+    var lines=raw.split('\n');
+    var cno=0;
+    lines.forEach(function(l){if(l.startsWith('Cheque No'))cno=parseInt(l.split(':')[1].trim())});
+    setH('cheque-preview',renderChequeCard(cno,acc,payee,amt,'ISSUED',new Date().toLocaleDateString('en-IN',{day:'2-digit',month:'short',year:'numeric'})));
+    renderCheques();refreshAll();
+  }
+  clr('ch-acc','ch-payee','ch-amt');
+}
+ 
+function doCancelCheque(){
+  var no=parseInt(document.getElementById('ch-no').value);
+  if(!no){res('r-ch2','ERROR: Enter a cheque number.');return}
+  var raw=w('cancel_cheque',['number'],[no]);
+  res('r-ch2',raw||'ERROR: No response.');renderCheques();refreshAll();
+}
+ 
+function doClearCheque(){
+  var no=parseInt(document.getElementById('ch-no').value);
+  if(!no){res('r-ch2','ERROR: Enter a cheque number.');return}
+  var raw=w('clear_cheque',['number'],[no]);
+  res('r-ch2',raw||'ERROR: No response.');renderCheques();refreshAll();
+}
+ 
+function renderCheques(){
+  var raw=w('view_cheques',[],[]);
+  var body=document.getElementById('ch-tbl');if(!body)return;
+  if(!raw||raw==='EMPTY'||raw.startsWith('ERROR')){body.innerHTML='<tr><td colspan="6" style="text-align:center;color:var(--t3);padding:20px">No cheques issued.</td></tr>';return}
+  body.innerHTML=raw.trim().split('\n').filter(Boolean).map(function(line){
+    var p=line.split('|');
+    var sc=p[4]==='ISSUED'?'p-amber':p[4]==='CLEARED'?'p-ok':'p-err';
+    return'<tr><td style="font-family:var(--mono)">'+p[0]+'</td><td style="font-family:var(--mono)">'+p[1]+'</td><td>'+p[2]+'</td><td style="font-family:var(--mono)">&#8377;'+parseFloat(p[3]||0).toFixed(2)+'</td><td><span class="pill '+sc+'">'+p[4]+'</span></td><td style="color:var(--t3)">'+p[5]+'</td></tr>';
+  }).join('');
+}
+ 
+// ── Fixed Deposits ────────────────────────────────────────────────
+function doCreateFD(){
+  var acc=parseInt(document.getElementById('fd-acc').value);
+  var amt=parseFloat(document.getElementById('fd-amt').value);
+  var tenure=parseInt(document.getElementById('fd-tenure').value);
+  if(!acc||isNaN(amt)||amt<1000){res('r-fd','ERROR: Enter valid account and min Rs.1000.');return}
+  var raw=w('create_fd',['number','number','number'],[acc,amt,tenure]);
+  res('r-fd',raw||'ERROR: No response.');clr('fd-acc','fd-amt');renderFDs();refreshAll();
+}
+ 
+function doCloseFD(){
+  var no=parseInt(document.getElementById('fd-no').value);
+  if(!no){res('r-fd2','ERROR: Enter an FD number.');return}
+  var raw=w('close_fd',['number'],[no]);
+  res('r-fd2',raw||'ERROR: No response.');renderFDs();refreshAll();
+}
+ 
+function renderFDs(){
+  var raw=w('view_fds',[],[]);
+  var body=document.getElementById('fd-tbl');if(!body)return;
+  if(!raw||raw==='EMPTY'||raw.startsWith('ERROR')){body.innerHTML='<tr><td colspan="7" style="text-align:center;color:var(--t3);padding:20px">No fixed deposits.</td></tr>';return}
+  body.innerHTML=raw.trim().split('\n').filter(Boolean).map(function(line){
+    var p=line.split('|');
+    var sc=p[6]==='ACTIVE'?'p-blue':'p-ok';
+    return'<tr><td style="font-family:var(--mono)">'+p[0]+'</td><td style="font-family:var(--mono)">'+p[1]+'</td><td style="font-family:var(--mono)">&#8377;'+parseFloat(p[2]||0).toFixed(2)+'</td><td style="font-family:var(--mono)">'+p[3]+' mo</td><td style="font-family:var(--mono)">'+p[4]+'%</td><td style="font-family:var(--mono);color:var(--blue)">&#8377;'+parseFloat(p[5]||0).toFixed(2)+'</td><td><span class="pill '+sc+'">'+p[6]+'</span></td></tr>';
+  }).join('');
+}
+ 
+// ── Statement ─────────────────────────────────────────────────────
+function doStatement(){
+  var no=parseInt(document.getElementById('stmt-no').value);
+  if(!no){res('r-stmt','ERROR: Enter an account number.');return}
+  var raw=w('get_statement',['number'],[no]);
+  if(raw.startsWith('ERROR')){res('r-stmt',raw);return}
+  var display=raw.replace(/^SUCCESS\n/,'');
+  document.getElementById('stmt-pre').textContent=display;
+  document.getElementById('stmt-output').style.display='block';
+  res('r-stmt','SUCCESS\nStatement generated.');
+  set('outbox',display);
+}
+function printStatement(){window.print()}
 </script>
+ 
+<!-- COMPILE CMD (save in README, don't run in browser):
+em++ main.cpp -o temp.html \
+  -s EXPORTED_FUNCTIONS='["_create_account","_deposit_money","_withdraw_money","_balance_enquiry","_total_money_report","_low_balance_report","_view_all_accounts","_view_transactions","_get_stats","_issue_cheque","_cancel_cheque","_clear_cheque","_view_cheques","_create_fd","_view_fds","_close_fd","_get_statement"]' \
+  -s EXPORTED_RUNTIME_METHODS='["ccall"]' \
+  -s NO_EXIT_RUNTIME=1 && mv temp.js index.js && mv temp.wasm index.wasm
+-->
 <script src="index.js"></script>
 </body>
 </html>
